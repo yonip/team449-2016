@@ -9,8 +9,10 @@ public class TankDriveMap {
     public static class Motors {
         public static final int LEFT_1 = 0;
         public static final int LEFT_2 = 1;
-        public static final int RIGHT_1 = 2;
-        public static final int RIGHT_2 = 3;
+        public static final int LEFT_3 = 2;
+        public static final int RIGHT_1 = 3;
+        public static final int RIGHT_2 = 4;
+        public static final int RIGHT_3 = 5;
     }
 
     public static class Encoders {

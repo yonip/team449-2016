@@ -16,13 +16,15 @@ public class TankDriveSubsystem extends DriveSubsystem {
         System.out.println("Drive init started");
 
         //initialize motor clusters and add slaves
-        this.leftCluster = new MotorCluster(2);
+        this.leftCluster = new MotorCluster(3);
         this.leftCluster.addSlave(new VictorSP(TankDriveMap.Motors.LEFT_1));
         this.leftCluster.addSlave(new VictorSP(TankDriveMap.Motors.LEFT_2));
+        this.leftCluster.addSlave(new VictorSP(TankDriveMap.Motors.LEFT_3));
 
-        this.rightCluster = new MotorCluster(2);
+        this.rightCluster = new MotorCluster(3);
         this.rightCluster.addSlave(new VictorSP(TankDriveMap.Motors.RIGHT_1)); 	//first motor
         this.rightCluster.addSlave(new VictorSP(TankDriveMap.Motors.RIGHT_2));
+        this.rightCluster.addSlave(new VictorSP(TankDriveMap.Motors.RIGHT_3));
 
         this.rightCluster.setInverted(true);
 
