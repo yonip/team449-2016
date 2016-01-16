@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
 /**
  * a PID controller to control a wheel's position through PID via the PIDSubsystem
  */
-public class PIDPositionMotor extends PIDSubsystem {
+public class PIDPositionMotor extends PIDComponent {
     private SpeedController motor;
     private Encoder encoder;
 
@@ -36,10 +36,5 @@ public class PIDPositionMotor extends PIDSubsystem {
     @Override
     protected void usePIDOutput(double v) {
         this.motor.set(v);
-    }
-
-    @Override
-    protected void initDefaultCommand() {
-
     }
 }

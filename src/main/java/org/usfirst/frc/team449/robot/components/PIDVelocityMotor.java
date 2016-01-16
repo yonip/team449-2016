@@ -39,6 +39,7 @@ public class PIDVelocityMotor extends PIDSubsystem {
     @Override
     protected void usePIDOutput(double v) {
         this.integratedVelocity += v*0.020; //updates every 20ms in theory, so multiplying by .02 to integrate
+        this.motor.pidWrite(v);
     }
 
     @Override
