@@ -12,4 +12,10 @@ public class OIMap {
     public static final int LEFT_DRIVE_STICK = 0;
 
     public static final int RIGHT_DRIVE_STICK = 1;
+
+    public static final int INTAKE_JOYSTICK = 2;
+
+    public static final int INTAKE_TOGGLE_POWER = 0;
+
+    public static final int INTAKE_TOGGLE_DIRECTION = 1;
 }
