@@ -20,11 +20,11 @@ public class OI {
         rightDriveJoystick = new Joystick(OIMap.RIGHT_DRIVE_STICK);
         intakeJoystick = new Joystick(OIMap.INTAKE_JOYSTICK);
 
-        Button intakeTogglePower = new JoystickButton(intakeJoystick, OIMap.INTAKE_TOGGLE_POWER);
-        intakeTogglePower.toggleWhenPressed(new IntakeIn());
-
-        Button intakeToggleDirection = new JoystickButton(intakeJoystick, OIMap.INTAKE_TOGGLE_DIRECTION);
-        intakeToggleDirection.whileHeld(new IntakeOut());
+        Button intakeIn = new JoystickButton(intakeJoystick, OIMap.INTAKE_IN);
+        Button intakeOut = new JoystickButton(intakeJoystick, OIMap.INTAKE_OUT);
+        
+        intakeIn.toggleWhenPressed(new IntakeIn());
+        intakeOut.whileHeld(new IntakeOut());
     }
 
     public double getDriveAxisLeft() {

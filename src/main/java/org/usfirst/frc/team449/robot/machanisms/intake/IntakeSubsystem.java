@@ -2,6 +2,7 @@ package org.usfirst.frc.team449.robot.machanisms.intake;
 
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -9,9 +10,12 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class IntakeSubsystem extends Subsystem {
     private SpeedController mainMotor;
+    private IntakeMap intakeMap;
 
     public IntakeSubsystem() {
-        this.mainMotor = new VictorSP(IntakeMap.Motors.MAIN);
+    	this.intakeMap = new IntakeMap();
+        this.mainMotor = new VictorSP(intakeMap.motors.main.PORT);
+        this.mainMotor.setInverted(intakeMap.motors.main.INVERTED);
     }
 
     /**
@@ -24,5 +28,37 @@ public class IntakeSubsystem extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
+    	/*setDefaultCommand(new Command() {
+			
+			@Override
+			protected boolean isFinished() {
+				// TODO Auto-generated method stub
+				return false;
+			}
+			
+			@Override
+			protected void interrupted() {
+				// TODO Auto-generated method stub
+				System.out.println(4);
+			}
+			
+			@Override
+			protected void initialize() {
+				// TODO Auto-generated method stub
+				System.out.println(1);
+			}
+			
+			@Override
+			protected void execute() {
+				// TODO Auto-generated method stub
+				System.out.println(2);
+			}
+			
+			@Override
+			protected void end() {
+				// TODO Auto-generated method stub
+				System.out.println(3);
+			}
+		});*/
     }
 }
