@@ -30,9 +30,9 @@ public class TankDriveMap {
         public static final int RIGHT_3_B = -1;
     }
 
-    public static final double P = 0;
-    public static final double I = 0;
-    public static final double D = 0;
+   // public static final double P = 0;
+   // public static final double I = 0;
+   // public static final double D = 0;
 
     public static final double SPEED = 10;
 }
