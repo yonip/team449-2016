@@ -8,4 +8,14 @@ public class OIMap {
      * the name of the subsystem associated with this map. used to retrieve from Robot's map of subsystems
      */
     public static final String NAME = "OI";
+
+    public static final int LEFT_DRIVE_STICK = 1;
+
+    public static final int RIGHT_DRIVE_STICK = 0;
+
+    public static final int INTAKE_JOYSTICK = RIGHT_DRIVE_STICK;
+
+    public static final int INTAKE_IN = 2;
+
+    public static final int INTAKE_OUT = 3;
 }
