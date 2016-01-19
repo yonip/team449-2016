@@ -16,7 +16,7 @@ public class Robot extends IterativeRobot {
      */
     public static final DriveSubsystem drive = new TankDriveSubsystem();
     /**
-     *
+     * super duper intake
      */
     public static final IntakeSubsystem intake = new IntakeSubsystem();
     /**
@@ -38,7 +38,6 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void robotInit() {
-    	
     }
     
     @Override

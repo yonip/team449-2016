@@ -8,7 +8,7 @@ import org.usfirst.frc.team449.robot.components.Component;
  */
 public class MotorCluster extends Component implements SpeedController {
     private final SpeedController[] controllerList;
-    private boolean inverted;
+    private boolean inverted = false;
 
     private double lastSet = 0;
 
@@ -37,7 +37,7 @@ public class MotorCluster extends Component implements SpeedController {
      */
     public void addSlave(SpeedController controller) {
         for (int i = 0; i < controllerList.length; i++) {
-            if(controllerList[i] != null) {
+            if(controllerList[i] == null) {
                 controllerList[i] = controller;
                 return;
             }
@@ -76,9 +76,13 @@ public class MotorCluster extends Component implements SpeedController {
 
     @Override
     public void setInverted(boolean b) {
+    	boolean changed = b != this.inverted;
+    	if(!changed) {
+    		return;
+    	}
         this.inverted = b;
         for (int i = 0; i < this.controllerList.length; i++) {
-            controllerList[i].setInverted(b);
+            controllerList[i].setInverted(!controllerList[i].getInverted());
         }
     }
 

@@ -19,7 +19,6 @@ public class IntakeOut extends Command {
      */
     @Override
     protected void initialize() {
-    	System.out.println("IntakeOut init");
     }
 
     /**
@@ -56,7 +55,6 @@ public class IntakeOut extends Command {
      */
     @Override
     protected void end() {
-    		System.out.println("ItakeOut end");
     }
 
     /**
@@ -76,6 +74,5 @@ public class IntakeOut extends Command {
      */
     @Override
     protected void interrupted() {
-    	System.out.println("ItakeOut interrupted");
     }
 }

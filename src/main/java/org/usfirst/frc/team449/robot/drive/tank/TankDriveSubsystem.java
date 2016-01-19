@@ -1,6 +1,8 @@
 package org.usfirst.frc.team449.robot.drive.tank;
 
+import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.VictorSP;
+
 import org.usfirst.frc.team449.robot.drive.DriveSubsystem;
 import org.usfirst.frc.team449.robot.drive.tank.commands.DefaultDrive;
 import org.usfirst.frc.team449.robot.drive.tank.components.MotorCluster;
@@ -17,16 +19,16 @@ public class TankDriveSubsystem extends DriveSubsystem {
 
         //initialize motor clusters and add slaves
         this.leftCluster = new MotorCluster(3);
-        this.leftCluster.addSlave(new VictorSP(TankDriveMap.Motors.LEFT_1));
-        this.leftCluster.addSlave(new VictorSP(TankDriveMap.Motors.LEFT_2));
-        this.leftCluster.addSlave(new VictorSP(TankDriveMap.Motors.LEFT_3));
+        this.leftCluster.addSlave(makeMotor(TankDriveMap.Motors.LEFT1));
+        this.leftCluster.addSlave(makeMotor(TankDriveMap.Motors.LEFT2));
+        this.leftCluster.addSlave(makeMotor(TankDriveMap.Motors.LEFT3));
 
         this.rightCluster = new MotorCluster(3);
-        this.rightCluster.addSlave(new VictorSP(TankDriveMap.Motors.RIGHT_1)); 	//first motor
-        this.rightCluster.addSlave(new VictorSP(TankDriveMap.Motors.RIGHT_2));
-        this.rightCluster.addSlave(new VictorSP(TankDriveMap.Motors.RIGHT_3));
-
-        this.rightCluster.setInverted(true);
+        this.rightCluster.addSlave(makeMotor(TankDriveMap.Motors.RIGHT1));
+        this.rightCluster.addSlave(makeMotor(TankDriveMap.Motors.RIGHT2));
+        this.rightCluster.addSlave(makeMotor(TankDriveMap.Motors.RIGHT3));
+        
+        this.leftCluster.setInverted(true);
 
         System.out.println("Drive init finished");
     }
@@ -39,5 +41,11 @@ public class TankDriveSubsystem extends DriveSubsystem {
     @Override
     protected void initDefaultCommand() {
         setDefaultCommand(new DefaultDrive());
+    }
+    
+    private SpeedController makeMotor(TankDriveMap.Motors config) {
+    	SpeedController motor = new VictorSP(config.PORT);
+    	motor.setInverted(config.INVERTED);
+    	return motor;
     }
 }

@@ -7,12 +7,20 @@ public class TankDriveMap {
     public static final String NAME = "TankDrive";
 
     public static class Motors {
-        public static final int LEFT_1 = 0;
-        public static final int LEFT_2 = 1;
-        public static final int LEFT_3 = 2;
-        public static final int RIGHT_1 = 3;
-        public static final int RIGHT_2 = 4;
-        public static final int RIGHT_3 = 5;
+    	public final int PORT;
+    	public final boolean INVERTED;
+    	
+    	private Motors(int port, boolean inverted) {
+    		this.PORT = port;
+    		this.INVERTED = inverted;
+    	}
+
+    	public static final Motors LEFT1 = new Motors(0, false);
+    	public static final Motors LEFT2 = new Motors(1, false);
+    	public static final Motors LEFT3 = new Motors(2, true);
+    	public static final Motors RIGHT1 = new Motors(3, false);
+    	public static final Motors RIGHT2 = new Motors(4, false);
+    	public static final Motors RIGHT3 = new Motors(5, true);
     }
 
     public static class Encoders {
@@ -34,5 +42,5 @@ public class TankDriveMap {
     public static final double I = 0;
     public static final double D = 0;
 
-    public static final double SPEED = 0;
+    public static final double SPEED = 1;
 }
