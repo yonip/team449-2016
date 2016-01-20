@@ -1,4 +1,4 @@
-package org.usfirst.frc.team449.robot.machanisms.intake;
+package org.usfirst.frc.team449.robot.machanism.intake;
 
 /**
  * Created by yonipedersen on 1/16/16.

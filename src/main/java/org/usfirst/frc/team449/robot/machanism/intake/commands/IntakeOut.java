@@ -1,8 +1,9 @@
-package org.usfirst.frc.team449.robot.machanisms.intake.commands;
+package org.usfirst.frc.team449.robot.machanism.intake.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+
 import org.usfirst.frc.team449.robot.Robot;
-import org.usfirst.frc.team449.robot.machanisms.intake.IntakeMap;
+import org.usfirst.frc.team449.robot.machanism.intake.IntakeMap;
 
 /**
  * Created by yonipedersen on 1/16/16.

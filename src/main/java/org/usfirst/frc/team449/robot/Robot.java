@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 
 import org.usfirst.frc.team449.robot.drive.DriveSubsystem;
 import org.usfirst.frc.team449.robot.drive.tank.TankDriveSubsystem;
-import org.usfirst.frc.team449.robot.machanisms.intake.IntakeSubsystem;
+import org.usfirst.frc.team449.robot.machanism.intake.IntakeSubsystem;
 
 /**
  * the class tying all of the components of the robot together.
