@@ -20,6 +20,10 @@ public class Robot extends IterativeRobot {
      */
     public static final IntakeSubsystem intake = new IntakeSubsystem();
     /**
+     * 
+     */
+    public static final BreachSubsystem breach = new BreachSubsystem();
+    /**
      * reference to this robot's OI (Operator Interface)
      */
     public static final OI oi = new OI();
