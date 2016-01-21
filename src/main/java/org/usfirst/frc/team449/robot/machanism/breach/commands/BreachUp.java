@@ -1,3 +1,8 @@
+package org.usfirst.frc.team449.robot.machanism.breach.commands;
+
+import org.usfirst.frc.team449.robot.Robot;
+import org.usfirst.frc.team449.robot.machanism.breach.BreachMap;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -13,7 +18,7 @@ public class BreachUp extends Command {
 	 * Instantiate a new <code>BreachUp</code>
 	 */
 	public BreachUp() {
-		requires(Robot.breach)
+		requires(Robot.breach);
 	}
 
 	protected void initialize() {
@@ -21,11 +26,11 @@ public class BreachUp extends Command {
 	}
 
 	protected void execute() {
-		Robot.breach.set(BreachSubsystem.MOTOR_SPEED_UP);
+		Robot.breach.set(BreachMap.MOTOR_SPEED_UP);
 	}
 
 	protected boolean isFinished() {
-		return Robot.breach.getLimitSwitchUpper();
+		return Robot.breach.getLimitSwitchUpperValue();
 	}
 
 	protected void end() {

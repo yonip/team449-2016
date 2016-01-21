@@ -1,3 +1,8 @@
+package org.usfirst.frc.team449.robot.machanism.breach.commands;
+
+import org.usfirst.frc.team449.robot.Robot;
+import org.usfirst.frc.team449.robot.machanism.breach.BreachMap;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -8,12 +13,12 @@ import edu.wpi.first.wpilibj.command.Command;
  * 
  */
 public class BreachDown extends Command {
-	
+
 	/**
 	 * Instantiate a new <code>BreachDown</code>
 	 */
 	public BreachDown() {
-		requires(Robot.breach)
+		requires(Robot.breach);
 	}
 
 	protected void initialize() {
@@ -21,11 +26,11 @@ public class BreachDown extends Command {
 	}
 
 	protected void execute() {
-		Robot.breach.set(-BreachSubsystem.MOTOR_SPEED_DOWN);
+		Robot.breach.set(-BreachMap.MOTOR_SPEED_DOWN);
 	}
 
 	protected boolean isFinished() {
-		return Robot.breach.getLimitSwitchLower();
+		return Robot.breach.getLimitSwitchLowerValue();
 	}
 
 	protected void end() {
@@ -35,6 +40,4 @@ public class BreachDown extends Command {
 	protected void interrupted() {
 		System.out.println("BreachDown interupted");
 	}
-}
-	
 }
