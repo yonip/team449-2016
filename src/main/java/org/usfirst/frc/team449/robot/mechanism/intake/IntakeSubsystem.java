@@ -1,20 +1,15 @@
 package org.usfirst.frc.team449.robot.mechanism.intake;
 
+import org.usfirst.frc.team449.robot.RobotMap;
+import org.usfirst.frc.team449.robot.mechanism.MechanismSubsystem;
+
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.VictorSP;
-import org.json.JSONObject;
-import org.usfirst.frc.team449.robot.RobotMap;
-import org.usfirst.frc.team449.robot.mechanism.MechanismSybsystem;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 
 /**
  * a class for intake using a single motor (probably connected to a roller)
  */
-public class IntakeSubsystem extends MechanismSybsystem {
+public class IntakeSubsystem extends MechanismSubsystem {
     private SpeedController mainMotor;
 
     public IntakeSubsystem(RobotMap map) {

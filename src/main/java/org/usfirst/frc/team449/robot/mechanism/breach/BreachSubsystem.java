@@ -1,19 +1,12 @@
 package org.usfirst.frc.team449.robot.mechanism.breach;
 
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.VictorSP;
-import org.json.JSONObject;
 import org.usfirst.frc.team449.robot.RobotMap;
-import org.usfirst.frc.team449.robot.mechanism.MechanismSybsystem;
-import org.usfirst.frc.team449.robot.mechanism.intake.IntakeMap;
+import org.usfirst.frc.team449.robot.mechanism.MechanismSubsystem;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.VictorSP;
 
-public class BreachSubsystem extends MechanismSybsystem {
+public class BreachSubsystem extends MechanismSubsystem {
 
 	VictorSP motor;
 	DigitalInput limitSwitchUpper;
