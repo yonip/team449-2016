@@ -33,4 +33,6 @@
 
 
 ## Any required build files not in this repo
- - soon™
+  As of now, the following libraries are required:
+   - FRC's WPILib and NetworkTable (honestly I have no idea where they distribute the .jars for those. Currently I can only recommend is to [install their Eclipse plugin](https://wpilib.screenstepslive.com/s/4485/m/13809/l/145002-installing-eclipse-c-java), or [the FRC Update suite](https://wpilib.screenstepslive.com/s/4485/m/13809/l/144150-installing-the-frc-2016-update-suite-all-languages)? (don't think that works) or ask us for it. Or [something](https://wpilib.screenstepslive.com/s/4485/m/13809))
+   - the [json.org](http://json.org/) java library (tested with version [20151123](http://mvnrepository.com/artifact/org.json/json/20151123)).
