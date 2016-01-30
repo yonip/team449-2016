@@ -1,0 +1,71 @@
+{
+  "drive": {
+    "components": {},
+    "tank": {
+      "components": {
+        "clusterpids": {
+          "instances": {
+            "leftcluster": {
+              "cluster": {
+                "motors": [
+                  {
+                    "port": 0
+                  },
+                  {
+                    "port": 1
+                  },
+                  {
+                    "port": 2
+                  }
+                ],
+                "inverted": false
+              },
+              "encoder": {
+                "a": 0,
+                "b": 1
+              }
+            },
+            "rightcluster": {
+              "cluster": {
+                "motors": [
+                  {
+                    "port": 3
+                  },
+                  {
+                    "port": 4
+                  },
+                  {
+                    "port": 5
+                  }
+                ],
+                "inverted": true
+              },
+              "encoder": {
+                "a": 2,
+                "b": 3
+              },
+              "inverted": true
+            }
+          },
+          "cluster": {
+            "motors": [
+              {
+                "inverted": false
+              },
+              {
+                "inverted": false
+              },
+              {
+                "inverted": true
+              }
+            ]
+          },
+          "encoder": {
+            "dpp": 1
+          }
+        }
+      },
+      "speed": 0
+    }
+  }
+}

@@ -1,10 +1,13 @@
-package org.usfirst.frc.team449.robot.machanisms.intake.commands;
+package org.usfirst.frc.team449.robot.mechanism.intake.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 import org.usfirst.frc.team449.robot.Robot;
-import org.usfirst.frc.team449.robot.machanisms.intake.IntakeMap;
+import org.usfirst.frc.team449.robot.mechanism.intake.IntakeMap;
 
+/**
+ * a command to pull a ball into the intake
+ */
 public class IntakeIn extends Command {
 
     public IntakeIn() {
@@ -25,7 +28,7 @@ public class IntakeIn extends Command {
      */
     @Override
     protected void execute() {
-        Robot.intake.set(IntakeMap.OUTPUT_SPEED);
+        Robot.intake.set(((IntakeMap)(Robot.intake.map)).INPUT_SPEED);
     }
 
     /**

@@ -1,3 +1,5 @@
+/out
+/lib
 # Eclipse
 *.pydevproject
 .metadata
@@ -13,6 +15,8 @@ local.properties
 .loadpath
 
 # Eclipse Core
+/.classpath.txt
+/.project.txt
 .project
 
 # External tool builders

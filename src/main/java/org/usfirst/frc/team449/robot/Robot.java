@@ -3,26 +3,44 @@ package org.usfirst.frc.team449.robot;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
+import org.json.JSONObject;
 import org.usfirst.frc.team449.robot.drive.DriveSubsystem;
+import org.usfirst.frc.team449.robot.drive.tank.TankDriveMap;
 import org.usfirst.frc.team449.robot.drive.tank.TankDriveSubsystem;
-import org.usfirst.frc.team449.robot.machanisms.intake.IntakeSubsystem;
+import org.usfirst.frc.team449.robot.mechanism.breach.BreachMap;
+import org.usfirst.frc.team449.robot.mechanism.breach.BreachSubsystem;
+import org.usfirst.frc.team449.robot.mechanism.intake.IntakeMap;
+import org.usfirst.frc.team449.robot.mechanism.intake.IntakeSubsystem;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 
 /**
  * the class tying all of the components of the robot together.
  */
 public class Robot extends IterativeRobot {
     /**
+     * the JSONObject containing the configuration for this robot
+     */
+    private static JSONObject cfg = MappedSubsystem.readConfig("src/main/resources/cfg.json");
+    /**
      * reference to this robot's Drive subsystem. Any command that uses this field will cast it to the Drive implementation it uses
      */
-    public static final DriveSubsystem drive = new TankDriveSubsystem();
+    public static final DriveSubsystem drive = new TankDriveSubsystem(new TankDriveMap(cfg));
     /**
-     *
+     * reference to this robot's Intake subsystem.
      */
-    public static final IntakeSubsystem intake = new IntakeSubsystem();
+    public static final IntakeSubsystem intake = new IntakeSubsystem(new IntakeMap(cfg));
+
+    public static final BreachSubsystem breach = new BreachSubsystem(new BreachMap(cfg));
     /**
      * reference to this robot's OI (Operator Interface)
      */
     public static final OI oi = new OI();
+
+
     
     /**
      * Robot-wide initialization code should go here.
