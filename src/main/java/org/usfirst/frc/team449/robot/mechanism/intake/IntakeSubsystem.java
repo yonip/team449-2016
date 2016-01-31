@@ -1,8 +1,7 @@
-package org.usfirst.frc.team449.robot.machanism.intake;
+package org.usfirst.frc.team449.robot.mechanism.intake;
 
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.VictorSP;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**

@@ -1,4 +1,4 @@
-package org.usfirst.frc.team449.robot.machanism.breach;
+package org.usfirst.frc.team449.robot.mechanism.breach;
 
 /**
  * Constants for the BreachSubsystem
