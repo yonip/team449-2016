@@ -8,12 +8,13 @@ import org.usfirst.frc.team449.robot.RobotMap;
  */
 public abstract class DriveSubsystem extends MappedSubsystem {
 
-    /**
-     * creates a mapped subsystem and sets its map
-     *
-     * @param map the map of constants relevant to this subsystem
-     */
-    public DriveSubsystem(RobotMap map) {
-        super(map);
-    }
+	/**
+	 * creates a mapped subsystem and sets its map
+	 *
+	 * @param map
+	 *            the map of constants relevant to this subsystem
+	 */
+	public DriveSubsystem(RobotMap map) {
+		super(map);
+	}
 }
