@@ -6,37 +6,40 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 import org.usfirst.frc.team449.robot.mechanism.intake.commands.IntakeIn;
 import org.usfirst.frc.team449.robot.mechanism.intake.commands.IntakeOut;
+import org.usfirst.frc.team449.robot.vision.commands.ToggleCamera;
 
 /**
- * the Operator Interface, includes access to all joysticks and any other for of input from the drivers
+ * the Operator Interface, includes access to all joysticks and any other for of
+ * input from the drivers
  */
 public class OI {
-    private Joystick leftDriveJoystick;
-    private Joystick rightDriveJoystick;
+	private Joystick leftDriveJoystick;
+	private Joystick rightDriveJoystick;
+	private Joystick intakeJoystick;
 
-    private Joystick intakeJoystick;
+	public OI() {
+		leftDriveJoystick = new Joystick(OIMap.LEFT_DRIVE_STICK);
+		rightDriveJoystick = new Joystick(OIMap.RIGHT_DRIVE_STICK);
+		intakeJoystick = new Joystick(OIMap.INTAKE_JOYSTICK);
 
-    public OI() {
-        leftDriveJoystick = new Joystick(OIMap.LEFT_DRIVE_STICK);
-        rightDriveJoystick = new Joystick(OIMap.RIGHT_DRIVE_STICK);
-        intakeJoystick = new Joystick(OIMap.INTAKE_JOYSTICK);
+		Button intakeIn = new JoystickButton(intakeJoystick, OIMap.INTAKE_IN);
+		Button intakeOut = new JoystickButton(intakeJoystick, OIMap.INTAKE_OUT);
+		Button toggleCamera = new JoystickButton(intakeJoystick, OIMap.TOGGLE_CAMERA);
 
-        Button intakeIn = new JoystickButton(intakeJoystick, OIMap.INTAKE_IN);
-        Button intakeOut = new JoystickButton(intakeJoystick, OIMap.INTAKE_OUT);
-        
-        intakeIn.toggleWhenPressed(new IntakeIn());
-        intakeOut.whileHeld(new IntakeOut());
-    }
+		intakeIn.toggleWhenPressed(new IntakeIn());
+		intakeOut.whileHeld(new IntakeOut());
+		intakeIn.toggleWhenPressed(new ToggleCamera());
+	}
 
-    public double getDriveAxisLeft() {
-        return this.leftDriveJoystick.getAxis(Joystick.AxisType.kY);
-    }
-    
-    public double getDriveAxisRight() {
-        return this.rightDriveJoystick.getAxis(Joystick.AxisType.kY);
-    }
+	public double getDriveAxisLeft() {
+		return this.leftDriveJoystick.getAxis(Joystick.AxisType.kY);
+	}
 
-    public boolean isDriveStraightMode() {
-        return this.leftDriveJoystick.getTrigger() || this.rightDriveJoystick.getTrigger();
-    }
+	public double getDriveAxisRight() {
+		return this.rightDriveJoystick.getAxis(Joystick.AxisType.kY);
+	}
+
+	public boolean isDriveStraightMode() {
+		return this.leftDriveJoystick.getTrigger() || this.rightDriveJoystick.getTrigger();
+	}
 }
