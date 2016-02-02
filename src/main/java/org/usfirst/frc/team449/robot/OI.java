@@ -4,8 +4,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
-import org.usfirst.frc.team449.robot.machanism.intake.commands.IntakeIn;
-import org.usfirst.frc.team449.robot.machanism.intake.commands.IntakeOut;
+import org.usfirst.frc.team449.robot.mechanism.intake.commands.IntakeIn;
+import org.usfirst.frc.team449.robot.mechanism.intake.commands.IntakeOut;
 
 /**
  * the Operator Interface, includes access to all joysticks and any other for of input from the drivers
