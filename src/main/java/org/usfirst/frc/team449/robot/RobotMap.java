@@ -3,6 +3,8 @@ package org.usfirst.frc.team449.robot;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import edu.wpi.first.wpilibj.command.Subsystem;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -33,13 +35,17 @@ public abstract class RobotMap {
      * an abstract class for any MapObject, for polymorphism and a constructor
      */
     public static abstract class MapObject {
+    	/**
+    	 * used to lock the component defined by this MapObject for any command using it
+    	 */
+    	public final Subsystem commandLock;
         /**
          * creates a Map based on the JSONObject given to it, and a path down to this object
          * @param json the JSONObject containing the values for this object
          * @param path the path to find this object in the JSONObject
          */
         public MapObject(JSONObject json, String path) {
-
+        	commandLock = new Subsystem() { @Override protected void initDefaultCommand() {} };
         }
     }
 
