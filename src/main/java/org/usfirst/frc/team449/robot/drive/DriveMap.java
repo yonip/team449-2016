@@ -4,20 +4,24 @@ import org.json.JSONObject;
 import org.usfirst.frc.team449.robot.RobotMap;
 
 /**
- * a map of constants needed for any form of Drive or its subclasses, and not defined higher in the hierarchy
+ * a map of constants needed for any form of Drive or its subclasses, and not
+ * defined higher in the hierarchy
  */
 public abstract class DriveMap extends RobotMap {
-    /**
-     * creates a new Drive Map based on the configuration in the given json
-     * any maps in here are to be shared across all drive subsystems
-     * @param json a JSONObject containing the configuration for the maps in this object
-     */
-    public DriveMap(JSONObject json) {
-        super(json);
-    }
+	/**
+	 * creates a new Drive Map based on the configuration in the given json any
+	 * maps in here are to be shared across all drive subsystems
+	 * 
+	 * @param json
+	 *            a JSONObject containing the configuration for the maps in this
+	 *            object
+	 */
+	public DriveMap(JSONObject json) {
+		super(json);
+	}
 
-    @Override
-    public String getPath() {
-        return super.getPath() + ".drive";
-    }
+	@Override
+	public String getPath() {
+		return super.getPath() + ".drive";
+	}
 }
