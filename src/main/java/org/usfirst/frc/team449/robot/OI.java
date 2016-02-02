@@ -10,7 +10,7 @@ import org.usfirst.frc.team449.robot.mechanism.intake.commands.IntakeOut;
 /**
  * the Operator Interface, includes access to all joysticks and any other for of input from the drivers
  */
-public class OI {
+public class OI { 
     private Joystick leftDriveJoystick;
     private Joystick rightDriveJoystick;
 
