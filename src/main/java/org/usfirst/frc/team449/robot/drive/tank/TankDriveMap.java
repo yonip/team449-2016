@@ -41,6 +41,8 @@ public class TankDriveMap {
     public static final double P = 0;
     public static final double I = 0;
     public static final double D = 0;
-
-    public static final double SPEED = 1;
+    public static final double ZERO_TOL = 5.0;
+    public static final double TOL = 20.0; // n% tolerance
+    
+    public static final double SPEED = 200.0;
 }
