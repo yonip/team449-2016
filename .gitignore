@@ -1,3 +1,6 @@
+
+build.*
+FRCUserProgram.jar
 /out
 /lib
 # Eclipse
@@ -5,6 +8,7 @@
 .metadata
 .gradle
 bin/
+build
 tmp/
 *.tmp
 *.bak
@@ -13,6 +17,7 @@ tmp/
 local.properties
 .settings/
 .loadpath
+sysProps.xml
 
 # Eclipse Core
 /.classpath.txt
