@@ -88,7 +88,7 @@ public class MotorCluster extends Component implements SpeedController {
 		}
 		this.inverted = b;
 		for (int i = 0; i < this.controllerList.length; i++) {
-			((MotorCluster) controllerList[i]).setInverted(!((MotorCluster) controllerList[i]).getInverted());
+			controllerList[i].setInverted(!controllerList[i].getInverted());
 		}
 	}
 
