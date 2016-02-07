@@ -32,11 +32,15 @@ public class BreachSubsystem extends Subsystem {
 	 * Instantiate a new <code>BreachSubsystem</code>
 	 */
 	public BreachSubsystem() {
+		try {
 		motor = new Talon(BreachMap.MOTOR_PORT);
 		DigitalInput limitSwitchUpper = new DigitalInput(
 				BreachMap.LIMIT_UPPER_PORT);
 		DigitalInput limitSwitchLower = new DigitalInput(
 				BreachMap.LIMIT_LOWER_PORT);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**

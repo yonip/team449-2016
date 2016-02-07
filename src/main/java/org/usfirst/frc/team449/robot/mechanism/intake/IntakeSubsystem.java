@@ -12,10 +12,13 @@ public class IntakeSubsystem extends Subsystem {
 	private IntakeMap intakeMap;
 
 	public IntakeSubsystem() {
+		try {
 		this.intakeMap = new IntakeMap();
 		this.mainMotor = new VictorSP(intakeMap.motors.main.PORT);
-		// this.mainMotor.setInverted(intakeMap.motors.main.INVERTED); // not a
-		// method, fixed in setspeed
+		this.mainMotor.setInverted(intakeMap.motors.main.INVERTED);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -25,8 +28,7 @@ public class IntakeSubsystem extends Subsystem {
 	 *            the normalized speed of the motor (between -1 and 1)
 	 */
 	public void set(double speed) {
-		// mainMotor.set(speed);
-		mainMotor.set(-speed); // no setInverted method, so motor inverted here
+		mainMotor.set(speed);
 	}
 
 	@Override

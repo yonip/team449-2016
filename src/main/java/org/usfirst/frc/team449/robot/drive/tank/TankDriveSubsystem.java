@@ -15,6 +15,7 @@ public class TankDriveSubsystem extends DriveSubsystem {
 	private MotorCluster leftCluster;
 
 	public TankDriveSubsystem() {
+		try {
 		System.out.println("Drive init started");
 
 		// initialize motor clusters and add slaves
@@ -31,6 +32,9 @@ public class TankDriveSubsystem extends DriveSubsystem {
 		this.leftCluster.setInverted(true);
 
 		System.out.println("Drive init finished");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void setThrottle(double left, double right) {
@@ -45,7 +49,7 @@ public class TankDriveSubsystem extends DriveSubsystem {
 
 	private SpeedController makeMotor(TankDriveMap.Motors config) {
 		SpeedController motor = new VictorSP(config.PORT);
-		((MotorCluster) motor).setInverted(config.INVERTED);
+		motor.setInverted(config.INVERTED);
 		return motor;
 	}
 }

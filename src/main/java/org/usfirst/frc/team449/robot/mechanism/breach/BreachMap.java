@@ -12,7 +12,7 @@ public class BreachMap {
 	/**
 	 * Port number of the breach arm motor
 	 */
-	public static final int MOTOR_PORT = 1;
+	public static final int MOTOR_PORT = 7;
 
 	/**
 	 * Port number of the upper limit switch

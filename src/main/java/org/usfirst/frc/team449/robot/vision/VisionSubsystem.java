@@ -1,5 +1,8 @@
 package org.usfirst.frc.team449.robot.vision;
 
+import org.usfirst.frc.team449.robot.Robot;
+import org.usfirst.frc.team449.robot.vision.commands.DefaultVision;
+
 import com.ni.vision.NIVision;
 import com.ni.vision.NIVision.Image;
 
@@ -28,26 +31,39 @@ public class VisionSubsystem extends Subsystem {
 	 * <code>Array</code>
 	 */
 	public int sessionPtr;
-	
+
 	/**
 	 * Instantiate a new <code>VisionSubsystem</code>
 	 */
 	public VisionSubsystem() {
-		System.out.println("Vision init started");
+		try {
+			System.out.println("Vision init started");
 
-		sessions = new int[VisionMap.NUMBER_OF_CAMERAS];
-		sessionPtr = 0;
-		frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
+			sessions = new int[VisionMap.CAMERA_NAMES.length];
+			sessionPtr = 0;
+			frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
 
-		for (int i = 0; i < VisionMap.NUMBER_OF_CAMERAS; i++) {
-			sessions[i] = NIVision.IMAQdxOpenCamera(VisionMap.CAMERA_NAMES[i],
-					NIVision.IMAQdxCameraControlMode.CameraControlModeController);
+			for (int i = 0; i < VisionMap.CAMERA_NAMES.length; i++) {
+				sessions[i] = NIVision
+						.IMAQdxOpenCamera(
+								VisionMap.CAMERA_NAMES[i],
+								NIVision.IMAQdxCameraControlMode.CameraControlModeController);
+			}
+			NIVision.IMAQdxStartAcquisition(sessions[sessionPtr]);
+			NIVision.IMAQdxConfigureGrab(sessions[sessionPtr]);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+	}
 
-		NIVision.IMAQdxConfigureGrab(sessionPtr);
+	public Image getFrame() {
+		NIVision.IMAQdxStartAcquisition(sessions[sessionPtr]);
+		NIVision.IMAQdxGrab(sessions[sessionPtr], frame, 1);
+		return frame;
 	}
 
 	@Override
 	protected void initDefaultCommand() {
+		setDefaultCommand(new DefaultVision());
 	}
 }

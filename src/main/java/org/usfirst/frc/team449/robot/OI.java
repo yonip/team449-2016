@@ -18,6 +18,7 @@ public class OI {
 	private Joystick intakeJoystick;
 
 	public OI() {
+		try {
 		leftDriveJoystick = new Joystick(OIMap.LEFT_DRIVE_STICK);
 		rightDriveJoystick = new Joystick(OIMap.RIGHT_DRIVE_STICK);
 		intakeJoystick = new Joystick(OIMap.INTAKE_JOYSTICK);
@@ -29,6 +30,9 @@ public class OI {
 		intakeIn.toggleWhenPressed(new IntakeIn());
 		intakeOut.whileHeld(new IntakeOut());
 		intakeIn.toggleWhenPressed(new ToggleCamera());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public double getDriveAxisLeft() {
