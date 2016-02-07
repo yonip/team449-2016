@@ -33,10 +33,8 @@ public class BreachSubsystem extends Subsystem {
 	 */
 	public BreachSubsystem() {
 		motor = new Talon(BreachMap.MOTOR_PORT);
-		DigitalInput limitSwitchUpper = new DigitalInput(
-				BreachMap.LIMIT_UPPER_PORT);
-		DigitalInput limitSwitchLower = new DigitalInput(
-				BreachMap.LIMIT_LOWER_PORT);
+		DigitalInput limitSwitchUpper = new DigitalInput(BreachMap.LIMIT_UPPER_PORT);
+		DigitalInput limitSwitchLower = new DigitalInput(BreachMap.LIMIT_LOWER_PORT);
 	}
 
 	/**
