@@ -1,9 +1,10 @@
 package org.usfirst.frc.team449.robot.drive.tank.commands;
 
 import org.usfirst.frc.team449.robot.Robot;
-import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team449.robot.drive.tank.TankDriveMap;
 import org.usfirst.frc.team449.robot.drive.tank.TankDriveSubsystem;
+
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *

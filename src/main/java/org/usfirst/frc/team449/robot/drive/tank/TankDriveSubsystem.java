@@ -1,11 +1,11 @@
 package org.usfirst.frc.team449.robot.drive.tank;
 
-import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.VictorSP;
-
 import org.usfirst.frc.team449.robot.drive.DriveSubsystem;
 import org.usfirst.frc.team449.robot.drive.tank.commands.DefaultDrive;
 import org.usfirst.frc.team449.robot.drive.tank.components.MotorCluster;
+
+import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.VictorSP;
 
 /**
  * a Drive subsystem that operates with a tank drive

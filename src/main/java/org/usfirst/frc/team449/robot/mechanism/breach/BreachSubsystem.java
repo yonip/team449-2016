@@ -1,7 +1,6 @@
 package org.usfirst.frc.team449.robot.mechanism.breach;
 
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -12,62 +11,54 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class BreachSubsystem extends Subsystem {
+	/**
+	 * The double solenoid for the back piston
+	 */
+	private DoubleSolenoid backSolenoid;
 
 	/**
-	 * The breach arm motor
+	 * The double solenoid for the front piston
 	 */
-	private Talon motor;
-
-	/**
-	 * The upper limit switch (tells whether the arm is in the "up" position
-	 */
-	private DigitalInput limitSwitchUpper;
-
-	/**
-	 * The lower limit switch (tells whether the arm is in the "down" position
-	 */
-	private DigitalInput limitSwitchLower;
+	private DoubleSolenoid frontSolenoid;
 
 	/**
 	 * Instantiate a new <code>BreachSubsystem</code>
 	 */
 	public BreachSubsystem() {
-		motor = new Talon(BreachMap.MOTOR_PORT);
-		DigitalInput limitSwitchUpper = new DigitalInput(BreachMap.LIMIT_UPPER_PORT);
-		DigitalInput limitSwitchLower = new DigitalInput(BreachMap.LIMIT_LOWER_PORT);
+		backSolenoid = new DoubleSolenoid(BreachMap.SOLENOID_BACK_FORWARD_PORT, BreachMap.SOLENOID_BACK_REVERSE_PORT);
+		frontSolenoid = new DoubleSolenoid(BreachMap.SOLENOID_FRONT_FORWARD_PORT,
+				BreachMap.SOLENOID_FRONT_REVERSE_PORT);
 	}
 
 	/**
-	 * Set the speed of the breach arm motor
-	 * 
-	 * @param speed
-	 *            the normalized speed of the motor
+	 * Set the back double solenoid valve to its forward state
 	 */
-	public void set(double speed) {
-		motor.set(speed);
+	public void setBackSolenoidForward() {
+		backSolenoid.set(DoubleSolenoid.Value.kForward);
 	}
 
 	/**
-	 * Get the state of the upper limit switch
-	 * 
-	 * @return whether the arm is in the "up" position
+	 * Set the back double solenoid valve to its reverse state
 	 */
-	public boolean getLimitSwitchUpperValue() {
-		return limitSwitchUpper.get();
+	public void setBackSolenoidReverse() {
+		backSolenoid.set(DoubleSolenoid.Value.kReverse);
 	}
 
 	/**
-	 * Get the state of the lower limit switch
-	 * 
-	 * @return whether the arm is in the "down" position
+	 * Set the front double solenoid valve to its forward state
 	 */
-	public boolean getLimitSwitchLowerValue() {
-		return limitSwitchLower.get();
+	public void setFrontSolenoidForward() {
+		frontSolenoid.set(DoubleSolenoid.Value.kForward);
+	}
+
+	/**
+	 * Set the front double solenoid valve to its reverse state
+	 */
+	public void setFrontSolenoidReverse() {
+		frontSolenoid.set(DoubleSolenoid.Value.kReverse);
 	}
 
 	@Override
 	protected void initDefaultCommand() {
-		// nothing here folks
 	}
-
 }

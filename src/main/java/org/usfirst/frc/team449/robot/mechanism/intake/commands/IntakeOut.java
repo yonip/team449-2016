@@ -1,9 +1,9 @@
 package org.usfirst.frc.team449.robot.mechanism.intake.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-
 import org.usfirst.frc.team449.robot.Robot;
 import org.usfirst.frc.team449.robot.mechanism.intake.IntakeMap;
+
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * Created by yonipedersen on 1/16/16.

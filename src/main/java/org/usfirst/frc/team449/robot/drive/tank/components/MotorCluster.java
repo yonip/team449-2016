@@ -1,7 +1,8 @@
 package org.usfirst.frc.team449.robot.drive.tank.components;
 
-import edu.wpi.first.wpilibj.SpeedController;
 import org.usfirst.frc.team449.robot.components.Component;
+
+import edu.wpi.first.wpilibj.SpeedController;
 
 /**
  * A cluster of motors, or SpeedControllers, used for tank drive generally.

@@ -2,7 +2,6 @@ package org.usfirst.frc.team449.robot.components;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
 /**
  * a PID controller to control a wheel's position through PID via the

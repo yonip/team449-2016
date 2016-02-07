@@ -10,27 +10,22 @@ package org.usfirst.frc.team449.robot.mechanism.breach;
 public class BreachMap {
 
 	/**
-	 * Port number of the breach arm motor
+	 * Port number of the back solenoid's forward state
 	 */
-	public static final int MOTOR_PORT = 1;
+	public static final int SOLENOID_BACK_FORWARD_PORT = 0;
 
 	/**
-	 * Port number of the upper limit switch
+	 * Port number of the back solenoid's reverse state
 	 */
-	public static final int LIMIT_UPPER_PORT = 2;
+	public static final int SOLENOID_BACK_REVERSE_PORT = 1;
 
 	/**
-	 * Port number of the lower limit switch
+	 * Port number of the front solenoid's forward state
 	 */
-	public static final int LIMIT_LOWER_PORT = 3;
+	public static final int SOLENOID_FRONT_FORWARD_PORT = 2;
 
 	/**
-	 * Motor speed for putting the arm in the "up" position
+	 * Port number of the front solenoid's reverse state
 	 */
-	public static final double MOTOR_SPEED_UP = 1;
-
-	/**
-	 * Motor speed for putting the arm in the "down" position
-	 */
-	public static final double MOTOR_SPEED_DOWN = -1;
+	public static final int SOLENOID_FRONT_REVERSE_PORT = 3;
 }
