@@ -1,44 +1,47 @@
 package org.usfirst.frc.team449.robot.mechanism.intake.commands;
 
 import org.usfirst.frc.team449.robot.Robot;
-import org.usfirst.frc.team449.robot.mechanism.intake.IntakeMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * Created by yonipedersen on 1/16/16.
+ * Command to set the intake mechanism to its up state
+ * 
+ * @author Ryan Tse <ryantse100@gmail.com>
+ * @since 2016-02-08
+ *
  */
-public class IntakeIn extends Command {
+public class IntakeUp extends Command {
 
 	/**
-	 * Instantiate a new <code>IntakeIn</code>
+	 * Instantiate a new <code>IntakeUp</code>
 	 */
-	public IntakeIn() {
+	public IntakeUp() {
 		requires(Robot.intake);
 	}
 
 	@Override
 	protected void initialize() {
-		System.out.println("IntakeIn init");
+		System.out.println("IntakeUp init");
 	}
 
 	@Override
 	protected void execute() {
-		Robot.intake.setMotorSpeed(IntakeMap.OUTPUT_SPEED);
+		Robot.intake.setSolenoidReverse();
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return Robot.intake.getCloseEnough();
+		return true;
 	}
 
 	@Override
 	protected void end() {
-		System.out.println("IntakeIn end");
+		System.out.println("IntakeUp end");
 	}
 
 	@Override
 	protected void interrupted() {
-		System.out.println("IntakeIn interrupted");
+		System.out.println("IntakeUp interupted");
 	}
 }
