@@ -5,24 +5,24 @@ import org.usfirst.frc.team449.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * Command to set the breach arm to the fourth state
+ * Command to set the breach arm to the portcullis state
  * 
  * @author Ryan Tse <ryantse100@gmail.com>
  * @since 2016-02-07
  *
  */
-public class BreachState3 extends Command {
+public class BreachPortcullis extends Command {
 
 	/**
-	 * Instantiate a new <code>BreachState3</code>
+	 * Instantiate a new <code>BreachPortcullis</code>
 	 */
-	public BreachState3() {
+	public BreachPortcullis() {
 		requires(Robot.breach);
 	}
 
 	@Override
 	protected void initialize() {
-		System.out.println("BreachState0 init");
+		System.out.println("BreachPortcullis init");
 	}
 
 	@Override
@@ -38,11 +38,11 @@ public class BreachState3 extends Command {
 
 	@Override
 	protected void end() {
-		System.out.println("BreachState0 end");
+		System.out.println("BreachPortcullis end");
 	}
 
 	@Override
 	protected void interrupted() {
-		System.out.println("BreachState0 interupted");
+		System.out.println("BreachPortcullis interupted");
 	}
 }

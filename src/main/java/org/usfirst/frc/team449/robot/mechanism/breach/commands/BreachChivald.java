@@ -5,30 +5,30 @@ import org.usfirst.frc.team449.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * Command to set the breach arm to the third state
+ * Command to set the breach arm to the state for breaching the chivald de fries
  * 
  * @author Ryan Tse <ryantse100@gmail.com>
  * @since 2016-02-07
  *
  */
-public class BreachState2 extends Command {
+public class BreachChivald extends Command {
 
 	/**
-	 * Instantiate a new <code>BreachState2</code>
+	 * Instantiate a new <code>BreachChivald</code>
 	 */
-	public BreachState2() {
+	public BreachChivald() {
 		requires(Robot.breach);
 	}
 
 	@Override
 	protected void initialize() {
-		System.out.println("BreachState2 init");
+		System.out.println("BreachChivald init");
 	}
 
 	@Override
 	protected void execute() {
-		Robot.breach.setBackSolenoidReverse();
-		Robot.breach.setFrontSolenoidForward();
+		Robot.breach.setBackSolenoidForward();
+		Robot.breach.setFrontSolenoidReverse();
 	}
 
 	@Override
@@ -38,11 +38,11 @@ public class BreachState2 extends Command {
 
 	@Override
 	protected void end() {
-		System.out.println("BreachState2 end");
+		System.out.println("BreachChivald end");
 	}
 
 	@Override
 	protected void interrupted() {
-		System.out.println("BreachState2 interupted");
+		System.out.println("BreachChivald interupted");
 	}
 }

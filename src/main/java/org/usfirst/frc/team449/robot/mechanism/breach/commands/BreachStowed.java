@@ -5,29 +5,29 @@ import org.usfirst.frc.team449.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * Command to set the breach arm to the second state
+ * Command to set the breach arm to the stowed state
  * 
  * @author Ryan Tse <ryantse100@gmail.com>
  * @since 2016-02-07
  *
  */
-public class BreachState1 extends Command {
+public class BreachStowed extends Command {
 
 	/**
-	 * Instantiate a new <code>BreachState1</code>
+	 * Instantiate a new <code>BreachStowed</code>
 	 */
-	public BreachState1() {
+	public BreachStowed() {
 		requires(Robot.breach);
 	}
 
 	@Override
 	protected void initialize() {
-		System.out.println("BreachState1 init");
+		System.out.println("BreachStowed init");
 	}
 
 	@Override
 	protected void execute() {
-		Robot.breach.setBackSolenoidForward();
+		Robot.breach.setBackSolenoidReverse();
 		Robot.breach.setFrontSolenoidReverse();
 	}
 
@@ -38,11 +38,11 @@ public class BreachState1 extends Command {
 
 	@Override
 	protected void end() {
-		System.out.println("BreachState1 end");
+		System.out.println("BreachStowed end");
 	}
 
 	@Override
 	protected void interrupted() {
-		System.out.println("BreachState1 interupted");
+		System.out.println("BreachStowed interupted");
 	}
 }
