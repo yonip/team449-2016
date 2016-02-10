@@ -46,4 +46,8 @@ public class TankDriveMap {
 	public static final double TOL = 20.0; // n% tolerance
 
 	public static final double SPEED = 200.0;
+	public static final double AUTO_SPEED = 200.0;
+	public static final double DIST_CONV = 10.0;
+	
+	
 }
