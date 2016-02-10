@@ -56,6 +56,7 @@ public class IntakeOut extends Command {
 	 */
 	@Override
 	protected void end() {
+		Robot.intake.set(0);
 	}
 
 	/**
@@ -75,5 +76,6 @@ public class IntakeOut extends Command {
 	 */
 	@Override
 	protected void interrupted() {
+		Robot.intake.set(0);
 	}
 }

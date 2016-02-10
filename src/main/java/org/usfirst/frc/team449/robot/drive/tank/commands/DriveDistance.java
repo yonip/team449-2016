@@ -8,7 +8,7 @@ import org.usfirst.frc.team449.robot.drive.tank.TankDriveSubsystem;
 public class DriveDistance extends Command {
 	private double distance;
 	private int counter;
-	private boolean forward = true;
+	private boolean forward;
 	
 	
 	public DriveDistance(double distance){
@@ -17,6 +17,10 @@ public class DriveDistance extends Command {
 		if(distance < 0){
 			this.distance = -distance;
 			forward = false;
+		}
+		else{
+			this.distance = -distance;
+			forward = true;
 		}
 		
 	}
