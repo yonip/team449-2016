@@ -33,5 +33,5 @@ public class IntakeMap {
 	public static final double INPUT_SPEED = 1;
 	
 	public static final double RAMP_DIST = 20.0;
-	
+	public static final int SHOOT_TIME = 20;
 }
