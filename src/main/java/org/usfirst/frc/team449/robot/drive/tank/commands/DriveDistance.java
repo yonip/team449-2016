@@ -8,17 +8,22 @@ import org.usfirst.frc.team449.robot.drive.tank.TankDriveSubsystem;
 public class DriveDistance extends Command {
 	private double distance;
 	private int counter;
+	private boolean forward = true;
 	
 	
 	public DriveDistance(double distance){
 		requires(Robot.drive);
-		this.distance = distance;
+		
+		if(distance < 0){
+			this.distance = -distance;
+			forward = false;
+		}
+		
 	}
 
 	
 	protected void initialize() {
 		counter = 0;
-		
 	}
 
 	@Override
@@ -26,7 +31,10 @@ public class DriveDistance extends Command {
 		double leftThrottle = TankDriveMap.AUTO_SPEED;
 		double rightThrottle = TankDriveMap.AUTO_SPEED;
 		
-		((TankDriveSubsystem) Robot.drive).setThrottle(leftThrottle, rightThrottle);
+		if(forward)
+			((TankDriveSubsystem) Robot.drive).setThrottle(leftThrottle, rightThrottle);
+		else
+			((TankDriveSubsystem) Robot.drive).setThrottle(-leftThrottle, -rightThrottle);
 		
 		counter++;
 		

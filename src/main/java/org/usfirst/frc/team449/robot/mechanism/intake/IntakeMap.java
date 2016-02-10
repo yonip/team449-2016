@@ -31,4 +31,7 @@ public class IntakeMap {
 
 	public static final double OUTPUT_SPEED = 1;
 	public static final double INPUT_SPEED = 1;
+	
+	public static final double RAMP_DIST = 20.0;
+	
 }
