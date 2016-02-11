@@ -30,14 +30,19 @@ public class TurnAngle extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		// TODO Externalize constant and beautify
-		return (Math.abs(((TankDriveSubsystem) Robot.drive).rightCluster
-				.getSetpoint()
-				- ((TankDriveSubsystem) Robot.drive).leftCluster.getPosition()) < 0.1)
-				&& (Math.abs(((TankDriveSubsystem) Robot.drive).leftCluster
+
+		double rcDistance = Math
+				.abs(((TankDriveSubsystem) Robot.drive).rightCluster
 						.getSetpoint()
 						- ((TankDriveSubsystem) Robot.drive).leftCluster
-								.getPosition()) < 0.1);
+								.getPosition());
+		double lcDistance = Math
+				.abs(((TankDriveSubsystem) Robot.drive).leftCluster
+						.getSetpoint()
+						- ((TankDriveSubsystem) Robot.drive).leftCluster
+								.getPosition());
+		return (rcDistance < TankDriveMap.ZERO_TOL)
+				&& (lcDistance < TankDriveMap.ZERO_TOL);
 	}
 
 	@Override
