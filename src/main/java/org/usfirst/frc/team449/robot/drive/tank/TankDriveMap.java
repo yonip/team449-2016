@@ -18,27 +18,43 @@ public class TankDriveMap {
 			this.INVERTED = inverted;
 		}
 
-		public static final Motors LEFT1 = new Motors(RobotMap.DRIVE_LEFT_MOTOR_1, RobotMap.DRIVE_LEFT_MOTOR_1_INVERTED);
-		public static final Motors LEFT2 = new Motors(RobotMap.DRIVE_LEFT_MOTOR_2, RobotMap.DRIVE_LEFT_MOTOR_2_INVERTED);
-		public static final Motors LEFT3 = new Motors(RobotMap.DRIVE_LEFT_MOTOR_3, RobotMap.DRIVE_LEFT_MOTOR_3_INVERTED);
-		public static final Motors RIGHT1 = new Motors(RobotMap.DRIVE_RIGHT_MOTOR_1, RobotMap.DRIVE_RIGHT_MOTOR_1_INVERTED);
-		public static final Motors RIGHT2 = new Motors(RobotMap.DRIVE_RIGHT_MOTOR_2, RobotMap.DRIVE_RIGHT_MOTOR_2_INVERTED);
-		public static final Motors RIGHT3 = new Motors(RobotMap.DRIVE_RIGHT_MOTOR_3, RobotMap.DRIVE_RIGHT_MOTOR_3_INVERTED);
+		public static final Motors LEFT1 = new Motors(
+				RobotMap.DRIVE_LEFT_MOTOR_1,
+				RobotMap.DRIVE_LEFT_MOTOR_1_INVERTED);
+		public static final Motors LEFT2 = new Motors(
+				RobotMap.DRIVE_LEFT_MOTOR_2,
+				RobotMap.DRIVE_LEFT_MOTOR_2_INVERTED);
+		public static final Motors LEFT3 = new Motors(
+				RobotMap.DRIVE_LEFT_MOTOR_3,
+				RobotMap.DRIVE_LEFT_MOTOR_3_INVERTED);
+		public static final Motors RIGHT1 = new Motors(
+				RobotMap.DRIVE_RIGHT_MOTOR_1,
+				RobotMap.DRIVE_RIGHT_MOTOR_1_INVERTED);
+		public static final Motors RIGHT2 = new Motors(
+				RobotMap.DRIVE_RIGHT_MOTOR_2,
+				RobotMap.DRIVE_RIGHT_MOTOR_2_INVERTED);
+		public static final Motors RIGHT3 = new Motors(
+				RobotMap.DRIVE_RIGHT_MOTOR_3,
+				RobotMap.DRIVE_RIGHT_MOTOR_3_INVERTED);
 	}
 
 	public static class Encoders {
 		public final int A;
-        public final int B;
-        public final double DPP;
+		public final int B;
+		public final double DPP;
 
-        private Encoders(int a, int b, double dpp) {
-            this.A = a;
-            this.B = b;
-            this.DPP = dpp;
-        }
+		private Encoders(int a, int b, double dpp) {
+			this.A = a;
+			this.B = b;
+			this.DPP = dpp;
+		}
 
-        public static final Encoders LEFT = new Encoders(RobotMap.DRIVE_LEFT_ENCODER_A, RobotMap.DRIVE_LEFT_ENCODER_B,RobotMap.DRIVE_LEFT_ENCODER_DPP);
-        public static final Encoders RIGHT = new Encoders(RobotMap.DRIVE_RIGHT_ENCODER_A, RobotMap.DRIVE_RIGHT_ENCODER_B,RobotMap.DRIVE_RIGHT_ENCODER_DPP);
+		public static final Encoders LEFT = new Encoders(
+				RobotMap.DRIVE_LEFT_ENCODER_A, RobotMap.DRIVE_LEFT_ENCODER_B,
+				RobotMap.DRIVE_LEFT_ENCODER_DPP);
+		public static final Encoders RIGHT = new Encoders(
+				RobotMap.DRIVE_RIGHT_ENCODER_A, RobotMap.DRIVE_RIGHT_ENCODER_B,
+				RobotMap.DRIVE_RIGHT_ENCODER_DPP);
 	}
 
 	public static final double P = RobotMap.DRIVE_P;
@@ -48,4 +64,9 @@ public class TankDriveMap {
 	public static final double TOL = RobotMap.DRIVE_TOL; // n% tolerance
 
 	public static final double SPEED = RobotMap.DRIVE_SPEED;
+
+	/**
+	 * Distance from center of robot to the wheels
+	 */
+	public static final double RADIUS = 1; // inches?
 }
