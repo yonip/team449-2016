@@ -9,44 +9,41 @@ public class DriveDistance extends Command {
 	private double distance;
 	private int counter;
 	private boolean forward;
-	
-	
-	public DriveDistance(double distance){
+
+	public DriveDistance(double distance) {
 		requires(Robot.drive);
-		
-		if(distance < 0){
+
+		if (distance < 0) {
 			this.distance = -distance;
 			forward = false;
-		}
-		else{
+		} else {
 			this.distance = -distance;
 			forward = true;
 		}
-		
 	}
 
-	
 	protected void initialize() {
 		counter = 0;
+		System.out.println("DriveDistance init");
 	}
 
 	@Override
 	protected void execute() {
 		double leftThrottle = TankDriveMap.AUTO_SPEED;
 		double rightThrottle = TankDriveMap.AUTO_SPEED;
-		
-		if(forward)
+
+		if (forward) {
 			((TankDriveSubsystem) Robot.drive).setThrottle(leftThrottle, rightThrottle);
-		else
+		} else {
 			((TankDriveSubsystem) Robot.drive).setThrottle(-leftThrottle, -rightThrottle);
-		
+		}
+
 		counter++;
-		
 	}
 
 	@Override
 	protected boolean isFinished() {
-		if(counter*TankDriveMap.DIST_CONV > distance){
+		if (counter * TankDriveMap.DIST_CONV > distance) {
 			return true;
 		}
 		return false;
@@ -54,14 +51,13 @@ public class DriveDistance extends Command {
 
 	@Override
 	protected void end() {
-		
-		
+		((TankDriveSubsystem) Robot.drive).setThrottle(0, 0);
+		System.out.println("DriveDistance end");
 	}
 
 	@Override
 	protected void interrupted() {
 		((TankDriveSubsystem) Robot.drive).setThrottle(0, 0);
-		
+		System.out.println("DriveDistance interrupted");
 	}
-
 }

@@ -69,4 +69,7 @@ public class TankDriveMap {
 	 * Distance from center of robot to the wheels
 	 */
 	public static final double RADIUS = 1; // inches?
+	
+	public static final double AUTO_SPEED = 1;
+	public static final int DIST_CONV = 1;
 }
