@@ -103,4 +103,8 @@ public class MotorCluster extends Component implements SpeedController {
 		for (int i = 0; i < this.controllerList.length; i++)
 			controllerList[i].disable();
 	}
+
+	@Override
+	public void stopMotor() {
+	}
 }
