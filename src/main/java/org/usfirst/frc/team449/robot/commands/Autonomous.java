@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class Autonomous extends CommandGroup {
 
 	private DefenseType defenseType;
+
 	/**
 	 * Instantiate a new <code>Autonomous</code>
 	 */

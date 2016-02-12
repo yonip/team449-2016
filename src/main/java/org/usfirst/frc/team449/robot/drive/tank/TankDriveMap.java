@@ -18,23 +18,17 @@ public class TankDriveMap {
 			this.INVERTED = inverted;
 		}
 
-		public static final Motors LEFT1 = new Motors(
-				RobotMap.DRIVE_LEFT_MOTOR_1,
+		public static final Motors LEFT1 = new Motors(RobotMap.DRIVE_LEFT_MOTOR_1,
 				RobotMap.DRIVE_LEFT_MOTOR_1_INVERTED);
-		public static final Motors LEFT2 = new Motors(
-				RobotMap.DRIVE_LEFT_MOTOR_2,
+		public static final Motors LEFT2 = new Motors(RobotMap.DRIVE_LEFT_MOTOR_2,
 				RobotMap.DRIVE_LEFT_MOTOR_2_INVERTED);
-		public static final Motors LEFT3 = new Motors(
-				RobotMap.DRIVE_LEFT_MOTOR_3,
+		public static final Motors LEFT3 = new Motors(RobotMap.DRIVE_LEFT_MOTOR_3,
 				RobotMap.DRIVE_LEFT_MOTOR_3_INVERTED);
-		public static final Motors RIGHT1 = new Motors(
-				RobotMap.DRIVE_RIGHT_MOTOR_1,
+		public static final Motors RIGHT1 = new Motors(RobotMap.DRIVE_RIGHT_MOTOR_1,
 				RobotMap.DRIVE_RIGHT_MOTOR_1_INVERTED);
-		public static final Motors RIGHT2 = new Motors(
-				RobotMap.DRIVE_RIGHT_MOTOR_2,
+		public static final Motors RIGHT2 = new Motors(RobotMap.DRIVE_RIGHT_MOTOR_2,
 				RobotMap.DRIVE_RIGHT_MOTOR_2_INVERTED);
-		public static final Motors RIGHT3 = new Motors(
-				RobotMap.DRIVE_RIGHT_MOTOR_3,
+		public static final Motors RIGHT3 = new Motors(RobotMap.DRIVE_RIGHT_MOTOR_3,
 				RobotMap.DRIVE_RIGHT_MOTOR_3_INVERTED);
 	}
 
@@ -49,12 +43,10 @@ public class TankDriveMap {
 			this.DPP = dpp;
 		}
 
-		public static final Encoders LEFT = new Encoders(
-				RobotMap.DRIVE_LEFT_ENCODER_A, RobotMap.DRIVE_LEFT_ENCODER_B,
+		public static final Encoders LEFT = new Encoders(RobotMap.DRIVE_LEFT_ENCODER_A, RobotMap.DRIVE_LEFT_ENCODER_B,
 				RobotMap.DRIVE_LEFT_ENCODER_DPP);
-		public static final Encoders RIGHT = new Encoders(
-				RobotMap.DRIVE_RIGHT_ENCODER_A, RobotMap.DRIVE_RIGHT_ENCODER_B,
-				RobotMap.DRIVE_RIGHT_ENCODER_DPP);
+		public static final Encoders RIGHT = new Encoders(RobotMap.DRIVE_RIGHT_ENCODER_A,
+				RobotMap.DRIVE_RIGHT_ENCODER_B, RobotMap.DRIVE_RIGHT_ENCODER_DPP);
 	}
 
 	public static final double P = RobotMap.DRIVE_P;
@@ -69,7 +61,7 @@ public class TankDriveMap {
 	 * Distance from center of robot to the wheels
 	 */
 	public static final double RADIUS = 1; // inches?
-	
+
 	public static final double AUTO_SPEED = 1;
 	public static final int DIST_CONV = 1;
 }

@@ -2,6 +2,7 @@ package org.usfirst.frc.team449.robot.drive.tank.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team449.robot.Robot;
+import org.usfirst.frc.team449.robot.drive.components.Rangefinder;
 import org.usfirst.frc.team449.robot.drive.tank.TankDriveMap;
 import org.usfirst.frc.team449.robot.drive.tank.TankDriveSubsystem;
 
@@ -9,6 +10,7 @@ public class DriveDistance extends Command {
 	private double distance;
 	private int counter;
 	private boolean forward;
+	private boolean crashProtected;
 
 	public DriveDistance(double distance) {
 		requires(Robot.drive);
@@ -20,6 +22,22 @@ public class DriveDistance extends Command {
 			this.distance = -distance;
 			forward = true;
 		}
+
+		crashProtected = false;
+	}
+
+	public DriveDistance(double distance, boolean crashProtected) {
+		requires(Robot.drive);
+
+		if (distance < 0) {
+			this.distance = -distance;
+			forward = false;
+		} else {
+			this.distance = -distance;
+			forward = true;
+		}
+
+		this.crashProtected = crashProtected;
 	}
 
 	protected void initialize() {
@@ -31,6 +49,11 @@ public class DriveDistance extends Command {
 	protected void execute() {
 		double leftThrottle = TankDriveMap.AUTO_SPEED;
 		double rightThrottle = TankDriveMap.AUTO_SPEED;
+
+		if (crashProtected && ((TankDriveSubsystem) Robot.drive).rangefinder.getTooClose()) {
+			System.out.println("DriveDistance waiting; path obstructed by obstacle");
+			return;
+		}
 
 		if (forward) {
 			((TankDriveSubsystem) Robot.drive).setThrottle(leftThrottle, rightThrottle);
