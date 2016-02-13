@@ -34,4 +34,7 @@ public class RobotMap {
     public static final double DRIVE_ZERO_TOL = 5.0;
     public static final double DRIVE_TOL = 20.0; // ie n%, for knowing when the pid is on target
     public static final double DRIVE_SPEED = 200.0;
+    
+    // Autonomous numbers
+    public static final double DISTANCE_TO_DEFENSE = 1;
 }

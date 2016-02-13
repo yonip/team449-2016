@@ -12,6 +12,11 @@ public class DriveDistance extends Command {
 	private boolean forward;
 	private boolean crashProtected;
 
+	/**
+	 * Create a DriveDistinace command
+	 * Will not stop for obstacles
+	 * @param distance - distance to drive
+	 */
 	public DriveDistance(double distance) {
 		requires(Robot.drive);
 
@@ -26,6 +31,11 @@ public class DriveDistance extends Command {
 		crashProtected = false;
 	}
 
+	/**
+	 * Create a DriveDistance command
+	 * @param distance - distance to drive
+	 * @param crashProtected - true = will stop for obstacles
+	 */
 	public DriveDistance(double distance, boolean crashProtected) {
 		requires(Robot.drive);
 

@@ -1,5 +1,8 @@
 package org.usfirst.frc.team449.robot.commands;
 
+import org.usfirst.frc.team449.robot.RobotMap;
+import org.usfirst.frc.team449.robot.drive.tank.commands.DriveDistance;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -22,8 +25,7 @@ public class Autonomous extends CommandGroup {
 	}
 
 	private void executeStrategy0() {
-		// TODO drive certain distance to the defense
-		// TODO if something in front, stop
+		addSequential(new DriveDistance(RobotMap.DISTANCE_TO_DEFENSE, true));
 		// TODO set the breach arm in the right position
 		// TODO breach
 		// TODO about face
