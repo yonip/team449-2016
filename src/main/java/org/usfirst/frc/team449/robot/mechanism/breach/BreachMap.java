@@ -28,4 +28,9 @@ public class BreachMap {
 	 * Port number of the front solenoid's reverse state
 	 */
 	public static final int SOLENOID_FRONT_REVERSE_PORT = 3;
+	
+	/**
+	 * Distance to drive to get to breach
+	 */
+	public static final double BREACH_DISTANCE = 10; //TODO set this distance
 }
