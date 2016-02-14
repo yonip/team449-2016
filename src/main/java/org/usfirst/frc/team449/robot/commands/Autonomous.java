@@ -45,8 +45,8 @@ public class Autonomous extends CommandGroup {
 	 */
 	private void executeStrategy1() {
 		executeStrategy0(); //Breach
-		addSequential(new AutoIntakeOut()); //Eject ball
 		addSequential(new AboutFace()); //About face
+		addSequential(new AutoIntakeOut()); //Eject ball
 	}
 	
 	/**
@@ -75,7 +75,6 @@ public class Autonomous extends CommandGroup {
 		addSequential(new DriveDistance(RobotMap.BREATHING_ROOM, true)); //drive back
 		addSequential(Robot.breachCommand); //breach the same defense as previous
 		addSequential(new DriveDistance(RobotMap.BREATHING_ROOM)); //drive back
-		addSequential(new AboutFace()); //turn back around
 	}
 	
 	/**
