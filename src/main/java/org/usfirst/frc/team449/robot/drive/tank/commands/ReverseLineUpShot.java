@@ -4,9 +4,12 @@ import org.usfirst.frc.team449.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class LineUpShot extends CommandGroup{
+public class ReverseLineUpShot extends CommandGroup{
 	
-	public LineUpShot(int position){
+	/**
+	 * This method backs up to a defense after shooting, to avoid spending time doing so in teleop.
+	 */
+	public ReverseLineUpShot(int position){
 		
 		//TODO rotate 180 degrees depending on robot orientation
 		
@@ -20,9 +23,13 @@ public class LineUpShot extends CommandGroup{
 			double verticalDistance = (RobotMap.VERTICAL_DISTANCE_TO_LEFT_GOAL-distanceFromTop);
 			double secantVal = 1/Math.cos(Math.PI/3);
 			
-			addSequential(new DriveDistance(distanceToGoal-(Math.tan(Math.PI/6)*verticalDistance)));
-			addSequential(new TurnAngle(-Math.PI/3));
-			addSequential(new DriveDistance(secantVal*(RobotMap.VERTICAL_DISTANCE_TO_LEFT_GOAL-distanceFromTop)));
+			addSequential(new DriveDistance(-(secantVal*(RobotMap.VERTICAL_DISTANCE_TO_LEFT_GOAL-distanceFromTop))));
+			addSequential(new TurnAngle(Math.PI/3));
+			
+			// +3 so we don't ram into the defense
+			addSequential(new DriveDistance(-(distanceToGoal-(Math.tan(Math.PI/6)*verticalDistance))+3)); 
+			
+
 			
 		}
 		else if(position < 4){ //Goes for the center goal
@@ -35,11 +42,10 @@ public class LineUpShot extends CommandGroup{
 			
 			double secantVal = 1/Math.cos(angle);
 			
-			addSequential(new DriveDistance(RobotMap.DEFENSE_RAMP_LENGTH));
+			addSequential(new DriveDistance(-1));
 			addSequential(new TurnAngle(-angle));
-			addSequential(new DriveDistance(secantVal*(distanceToGoal-RobotMap.DEFENSE_RAMP_LENGTH-1)));
+			addSequential(new DriveDistance(-secantVal*(distanceToGoal-RobotMap.DEFENSE_RAMP_LENGTH-1)));
 			addSequential(new TurnAngle(angle));
-			addSequential(new DriveDistance(1));
 			
 		}
 		else if(position == 4){ //Goes for the rightmost goal
@@ -49,10 +55,10 @@ public class LineUpShot extends CommandGroup{
 			double verticalDistance = -(RobotMap.VERTICAL_DISTANCE_TO_RIGHT_GOAL-distanceFromTop);
 			double secantVal = 1/Math.cos(Math.PI/3);
 			
-			addSequential(new DriveDistance(distanceToGoal-(Math.tan(Math.PI/6)*verticalDistance)));
-			addSequential(new TurnAngle(Math.PI/3));
-			addSequential(new DriveDistance(secantVal*(RobotMap.VERTICAL_DISTANCE_TO_RIGHT_GOAL-distanceFromTop)));
-			
+			addSequential(new DriveDistance(-secantVal*(RobotMap.VERTICAL_DISTANCE_TO_RIGHT_GOAL-distanceFromTop)));
+			addSequential(new TurnAngle(-Math.PI/3));
+			addSequential(new DriveDistance(-(distanceToGoal-(Math.tan(Math.PI/6)*verticalDistance)) + 3));
+
 		}
 		else{
 			throw(new IllegalArgumentException("An integer between 0-4 inclusive must be passed into LineUpShot"));
