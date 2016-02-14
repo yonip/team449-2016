@@ -28,6 +28,7 @@ public class Autonomous extends CommandGroup {
 		else if(routine == 2) executeStrategy2();
 		else if(routine == 3) executeStrategy3();
 		else if(routine == 4) executeStrategy4();
+		else if(routine == 5) executeStrategy5();
 	}
 
 	/**
@@ -73,5 +74,14 @@ public class Autonomous extends CommandGroup {
 		// TODO drive a certain distance
 		// TODO breach
 		// TODO drive a certain distance
+	}
+	
+	/**
+	 * Get the ball from the middle
+	 */
+	private void executeStrategy5() {
+		// TODO locate ball
+		// TODO intake ball
+		// TODO turn (optional)
 	}
 }

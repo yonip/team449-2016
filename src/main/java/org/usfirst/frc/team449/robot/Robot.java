@@ -77,6 +77,7 @@ public class Robot extends IterativeRobot {
 		autoChooser.addObject("Cross and get in line to shoot", 2);
 		autoChooser.addObject("Cross and shoot", 3);
 		autoChooser.addObject("Cross and return", 4);
+		autoChooser.addObject("Get ball from middle", 5);
 		SmartDashboard.putData("Autonomous routine chooser", autoChooser);
 		
     	//Make a chooser on SmartDashboard so drivers can choose which auto breach to do
