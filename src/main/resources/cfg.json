@@ -1,71 +1,104 @@
 {
-  "drive": {
+  "DriveMap": {
     "components": {},
-    "tank": {
+    "TankDriveMap": {
       "components": {
-        "clusterpids": {
+        "ClusterPID": {
           "instances": {
-            "leftcluster": {
-              "cluster": {
-                "motors": [
-                  {
-                    "port": 0
-                  },
-                  {
-                    "port": 1
-                  },
-                  {
-                    "port": 2
+            "leftCluster": {
+              "MotorCluster" : {
+                "instances" : {
+                  "cluster": {
+                    "Motor[]" : {
+                      "instances" : {
+                        "motors": [
+                          {
+                            "PORT": 0
+                          },
+                          {
+                            "PORT": 1
+                          },
+                          {
+                            "PORT": 2
+                          }
+                        ]
+                      }
+                    },
+                    "INVERTED": false
                   }
-                ],
-                "inverted": false
+                }
               },
-              "encoder": {
-                "a": 0,
-                "b": 1
+              "Encoder" : {
+                "instances" : {
+                  "encoder": {
+                    "a": 0,
+                    "b": 1
+                  }
+                }
               }
             },
-            "rightcluster": {
-              "cluster": {
-                "motors": [
-                  {
-                    "port": 3
-                  },
-                  {
-                    "port": 4
-                  },
-                  {
-                    "port": 5
+            "rightCluster": {
+              "MotorCluster" : {
+                "instances" : {
+                  "cluster": {
+                    "Motor[]" : {
+                      "instances" : {
+                        "motors" : [
+                          { "PORT" : 3},
+                          { "PORT" : 4},
+                          { "PORT" : 5}
+                        ]
+                      }
+                    },
+                    "INVERTED": true
                   }
-                ],
-                "inverted": true
+                }
               },
-              "encoder": {
-                "a": 2,
-                "b": 3
-              },
-              "inverted": true
+              "Encoder" : {
+                "instances" : {
+                  "encoder": {
+                    "a": 2,
+                    "b": 3
+                  }
+                }
+              }
             }
           },
-          "cluster": {
-            "motors": [
+          "MotorCluster": {
+            "Motor[]": [
               {
-                "inverted": false
+                "INVERTED": false
               },
               {
-                "inverted": false
+                "INVERTED": false
               },
               {
-                "inverted": true
+                "INVERTED": true
               }
             ]
           },
-          "encoder": {
+          "Encoder": {
             "dpp": 1
           }
+        },
+        "SPEED": 0.0
+      }
+    }
+  },
+  "MechanismMap" : {
+    "IntakeMap" : {
+      "components" : {
+        "OUTPUT_SPEED" : 1,
+        "INPUT_SPEED" : 1,
+        "Motor" : {
+          "instances" : {
+            "motor" : {
+              "PORT" : 1,
+              "INVERTED": true
+            }
+          }
         }
-      },
-      "speed": 0
+      }
     }
   }
 }

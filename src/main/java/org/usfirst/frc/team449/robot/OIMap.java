@@ -1,23 +1,29 @@
 package org.usfirst.frc.team449.robot;
 
+import org.json.JSONObject;
+
 /**
- * a map of constants needed for any form of TankDrive or its subclasses, and
- * not defined higher in the hierarchy
+ * a map of constants needed for any form of TankDrive or its subclasses, and not defined higher in the hierarchy
  */
-public class OIMap {
-	/**
-	 * the name of the subsystem associated with this map. used to retrieve from
-	 * Robot's map of subsystems
-	 */
-	public static final String NAME = "OI";
+public class OIMap extends RobotMap {
 
-	public static final int LEFT_DRIVE_STICK = 1;
+    public int LEFT_DRIVE_STICK = 1;
 
-	public static final int RIGHT_DRIVE_STICK = 0;
+    public int RIGHT_DRIVE_STICK = 0;
 
-	public static final int INTAKE_JOYSTICK = RIGHT_DRIVE_STICK;
+    public int INTAKE_JOYSTICK = RIGHT_DRIVE_STICK;
 
-	public static final int INTAKE_IN = 2;
+    public int INTAKE_IN = 2;
 
-	public static final int INTAKE_OUT = 3;
+    public int INTAKE_OUT = 3;
+
+    /**
+     * creates a new Map based on the configuration in the given json
+     * any maps in here are to be shared across all subsystems
+     *
+     * @param json a JSONObject containing the configuration for the maps in this object
+     */
+    public OIMap(JSONObject json) {
+        super(json);
+    }
 }
