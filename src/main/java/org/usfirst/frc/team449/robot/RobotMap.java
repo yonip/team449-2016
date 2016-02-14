@@ -87,6 +87,7 @@ public abstract class RobotMap {
      * an abstract class for any MapObject, for polymorphism and a constructor
      */
     public static abstract class MapObject {
+
         /**
          * creates a Map based on the JSONObject given to it, and a path down to this object
          *
@@ -385,12 +386,7 @@ public abstract class RobotMap {
     private static int strictGetInt(String path, JSONObject obj) throws ParserException {
         String[] split = path.split("\\.");
         Object temp = obj;
-        JSONArray arr = null;
         for (int i = 0; i < split.length - 1; i++) {
-            // DriveMap.TankDriveMap.components.ClusterPID.MotorCluster.Motor[].instances.motors.length
-            if (temp instanceof JSONArray) {
-                throw new ParserException("Trying to delve deeper into fields of JSONArray, which is impossible");
-            }
             if (!(temp instanceof JSONObject)) { // only JSONObjects here. JSONArrays should be done and anything else is useless
                 System.err.println("Reached an impossible state in strictGetInt " + path + " " + split[i]);
                 throw new FatalParserException("Reached an impossible state while parsing (next object to parse is not a JSONObject)");
@@ -405,15 +401,14 @@ public abstract class RobotMap {
                     arrGet = arrGet.substring(0, arrGet.lastIndexOf('['));
                 }
                 try {
-                    arr = obj.getJSONArray(arrGet);
+                    obj = obj.getJSONObject(arrGet);
                     while (indices.size() > 1) {
-                        arr = arr.getJSONArray(indices.pop());
+                        obj = obj.getJSONObject(indices.pop().toString());
                     }
-                    temp = arr.get(indices.pop());
+                    temp = obj.get(indices.pop().toString());
                 } catch (JSONException e) {
                     throw new ParserException("Object doesn't exist");
                 }
-                arr = null;
             } else {
                 temp = obj.opt(split[i]);
             }
@@ -422,18 +417,18 @@ public abstract class RobotMap {
             }
         }
         // if im here and it's an array, im just looking for length, right?
-        if (temp instanceof JSONArray) {
-            if (split[split.length - 1].equals("length")) {
-                return ((JSONArray) temp).length();
-            }
-        }
+
         // ok so, not an array. maybe JSONObject?
         if (temp instanceof JSONObject) {
             obj = (JSONObject) temp;
-            try {
-                return obj.getInt(split[split.length - 1]); // ok exists, now get me the int. or -4 if it's not there
-            } catch (JSONException e) {
-                throw new ParserException("Field doesn't exist", e);
+            if (split[split.length - 1].equals("length")) {
+                return obj.length();
+            } else {
+                try {
+                    return obj.getInt(split[split.length - 1]); // ok exists, now get me the int. or -4 if it's not there
+                } catch (JSONException e) {
+                    throw new ParserException("Field doesn't exist", e);
+                }
             }
         }
         // maybe it's an int, so I can pretend it's an int?
@@ -479,15 +474,14 @@ public abstract class RobotMap {
                     arrGet = arrGet.substring(0, arrGet.lastIndexOf('['));
                 }
                 try {
-                    arr = obj.getJSONArray(arrGet);
+                    obj = obj.getJSONObject(arrGet);
                     while (indices.size() > 1) {
-                        arr = arr.getJSONArray(indices.pop());
+                        obj = obj.getJSONObject(indices.pop().toString());
                     }
-                    temp = arr.get(indices.pop());
+                    temp = obj.get(indices.pop().toString());
                 } catch (JSONException e) {
                     throw new ParserException("Object doesn't exist");
                 }
-                arr = null;
             } else {
                 temp = obj.opt(split[i]);
             }
@@ -550,15 +544,14 @@ public abstract class RobotMap {
                     arrGet = arrGet.substring(0, arrGet.lastIndexOf('['));
                 }
                 try {
-                    arr = obj.getJSONArray(arrGet);
+                    obj = obj.getJSONObject(arrGet);
                     while (indices.size() > 1) {
-                        arr = arr.getJSONArray(indices.pop());
+                        obj = obj.getJSONObject(indices.pop().toString());
                     }
-                    temp = arr.get(indices.pop());
+                    temp = obj.get(indices.pop().toString());
                 } catch (JSONException e) {
                     throw new ParserException("Object doesn't exist");
                 }
-                arr = null;
             } else {
                 temp = obj.opt(split[i]);
             }
