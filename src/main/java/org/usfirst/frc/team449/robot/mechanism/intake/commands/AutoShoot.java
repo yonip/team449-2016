@@ -9,7 +9,7 @@ public class AutoShoot extends CommandGroup{
 	
 	public AutoShoot(){
 		addSequential(new DriveDistance(IntakeMap.RAMP_DIST));
-		addSequential(new AutoShoot());
+		addSequential(new AutoIntakeOut());
 		addSequential(new DriveDistance(-IntakeMap.RAMP_DIST));
 	}
 
