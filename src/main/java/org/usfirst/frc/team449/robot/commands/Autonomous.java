@@ -41,7 +41,7 @@ public class Autonomous extends CommandGroup {
 	}
 
 	/**
-	 * Pass defense and release ball
+	 * Pass defense, release ball, and turn around
 	 */
 	private void executeStrategy1() {
 		executeStrategy0(); //Breach
@@ -62,18 +62,20 @@ public class Autonomous extends CommandGroup {
 	 */
 	private void executeStrategy3() {
 		executeStrategy2(); //Breach and get in line to shoot
+		//TODO maybe drive forward some?
+		//TODO use ultrasonic to line up and stuff
 		addSequential(new AutoShoot()); //shoot;
 	}
 	
-	
 	/**
-	 * Pass defense and breach another defense
+	 * Pass defense and breach the defense again (best for portcullis, low bar, moat, wall, and cheval)
 	 */
 	private void executeStrategy4() {
-		executeStrategy1();
-		// TODO drive a certain distance
-		// TODO breach
-		// TODO drive a certain distance
+		executeStrategy1(); //Pass defense, release ball, and turn 180 degrees
+		addSequential(new DriveDistance(RobotMap.BREATHING_ROOM, true)); //drive back
+		addSequential(Robot.breachCommand); //breach the same defense as previous
+		addSequential(new DriveDistance(RobotMap.BREATHING_ROOM)); //drive back
+		addSequential(new AboutFace()); //turn back around
 	}
 	
 	/**
