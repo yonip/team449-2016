@@ -36,6 +36,12 @@ public class RobotMap {
     public static final double DRIVE_SPEED = 200.0;
     
     // Autonomous numbers
-    public static final double DISTANCE_TO_DEFENSE = 1; //TODO set this number
+    public static final double DISTANCE_TO_DEFENSE = 6.16667; //Distance from starting line
+    public static final double DISTANCE_TO_FRONT_GOAL = 20.0; //Distance from starting line
+    public static final double DISTANCE_TO_SIDE_GOALs = 23.0; //Distance from starting line to center of goal
+    public static final double DEFENCE_WIDTH = 4.425; //Not including borders
+    public static final double GOAL_RAMP_LENGTH = 2.0;
+    public static final double FRONT_GOAL_ANGLE = 0; //Vertical line
+    public static final double SIDE_GOALS_ANGLE = 60.0; //Deviation in degrees from vertical line
     public static final double BREATHING_ROOM = 1; //A distance to move away from the defense 
 }
