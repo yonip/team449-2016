@@ -4,6 +4,7 @@ import org.usfirst.frc.team449.robot.Robot;
 import org.usfirst.frc.team449.robot.RobotMap;
 import org.usfirst.frc.team449.robot.drive.tank.commands.AboutFace;
 import org.usfirst.frc.team449.robot.drive.tank.commands.DriveDistance;
+import org.usfirst.frc.team449.robot.drive.tank.commands.LineUpShot;
 import org.usfirst.frc.team449.robot.mechanism.intake.commands.AutoIntakeOut;
 import org.usfirst.frc.team449.robot.mechanism.intake.commands.AutoShoot;
 
@@ -54,7 +55,7 @@ public class Autonomous extends CommandGroup {
 	 */
 	private void executeStrategy2() {
 		executeStrategy0(); //Breach
-		// TODO Drive to scoring platform
+		addSequential(new LineUpShot(Robot.defensePosition)); //Line up shot
 	}
 	
 	/**
@@ -62,9 +63,8 @@ public class Autonomous extends CommandGroup {
 	 */
 	private void executeStrategy3() {
 		executeStrategy2(); //Breach and get in line to shoot
-		//TODO maybe drive forward some?
-		//TODO use ultrasonic to line up and stuff
 		addSequential(new AutoShoot()); //shoot;
+		//TODO create reverse LineUpShot Command so we can backtrack halfway through for autonomous.
 	}
 	
 	/**

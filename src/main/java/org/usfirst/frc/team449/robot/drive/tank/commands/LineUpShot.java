@@ -7,6 +7,10 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class LineUpShot extends CommandGroup{
 	
 	public LineUpShot(int position){
+		
+		//TODO use ultrasonic for fine adjustment;
+		//TODO rotate 180 degrees depending on robot orientation
+		
 		double distanceFromTop = 4.425*(position + 0.5); //Distance in feet of center of defense to left wall
 		
 		if(position < 0){
