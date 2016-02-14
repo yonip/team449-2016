@@ -38,7 +38,13 @@ public class RobotMap {
     // Autonomous numbers
     public static final double DISTANCE_TO_DEFENSE = 6.16667; //Distance from starting line
     public static final double DISTANCE_TO_FRONT_GOAL = 20.0; //Distance from starting line
-    public static final double DISTANCE_TO_SIDE_GOALs = 23.0; //Distance from starting line to center of goal
+    public static final double DISTANCE_TO_SIDE_GOALS = 23.0; //Distance from starting line to center of goal
+    
+    public static final double VERTICAL_DISTANCE_TO_LEFT_GOAL = 8.33333; //Distance from left wall to center of goal
+    public static final double VERTICAL_DISTANCE_TO_FRONT_GOAL = 13.29167; //Distance from left wall to center of goal
+    public static final double VERTICAL_DISTANCE_TO_RIGHT_GOAL = 18.25; //Distance from left wall to center of goal
+    
+    public static final double DEFENSE_RAMP_LENGTH = 3.0;
     public static final double DEFENCE_WIDTH = 4.425; //Not including borders
     public static final double GOAL_RAMP_LENGTH = 2.0;
     public static final double FRONT_GOAL_ANGLE = 0; //Vertical line

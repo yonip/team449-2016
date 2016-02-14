@@ -38,6 +38,15 @@ public class Robot extends IterativeRobot {
      * Chooser for which auto routine is being used
      */
     private static SendableChooser autoChooser;
+    /**
+     *The location of the defense breached
+     *0 is farthest from the secret passage, 4 is closest
+     */
+    public static int defensePosition;
+    /**
+     * Chooser for where the defense being breached is
+     */
+    private static SendableChooser defensePositionChooser;
     
 	/**
 	 * reference to this robot's Drive subsystem. Any command that uses this
@@ -88,6 +97,14 @@ public class Robot extends IterativeRobot {
     	breachChooser.addObject("Wall", new BreachWall());
     	breachChooser.addObject("Rough Terrain", new BreachRoughTerrain());
     	SmartDashboard.putData("Autonomous breach-type chooser", breachChooser);
+    	
+    	//Make a chooser on SmartDashboard for defense position so robot can path to goal properly.
+    	defensePositionChooser.addDefault("Left Defense", 0);
+    	defensePositionChooser.addObject("Left Middle Defense", 1);
+    	defensePositionChooser.addObject("Middle Defense", 2);
+    	defensePositionChooser.addObject("Right Middle Defense", 3);
+    	defensePositionChooser.addObject("Right Defense", 4);
+    	SmartDashboard.putData("Autonomous defense location chooser", defensePositionChooser);
     }
 
 
@@ -100,6 +117,10 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
     	//The command selected by drive
     	breachCommand = (Command) breachChooser.getSelected();
+    	//The routine selected by drive
+    	autoRoutineChoice = (int) autoChooser.getSelected();
+    	//The defense position selected by drive
+    	defensePosition = (int) autoChooser.getSelected();
 	}
 
 	@Override
