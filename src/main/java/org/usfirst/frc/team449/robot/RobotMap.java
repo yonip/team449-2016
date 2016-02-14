@@ -36,5 +36,6 @@ public class RobotMap {
     public static final double DRIVE_SPEED = 200.0;
     
     // Autonomous numbers
-    public static final double DISTANCE_TO_DEFENSE = 10; //TODO set this number
+    public static final double DISTANCE_TO_DEFENSE = 1; //TODO set this number
+    public static final double BREATHING_ROOM = 1; //A distance to move away from the defense 
 }

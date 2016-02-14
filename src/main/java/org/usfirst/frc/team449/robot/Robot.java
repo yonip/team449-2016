@@ -30,6 +30,14 @@ public class Robot extends IterativeRobot {
      * Chooser for which breach is being used
      */
     private static SendableChooser breachChooser;
+    /**
+     * The routine number chosen
+     */
+    public static int autoRoutineChoice;
+    /**
+     * Chooser for which auto routine is being used
+     */
+    private static SendableChooser autoChooser;
     
 	/**
 	 * reference to this robot's Drive subsystem. Any command that uses this
@@ -63,6 +71,14 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
+		//Make a chooser on SmartDashboard so drivers can choose from auto routines
+		autoChooser.addDefault("Cross Defense", 0);
+		autoChooser.addObject("Cross, release ball and get in line to cross another", 1);
+		autoChooser.addObject("Cross and get in line to shoot", 2);
+		autoChooser.addObject("Cross and shoot", 3);
+		autoChooser.addObject("Cross and return", 4);
+		SmartDashboard.putData("Autonomous routine chooser", autoChooser);
+		
     	//Make a chooser on SmartDashboard so drivers can choose which auto breach to do
     	breachChooser.addDefault("Low Bar", new BreachLowBar());
     	breachChooser.addObject("Cheval de Friese", new BreachChivald());
@@ -70,7 +86,7 @@ public class Robot extends IterativeRobot {
     	breachChooser.addObject("Moat", new BreachMoat());
     	breachChooser.addObject("Wall", new BreachWall());
     	breachChooser.addObject("Rough Terrain", new BreachRoughTerrain());
-    	SmartDashboard.putData("Autonomous mode chooser", breachChooser);
+    	SmartDashboard.putData("Autonomous breach-type chooser", breachChooser);
     }
 
 

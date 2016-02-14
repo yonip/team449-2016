@@ -15,7 +15,7 @@ public class DriveDistance extends Command {
 	/**
 	 * Create a DriveDistinace command
 	 * Will not stop for obstacles
-	 * @param distance - distance to drive
+	 * @param distance - distance to drive in feet TODO set conversion factor
 	 */
 	public DriveDistance(double distance) {
 		requires(Robot.drive);
@@ -33,7 +33,7 @@ public class DriveDistance extends Command {
 
 	/**
 	 * Create a DriveDistance command
-	 * @param distance - distance to drive
+	 * @param distance - distance to drive in feet TODO set conversion factor
 	 * @param crashProtected - true = will stop for obstacles
 	 */
 	public DriveDistance(double distance, boolean crashProtected) {

@@ -32,5 +32,5 @@ public class BreachMap {
 	/**
 	 * Distance to drive to get to breach
 	 */
-	public static final double BREACH_DISTANCE = 10; //TODO set this distance
+	public static final double BREACH_DISTANCE = 1; //TODO set this distance
 }
