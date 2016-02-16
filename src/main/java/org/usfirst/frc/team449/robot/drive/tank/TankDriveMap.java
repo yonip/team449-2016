@@ -1,72 +1,56 @@
 package org.usfirst.frc.team449.robot.drive.tank;
 
-import org.usfirst.frc.team449.robot.RobotMap;
+import org.json.JSONObject;
+import org.usfirst.frc.team449.robot.drive.DriveMap;
 
 /**
  * a map of constants needed for any form of TankDrive or its subclasses, and
  * not defined higher in the hierarchy
  */
-public class TankDriveMap {
-	public static final String NAME = "TankDrive";
+public class TankDriveMap extends DriveMap {
+    /** the map for the left cluster of the tank drive */
+    public ClusterPID leftCluster;
+    /** the map for the right cluster of the tank drive */
+    public ClusterPID rightCluster;
+    /** the speed at which this tank drive should go */
+    public double SPEED;
+    /** the radius of the drive */
+    public double RADIUS;
+    
+    /**
+     * creates a new TankDrive Map based on the configuration in the given json
+     * any maps in here are to be shared across all tank drive subsystems
+     * @param json a JSONObject containing the configuration for the maps in this object
+     */
+    public TankDriveMap(JSONObject json) {
+        super(json);
+    }
 
-	public static class Motors {
-		public final int PORT;
-		public final boolean INVERTED;
+    /**
+     * a map for a MotorCluster of variable size. the size of the Cluster is defined by the JSONObject
+     */
+    public static class MotorCluster extends MapObject {
+        /** an array of maps for the motors in this Cluster */
+        public Motor[] motors;
+        /** whether the whole cluster should be inverted */
+        public boolean INVERTED;
 
-		private Motors(int port, boolean inverted) {
-			this.PORT = port;
-			this.INVERTED = inverted;
-		}
+        public MotorCluster(JSONObject json, String path, Class enclosing) {
+            super(json, path, enclosing);
+        }
+    }
 
-		public static final Motors LEFT1 = new Motors(
-				RobotMap.DRIVE_LEFT_MOTOR_1,
-				RobotMap.DRIVE_LEFT_MOTOR_1_INVERTED);
-		public static final Motors LEFT2 = new Motors(
-				RobotMap.DRIVE_LEFT_MOTOR_2,
-				RobotMap.DRIVE_LEFT_MOTOR_2_INVERTED);
-		public static final Motors LEFT3 = new Motors(
-				RobotMap.DRIVE_LEFT_MOTOR_3,
-				RobotMap.DRIVE_LEFT_MOTOR_3_INVERTED);
-		public static final Motors RIGHT1 = new Motors(
-				RobotMap.DRIVE_RIGHT_MOTOR_1,
-				RobotMap.DRIVE_RIGHT_MOTOR_1_INVERTED);
-		public static final Motors RIGHT2 = new Motors(
-				RobotMap.DRIVE_RIGHT_MOTOR_2,
-				RobotMap.DRIVE_RIGHT_MOTOR_2_INVERTED);
-		public static final Motors RIGHT3 = new Motors(
-				RobotMap.DRIVE_RIGHT_MOTOR_3,
-				RobotMap.DRIVE_RIGHT_MOTOR_3_INVERTED);
-	}
+    /**
+     * a map for a PID controller that has a MotorCluster, and a single encoder
+     */
+    public static class ClusterPID extends PID {
+        /** the MotorCluster controlled by this PID controller */
+        public MotorCluster cluster;
+        /** the Encoder used for control in this PID controller */
+        public Encoder encoder;
 
-	public static class Encoders {
-		public final int A;
-		public final int B;
-		public final double DPP;
-
-		private Encoders(int a, int b, double dpp) {
-			this.A = a;
-			this.B = b;
-			this.DPP = dpp;
-		}
-
-		public static final Encoders LEFT = new Encoders(
-				RobotMap.DRIVE_LEFT_ENCODER_A, RobotMap.DRIVE_LEFT_ENCODER_B,
-				RobotMap.DRIVE_LEFT_ENCODER_DPP);
-		public static final Encoders RIGHT = new Encoders(
-				RobotMap.DRIVE_RIGHT_ENCODER_A, RobotMap.DRIVE_RIGHT_ENCODER_B,
-				RobotMap.DRIVE_RIGHT_ENCODER_DPP);
-	}
-
-	public static final double P = RobotMap.DRIVE_P;
-	public static final double I = RobotMap.DRIVE_I;
-	public static final double D = RobotMap.DRIVE_D;
-	public static final double ZERO_TOL = RobotMap.DRIVE_ZERO_TOL;
-	public static final double TOL = RobotMap.DRIVE_TOL; // n% tolerance
-
-	public static final double SPEED = RobotMap.DRIVE_SPEED;
-
-	/**
-	 * Distance from center of robot to the wheels
-	 */
-	public static final double RADIUS = 1; // inches?
+        public ClusterPID(JSONObject json, String path, Class enclosing) {
+            super(json, path, enclosing);
+        }
+    }
 }

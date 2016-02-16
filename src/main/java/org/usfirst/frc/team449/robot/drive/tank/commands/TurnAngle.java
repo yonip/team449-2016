@@ -22,27 +22,26 @@ public class TurnAngle extends Command {
 
 	@Override
 	protected void execute() {
-		((TankDriveSubsystem) Robot.drive).rightCluster
-				.setSetpoint(TankDriveMap.RADIUS * theta / 2);
-		((TankDriveSubsystem) Robot.drive).leftCluster
-				.setSetpoint(-TankDriveMap.RADIUS * theta / 2);
+		TankDriveSubsystem drive = (TankDriveSubsystem) Robot.drive;
+		TankDriveMap map = (TankDriveMap) drive.map;
+		// the drive is velocity based, not position based, so this won't work
+		// also the drive subsystem has the set(double, double) method for a reason (ie dont make fields public)
+		//drive.rightCluster.setSetpoint(map.RADIUS * theta / 2);
+		//drive.leftCluster.setSetpoint(-map.RADIUS * theta / 2);
+		// TODO: make this actually work
 	}
 
 	@Override
 	protected boolean isFinished() {
-
-		double rcDistance = Math
-				.abs(((TankDriveSubsystem) Robot.drive).rightCluster
-						.getSetpoint()
-						- ((TankDriveSubsystem) Robot.drive).leftCluster
-								.getPosition());
-		double lcDistance = Math
-				.abs(((TankDriveSubsystem) Robot.drive).leftCluster
-						.getSetpoint()
-						- ((TankDriveSubsystem) Robot.drive).leftCluster
-								.getPosition());
-		return (rcDistance < TankDriveMap.ZERO_TOL)
-				&& (lcDistance < TankDriveMap.ZERO_TOL);
+		TankDriveSubsystem drive = (TankDriveSubsystem) Robot.drive;
+		TankDriveMap map = (TankDriveMap) drive.map;
+		// don't make fields public
+		//double rcDistance = Math.abs(drive.rightCluster.getSetpoint() - drive.leftCluster.getPosition());
+		//double lcDistance = Math.abs(drive.leftCluster.getSetpoint() - drive.leftCluster.getPosition());
+		//return (rcDistance < map.ZERO_TOL) && (lcDistance < map.ZERO_TOL);
+		// also that's not what ZERO_TOL is for
+		// TODO: make this actually work
+		return false;
 	}
 
 	@Override

@@ -1,20 +1,29 @@
 package org.usfirst.frc.team449.robot.mechanism.intake;
 
+import org.usfirst.frc.team449.robot.RobotMap;
+import org.usfirst.frc.team449.robot.mechanism.MechanismSubsystem;
+
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.VictorSP;
-import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- * Created by yonipedersen on 1/16/16.
+ * a class for intake using a single motor (probably connected to a roller)
  */
-public class IntakeSubsystem extends Subsystem {
+public class IntakeSubsystem extends MechanismSubsystem {
 	private SpeedController mainMotor;
-	private IntakeMap intakeMap;
 
-	public IntakeSubsystem() {
-		this.intakeMap = new IntakeMap();
-		this.mainMotor = new VictorSP(intakeMap.motors.main.PORT);
-		this.mainMotor.setInverted(intakeMap.motors.main.INVERTED);
+	public IntakeSubsystem(RobotMap map) {
+		super(map);
+		System.out.println("Intake init started");
+
+		if (!(map instanceof IntakeMap)) {
+			System.err.println("Intake has a map of class " + map.getClass().getSimpleName() + " and not IntakeMap");
+		}
+
+		this.mainMotor = new VictorSP(((IntakeMap) map).motor.PORT);
+		this.mainMotor.setInverted(((IntakeMap) map).motor.INVERTED);
+
+		System.out.println("Intake init finished");
 	}
 
 	/**

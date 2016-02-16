@@ -1,36 +1,22 @@
 package org.usfirst.frc.team449.robot.mechanism.breach;
 
+import org.json.JSONObject;
+import org.usfirst.frc.team449.robot.mechanism.MechanismMap;
+
 /**
- * Constants for the BreachSubsystem
- * 
- * @author Ryan Tse <ryantse100@gmail.com>
- * @since 2016-01-20
- *
+ * a map of constants needed for any form of Drive or its subclasses, and not defined higher in the hierarchy
  */
-public class BreachMap {
+public class BreachMap extends MechanismMap {
+	public Motor motor;
+	public LimitSwitch upper;
+	public LimitSwitch lower;
 
 	/**
-	 * Port number of the breach arm motor
+	 * creates a new Breach Map based on the configuration in the given json
+     * any maps in here are to be shared across all breaching subsystems
+     * @param json a JSONObject containing the configuration for the maps in this object
 	 */
-	public static final int MOTOR_PORT = 1;
-
-	/**
-	 * Port number of the upper limit switch
-	 */
-	public static final int LIMIT_UPPER_PORT = 2;
-
-	/**
-	 * Port number of the lower limit switch
-	 */
-	public static final int LIMIT_LOWER_PORT = 3;
-
-	/**
-	 * Motor speed for putting the arm in the "up" position
-	 */
-	public static final double MOTOR_SPEED_UP = 1;
-
-	/**
-	 * Motor speed for putting the arm in the "down" position
-	 */
-	public static final double MOTOR_SPEED_DOWN = -1;
+	public BreachMap(JSONObject json) {
+		super(json);
+	}
 }

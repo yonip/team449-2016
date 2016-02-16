@@ -1,8 +1,14 @@
+
+build.*
+FRCUserProgram.jar
+/out
+/lib
 # Eclipse
 *.pydevproject
 .metadata
 .gradle
 bin/
+build
 tmp/
 *.tmp
 *.bak
@@ -11,8 +17,11 @@ tmp/
 local.properties
 .settings/
 .loadpath
+sysProps.xml
 
 # Eclipse Core
+/.classpath.txt
+/.project.txt
 .project
 
 # External tool builders

@@ -1,73 +1,37 @@
 package org.usfirst.frc.team449.robot.mechanism.breach;
 
+import org.usfirst.frc.team449.robot.RobotMap;
+import org.usfirst.frc.team449.robot.mechanism.MechanismSubsystem;
+
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.VictorSP;
 
-/**
- * Subsystem for the defense breaching arm
- * 
- * @author Ryan Tse <ryantse100@gmail.com>
- * @since 2016-01-20
- *
- */
-public class BreachSubsystem extends Subsystem {
+public class BreachSubsystem extends MechanismSubsystem {
 
-	/**
-	 * The breach arm motor
-	 */
-	private Talon motor;
+	VictorSP motor;
+	DigitalInput limitSwitchUpper;
+	DigitalInput limitSwitchLower;
 
-	/**
-	 * The upper limit switch (tells whether the arm is in the "up" position
-	 */
-	private DigitalInput limitSwitchUpper;
+	public BreachSubsystem(RobotMap map) {
+		super(map);
+		System.out.println("Breacher init started");
 
-	/**
-	 * The lower limit switch (tells whether the arm is in the "down" position
-	 */
-	private DigitalInput limitSwitchLower;
+		if (!(map instanceof BreachMap)) {
+			System.err.println("Breach has a map of class " + map.getClass().getSimpleName() + " and not BreachMap");
+		}
 
-	/**
-	 * Instantiate a new <code>BreachSubsystem</code>
-	 */
-	public BreachSubsystem() {
-		motor = new Talon(BreachMap.MOTOR_PORT);
-		DigitalInput limitSwitchUpper = new DigitalInput(BreachMap.LIMIT_UPPER_PORT);
-		DigitalInput limitSwitchLower = new DigitalInput(BreachMap.LIMIT_LOWER_PORT);
-	}
+		this.motor = new VictorSP(((BreachMap) map).motor.PORT);
+		this.motor.setInverted(((BreachMap) map).motor.INVERTED);
 
-	/**
-	 * Set the speed of the breach arm motor
-	 * 
-	 * @param speed
-	 *            the normalized speed of the motor
-	 */
-	public void set(double speed) {
-		motor.set(speed);
-	}
+		this.limitSwitchUpper = new DigitalInput(((BreachMap) map).upper.PORT);
+		this.limitSwitchLower = new DigitalInput(((BreachMap) map).lower.PORT);
 
-	/**
-	 * Get the state of the upper limit switch
-	 * 
-	 * @return whether the arm is in the "up" position
-	 */
-	public boolean getLimitSwitchUpperValue() {
-		return limitSwitchUpper.get();
-	}
-
-	/**
-	 * Get the state of the lower limit switch
-	 * 
-	 * @return whether the arm is in the "down" position
-	 */
-	public boolean getLimitSwitchLowerValue() {
-		return limitSwitchLower.get();
+		System.out.println("Breacher init finished");
 	}
 
 	@Override
 	protected void initDefaultCommand() {
-		// nothing here folks
+
 	}
 
 }

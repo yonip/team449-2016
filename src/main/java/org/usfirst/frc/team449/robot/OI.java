@@ -11,23 +11,26 @@ import org.usfirst.frc.team449.robot.mechanism.intake.commands.IntakeOut;
  * the Operator Interface, includes access to all joysticks and any other for of
  * input from the drivers
  */
-public class OI {
-	private Joystick leftDriveJoystick;
-	private Joystick rightDriveJoystick;
+public class OI/*vey*/ {
+    private OIMap map;
 
+    private Joystick leftDriveJoystick;
+    private Joystick rightDriveJoystick;
 	private Joystick intakeJoystick;
 
-	public OI() {
-		leftDriveJoystick = new Joystick(OIMap.LEFT_DRIVE_STICK);
-		rightDriveJoystick = new Joystick(OIMap.RIGHT_DRIVE_STICK);
-		intakeJoystick = new Joystick(OIMap.INTAKE_JOYSTICK);
+    public OI(OIMap map) {
+        this.map = map;
 
-		Button intakeIn = new JoystickButton(intakeJoystick, OIMap.INTAKE_IN);
-		Button intakeOut = new JoystickButton(intakeJoystick, OIMap.INTAKE_OUT);
+		leftDriveJoystick = new Joystick(map.LEFT_DRIVE_STICK);
+        rightDriveJoystick = new Joystick(map.RIGHT_DRIVE_STICK);
+        intakeJoystick = new Joystick(map.INTAKE_JOYSTICK);
 
-		intakeIn.toggleWhenPressed(new IntakeIn());
-		intakeOut.whileHeld(new IntakeOut());
-	}
+        Button intakeIn = new JoystickButton(intakeJoystick, map.INTAKE_IN);
+        Button intakeOut = new JoystickButton(intakeJoystick, map.INTAKE_OUT);
+        
+        intakeIn.toggleWhenPressed(new IntakeIn());
+        intakeOut.whileHeld(new IntakeOut());
+    }
 
 	public double getDriveAxisLeft() {
 		return this.leftDriveJoystick.getAxis(Joystick.AxisType.kY);

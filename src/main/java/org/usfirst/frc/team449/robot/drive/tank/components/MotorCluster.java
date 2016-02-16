@@ -1,14 +1,16 @@
 package org.usfirst.frc.team449.robot.drive.tank.components;
 
-import edu.wpi.first.wpilibj.SpeedController;
 import org.usfirst.frc.team449.robot.components.Component;
+import org.usfirst.frc.team449.robot.drive.tank.TankDriveMap;
+
+import edu.wpi.first.wpilibj.SpeedController;
 
 /**
  * A cluster of motors, or SpeedControllers, used for tank drive generally.
  */
 public class MotorCluster extends Component implements SpeedController {
 	private final SpeedController[] controllerList;
-	private boolean inverted = false;
+	private boolean inverted;
 
 	private double lastSet = 0;
 
@@ -34,7 +36,7 @@ public class MotorCluster extends Component implements SpeedController {
 		this.controllerList = controllers;
 		this.lastSet = 0;
 	}
-
+	
 	/**
 	 * add a motor that will be considered a part of the cluster
 	 * 
@@ -99,11 +101,15 @@ public class MotorCluster extends Component implements SpeedController {
 
 	@Override
 	public void disable() {
-		for (int i = 0; i < this.controllerList.length; i++)
+		for (int i = 0; i < this.controllerList.length; i++) {
 			controllerList[i].disable();
+		}
 	}
 
 	@Override
 	public void stopMotor() {
+		for (int i = 0; i < this.controllerList.length; i++) {
+			controllerList[i].stopMotor();
+		}
 	}
 }

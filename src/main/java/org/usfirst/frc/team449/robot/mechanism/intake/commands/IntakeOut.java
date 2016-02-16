@@ -1,12 +1,12 @@
 package org.usfirst.frc.team449.robot.mechanism.intake.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-
 import org.usfirst.frc.team449.robot.Robot;
 import org.usfirst.frc.team449.robot.mechanism.intake.IntakeMap;
 
+import edu.wpi.first.wpilibj.command.Command;
+
 /**
- * Created by yonipedersen on 1/16/16.
+ * A command to make push the ball out from the intake
  */
 public class IntakeOut extends Command {
 
@@ -20,6 +20,7 @@ public class IntakeOut extends Command {
 	 */
 	@Override
 	protected void initialize() {
+		System.out.println("IntakeOut init");
 	}
 
 	/**
@@ -28,7 +29,7 @@ public class IntakeOut extends Command {
 	 */
 	@Override
 	protected void execute() {
-		Robot.intake.set(IntakeMap.INPUT_SPEED);
+		Robot.intake.set(((IntakeMap) (Robot.intake.map)).OUTPUT_SPEED);
 	}
 
 	/**
@@ -56,6 +57,7 @@ public class IntakeOut extends Command {
 	 */
 	@Override
 	protected void end() {
+		System.out.println("ItakeOut end");
 	}
 
 	/**
@@ -75,5 +77,6 @@ public class IntakeOut extends Command {
 	 */
 	@Override
 	protected void interrupted() {
+		System.out.println("ItakeOut interrupted");
 	}
 }

@@ -1,10 +1,13 @@
 package org.usfirst.frc.team449.robot.mechanism.intake.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-
 import org.usfirst.frc.team449.robot.Robot;
 import org.usfirst.frc.team449.robot.mechanism.intake.IntakeMap;
 
+import edu.wpi.first.wpilibj.command.Command;
+
+/**
+ * a command to pull a ball into the intake
+ */
 public class IntakeIn extends Command {
 
 	public IntakeIn() {
@@ -17,6 +20,7 @@ public class IntakeIn extends Command {
 	 */
 	@Override
 	protected void initialize() {
+		System.out.println("IntakeIn init");
 	}
 
 	/**
@@ -25,7 +29,7 @@ public class IntakeIn extends Command {
 	 */
 	@Override
 	protected void execute() {
-		Robot.intake.set(IntakeMap.OUTPUT_SPEED);
+		Robot.intake.set(((IntakeMap) (Robot.intake.map)).INPUT_SPEED);
 	}
 
 	/**
@@ -53,6 +57,7 @@ public class IntakeIn extends Command {
 	 */
 	@Override
 	protected void end() {
+		System.out.println("IntakeIn end");
 	}
 
 	/**
@@ -72,5 +77,6 @@ public class IntakeIn extends Command {
 	 */
 	@Override
 	protected void interrupted() {
+		System.out.println("ItakeIn interrupted");
 	}
 }

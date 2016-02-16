@@ -1,49 +1,66 @@
 package org.usfirst.frc.team449.robot.drive.tank;
 
-import org.usfirst.frc.team449.robot.components.PIDPositionMotor;
+import org.usfirst.frc.team449.robot.RobotMap;
+import org.usfirst.frc.team449.robot.components.PIDVelocityMotor;
 import org.usfirst.frc.team449.robot.drive.DriveSubsystem;
 import org.usfirst.frc.team449.robot.drive.tank.commands.DefaultDrive;
 import org.usfirst.frc.team449.robot.drive.tank.components.MotorCluster;
 
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.VictorSP;
 
 /**
  * a Drive subsystem that operates with a tank drive
  */
 public class TankDriveSubsystem extends DriveSubsystem {
-	public PIDPositionMotor rightCluster;
-	public PIDPositionMotor leftCluster;
+	private PIDVelocityMotor rightCluster;
+	private PIDVelocityMotor leftCluster;
 
-	public TankDriveSubsystem() {
+	public TankDriveSubsystem(RobotMap map) {
+		super(map);
 		System.out.println("Drive init started");
+		if (!(map instanceof TankDriveMap)) {
+			System.err.println("TankDrive has a map of class " + map.getClass().getSimpleName() + " and not TankDriveMap");
+		}
 
-		// initialize motor clusters and add slaves]
-		MotorCluster mc = new MotorCluster(3);
-		mc.addSlave(makeMotor(TankDriveMap.Motors.RIGHT1));
-		mc.addSlave(makeMotor(TankDriveMap.Motors.RIGHT2));
-		mc.addSlave(makeMotor(TankDriveMap.Motors.RIGHT3));
-		Encoder enc = new Encoder(TankDriveMap.Encoders.RIGHT.A,
-				TankDriveMap.Encoders.RIGHT.B);
-		enc.setDistancePerPulse(TankDriveMap.Encoders.RIGHT.DPP);
-		rightCluster = new PIDPositionMotor(TankDriveMap.P, TankDriveMap.I,
-				TankDriveMap.D, mc, enc);
-
-		mc = new MotorCluster(3);
-		mc.addSlave(makeMotor(TankDriveMap.Motors.LEFT1));
-		mc.addSlave(makeMotor(TankDriveMap.Motors.LEFT2));
-		mc.addSlave(makeMotor(TankDriveMap.Motors.LEFT3));
-		mc.setInverted(true);
-		enc = new Encoder(TankDriveMap.Encoders.LEFT.A,
-				TankDriveMap.Encoders.LEFT.B);
-		enc.setDistancePerPulse(TankDriveMap.Encoders.LEFT.DPP);
-		leftCluster = new PIDPositionMotor(TankDriveMap.P, TankDriveMap.I,
-				TankDriveMap.D, mc, enc);
-
-		System.out.println("Drive init finished");
+		TankDriveMap tankMap = (TankDriveMap) map;
+		// initialize motor clusters and add slaves
+		VictorSP motor;
+		MotorCluster mc;
+		Encoder enc;
+		// left pid
+		mc = new MotorCluster(tankMap.leftCluster.cluster.motors.length);
+		for (int i = 0; i < tankMap.leftCluster.cluster.motors.length; i++) {
+			motor = new VictorSP(tankMap.leftCluster.cluster.motors[i].PORT);
+			motor.setInverted(tankMap.leftCluster.cluster.motors[i].INVERTED);
+			mc.addSlave(motor);
+		}
+		mc.setInverted(tankMap.leftCluster.cluster.INVERTED);
+		enc = new Encoder(tankMap.leftCluster.encoder.a, tankMap.leftCluster.encoder.b);
+		enc.setDistancePerPulse(tankMap.leftCluster.encoder.dpp);
+		this.leftCluster = new PIDVelocityMotor(tankMap.leftCluster.p, tankMap.leftCluster.i, tankMap.leftCluster.d, mc, enc);
+		// right pid
+		mc = new MotorCluster(tankMap.rightCluster.cluster.motors.length);
+		for (int i = 0; i < tankMap.rightCluster.cluster.motors.length; i++) {
+			motor = new VictorSP(tankMap.rightCluster.cluster.motors[i].PORT);
+			motor.setInverted(tankMap.rightCluster.cluster.motors[i].INVERTED);
+			mc.addSlave(motor);
+		}
+		mc.setInverted(tankMap.rightCluster.cluster.INVERTED);
+		enc = new Encoder(tankMap.rightCluster.encoder.a, tankMap.rightCluster.encoder.b);
+		enc.setDistancePerPulse(tankMap.rightCluster.encoder.dpp);
+		this.rightCluster = new PIDVelocityMotor(tankMap.rightCluster.p, tankMap.rightCluster.i, tankMap.rightCluster.d, mc, enc);
 	}
 
+	/**
+	 * sets the throttle for the left and right clusters as specified by the
+	 * parameters
+	 * 
+	 * @param left
+	 *            the normalized speed between -1 and 1 for the left cluster
+	 * @param right
+	 *            the normalized speed between -1 and 1 for the right cluster
+	 */
 	public void setThrottle(double left, double right) {
 		this.leftCluster.setSetpoint(left);
 		this.rightCluster.setSetpoint(right);
@@ -52,11 +69,5 @@ public class TankDriveSubsystem extends DriveSubsystem {
 	@Override
 	protected void initDefaultCommand() {
 		setDefaultCommand(new DefaultDrive());
-	}
-
-	private SpeedController makeMotor(TankDriveMap.Motors config) {
-		SpeedController motor = new VictorSP(config.PORT);
-		motor.setInverted(config.INVERTED);
-		return motor;
 	}
 }

@@ -5,13 +5,6 @@ import org.usfirst.frc.team449.robot.mechanism.breach.BreachMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-/**
- * Command to lower the breach arm to the "down" position
- * 
- * @author Ryan Tse <ryantse100@gmail.com>
- * @since 2016-01-20
- * 
- */
 public class BreachDown extends Command {
 
 	/**
@@ -26,7 +19,7 @@ public class BreachDown extends Command {
 	}
 
 	protected void execute() {
-		Robot.breach.set(-BreachMap.MOTOR_SPEED_DOWN);
+		Robot.breach.set(-Robot.breach.map.MOTOR_SPEED_DOWN);
 	}
 
 	protected boolean isFinished() {
