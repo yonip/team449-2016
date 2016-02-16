@@ -6,12 +6,9 @@ import org.usfirst.frc.team449.robot.drive.tank.commands.AboutFace;
 import org.usfirst.frc.team449.robot.drive.tank.commands.DriveDistance;
 import org.usfirst.frc.team449.robot.drive.tank.commands.LineUpShot;
 import org.usfirst.frc.team449.robot.drive.tank.commands.ReverseLineUpShot;
-import org.usfirst.frc.team449.robot.mechanism.breach.commands.BreachChivald;
-import org.usfirst.frc.team449.robot.mechanism.breach.commands.BreachLowBar;
-import org.usfirst.frc.team449.robot.mechanism.breach.commands.BreachMoat;
-import org.usfirst.frc.team449.robot.mechanism.breach.commands.BreachPortcullis;
-import org.usfirst.frc.team449.robot.mechanism.breach.commands.BreachRoughTerrain;
-import org.usfirst.frc.team449.robot.mechanism.breach.commands.BreachWall;
+import org.usfirst.frc.team449.robot.mechanism.breach.BreachMap;
+import org.usfirst.frc.team449.robot.mechanism.breach.commands.SetWedgeChivald;
+import org.usfirst.frc.team449.robot.mechanism.breach.commands.SetWedgePortcullis;
 import org.usfirst.frc.team449.robot.mechanism.intake.commands.AutoIntakeOut;
 import org.usfirst.frc.team449.robot.mechanism.intake.commands.AutoShoot;
 
@@ -140,42 +137,17 @@ public class Autonomous extends CommandGroup {
 	private void breachDefense() {
 		switch (Robot.defenseType) {
 		case PORTCULLIS: {
-			new BreachPortcullis();
+			addSequential(new SetWedgePortcullis());
 			break;
 		}
 		case CHEVAL_DE_FRISE: {
-			new BreachChivald();
-			break;
-		}
-		case DRAWBRIDGE: {
-			break;
-		}
-		case LOW_BAR: {
-			new BreachLowBar();
-			break;
-		}
-		case MOAT: {
-			new BreachMoat();
-			break;
-		}
-		case RAMPARTS: {
-			// TODO implement BreachRamparts
-			break;
-		}
-		case ROCK_WALL: {
-			new BreachWall();
-			break;
-		}
-		case ROUGH_TERRAIN: {
-			new BreachRoughTerrain();
-			break;
-		}
-		case SALLY_PORT: {
+			addSequential(new SetWedgeChivald());
 			break;
 		}
 		default: {
 			break;
 		}
 		}
+		addSequential(new DriveDistance(BreachMap.BREACH_DISTANCE));
 	}
 }
