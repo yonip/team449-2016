@@ -6,6 +6,12 @@ import org.usfirst.frc.team449.robot.drive.tank.commands.AboutFace;
 import org.usfirst.frc.team449.robot.drive.tank.commands.DriveDistance;
 import org.usfirst.frc.team449.robot.drive.tank.commands.LineUpShot;
 import org.usfirst.frc.team449.robot.drive.tank.commands.ReverseLineUpShot;
+import org.usfirst.frc.team449.robot.mechanism.breach.commands.BreachChivald;
+import org.usfirst.frc.team449.robot.mechanism.breach.commands.BreachLowBar;
+import org.usfirst.frc.team449.robot.mechanism.breach.commands.BreachMoat;
+import org.usfirst.frc.team449.robot.mechanism.breach.commands.BreachPortcullis;
+import org.usfirst.frc.team449.robot.mechanism.breach.commands.BreachRoughTerrain;
+import org.usfirst.frc.team449.robot.mechanism.breach.commands.BreachWall;
 import org.usfirst.frc.team449.robot.mechanism.intake.commands.AutoIntakeOut;
 import org.usfirst.frc.team449.robot.mechanism.intake.commands.AutoShoot;
 
@@ -24,67 +30,152 @@ public class Autonomous extends CommandGroup {
 	 * Instantiate a new <code>Autonomous</code>
 	 */
 	public Autonomous() {
-		int routine = Robot.autoRoutineChoice;
-		if(routine == 0) executeStrategy0();
-		else if(routine == 1) executeStrategy1();
-		else if(routine == 2) executeStrategy2();
-		else if(routine == 3) executeStrategy3();
-		else if(routine == 4) executeStrategy4();
-		else if(routine == 5) executeStrategy5();
+		switch (Robot.strategy) {
+		case GET: {
+			executeGet();
+			break;
+		}
+		case CROSS: {
+			executeCross();
+			break;
+		}
+		case CROSS_RETURN: {
+			executeCrossReturn();
+			break;
+		}
+		case CROSS_EJECT_RETURN: {
+			executeCrossEjectReturn();
+			break;
+		}
+		case CROSS_PREPARE_SHOT: {
+			executeCrossPrepareShot();
+			break;
+		}
+		case CROSS_SHOOT: {
+			executeCrossShoot();
+			break;
+		}
+		default: {
+			break;
+		}
+		}
 	}
 
 	/**
-	 * Pass defense
+	 * Find the ball and retrieve it from the middle of the field
 	 */
-	private void executeStrategy0() {
-		addSequential(new DriveDistance(RobotMap.DISTANCE_TO_DEFENSE, true)); //Drive to defense
-		addSequential(Robot.breachCommand); //Breach the defense selected in driver station
-		addSequential(new DriveDistance(RobotMap.BREATHING_ROOM, true)); //Drive a bit away from the defense
-	}
-
-	/**
-	 * Pass defense, release ball, and turn around
-	 */
-	private void executeStrategy1() {
-		executeStrategy0(); //Breach
-		addSequential(new AboutFace()); //About face
-		addSequential(new AutoIntakeOut()); //Eject ball
-	}
-	
-	/**
-	 * Pass defense and get in line to shoot (so drivers can easily take over)
-	 */
-	private void executeStrategy2() {
-		executeStrategy0(); //Breach
-		addSequential(new LineUpShot(Robot.defensePosition)); //Lines up shot roughly
-		//TODO Add ultrasonic adjustment.
-	}
-	
-	/**
-	 * Pass defense and shoot
-	 */
-	private void executeStrategy3() {
-		executeStrategy2(); //Breach and get in line to shoot
-		addSequential(new AutoShoot()); //shoot;
-		addSequential(new ReverseLineUpShot(Robot.defensePosition)); //Backs up after shot.
-	}
-	
-	/**
-	 * Pass defense and breach the defense again (best for portcullis, low bar, moat, wall, and cheval)
-	 */
-	private void executeStrategy4() {
-		executeStrategy1(); //Pass defense, release ball, and turn 180 degrees
-		addSequential(new DriveDistance(RobotMap.BREATHING_ROOM, true)); //drive back
-		addSequential(Robot.breachCommand); //breach the same defense as previous
-		addSequential(new DriveDistance(RobotMap.BREATHING_ROOM)); //drive back
-	}
-	
-	/**
-	 * Get the ball from the middle
-	 */
-	private void executeStrategy5() {
+	private void executeGet() {
 		// TODO locate ball
 		// TODO intake ball
 		// TODO turn (optional)
+	}
+
+	/**
+	 * Cross the defense and stay on the other side
+	 */
+	private void executeCross() {
+		driveToDefense();
+		breachDefense();
+		addSequential(new DriveDistance(RobotMap.BREATHING_ROOM, true));
+	}
+
+	/**
+	 * Cross the defense, about face, and drive back, crossing the defense a
+	 * second time
+	 */
+	private void executeCrossReturn() {
+		executeCross();
+		addSequential(new AboutFace());
+		driveBack();
+	}
+
+	/**
+	 * Cross the defense, about face, eject the ball, and drive back, crossing
+	 * the defense a second time
+	 */
+	private void executeCrossEjectReturn() {
+		executeCross();
+		addSequential(new AboutFace());
+		addSequential(new AutoIntakeOut());
+		driveBack();
+	}
+
+	/**
+	 * Cross the defense, about face, and get ready to shoot at a low goal
+	 */
+	private void executeCrossPrepareShot() {
+		executeCross();
+		addSequential(new LineUpShot(Robot.startingPosition));
+		// TODO add ultrasonic adjustment
+	}
+
+	/**
+	 * Cross the defense, about face, and shoot at a low goal
+	 */
+	private void executeCrossShoot() {
+		executeCross();
+		addSequential(new AutoShoot());
+		addSequential(new ReverseLineUpShot(Robot.startingPosition));
+	}
+
+	/**
+	 * Drive up to the defense
+	 */
+	private void driveToDefense() {
+		addSequential(new DriveDistance(RobotMap.DISTANCE_TO_DEFENSE, true));
+	}
+
+	/**
+	 * Return (breaching the defense a second time)
+	 */
+	private void driveBack() {
+		addSequential(new DriveDistance(RobotMap.BREATHING_ROOM, true));
+		breachDefense();
+		addSequential(new DriveDistance(RobotMap.BREATHING_ROOM));
+	}
+
+	/**
+	 * Breach the defense
+	 */
+	private void breachDefense() {
+		switch (Robot.defenseType) {
+		case PORTCULLIS: {
+			new BreachPortcullis();
+			break;
+		}
+		case CHEVAL_DE_FRISE: {
+			new BreachChivald();
+			break;
+		}
+		case DRAWBRIDGE: {
+			break;
+		}
+		case LOW_BAR: {
+			new BreachLowBar();
+			break;
+		}
+		case MOAT: {
+			new BreachMoat();
+			break;
+		}
+		case RAMPARTS: {
+			// TODO implement BreachRamparts
+			break;
+		}
+		case ROCK_WALL: {
+			new BreachWall();
+			break;
+		}
+		case ROUGH_TERRAIN: {
+			new BreachRoughTerrain();
+			break;
+		}
+		case SALLY_PORT: {
+			break;
+		}
+		default: {
+			break;
+		}
+		}
 	}
 }
