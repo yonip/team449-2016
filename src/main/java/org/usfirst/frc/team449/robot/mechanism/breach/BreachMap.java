@@ -19,15 +19,6 @@ public class BreachMap extends MechanismMap {
 		super(json);
 	}
 
-	public static class DoubleSolenoid extends MapObject {
-		public int forward;
-		public int reverse;
-
-		public DoubleSolenoid(JSONObject json, String objPath, Class enclosing) {
-			super(json, objPath, enclosing);
-		}
-	}
-
 	/**
 	 * Port number of the back solenoid's forward state
 	 */

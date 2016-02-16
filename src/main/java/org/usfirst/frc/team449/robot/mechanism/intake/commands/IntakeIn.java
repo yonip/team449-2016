@@ -29,7 +29,7 @@ public class IntakeIn extends Command {
 	 */
 	@Override
 	protected void execute() {
-		Robot.intake.set(((IntakeMap) (Robot.intake.map)).INPUT_SPEED);
+		Robot.intake.setMotorSpeed(((IntakeMap) (Robot.intake.map)).INPUT_SPEED);
 	}
 
 	/**

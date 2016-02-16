@@ -7,9 +7,18 @@ import org.usfirst.frc.team449.robot.mechanism.MechanismMap;
  * a map of constants needed for any form of Drive or its subclasses, and not defined higher in the hierarchy
  */
 public class IntakeMap extends MechanismMap {
-    public Motor motor;
+	public Motor motor;
+	public DoubleSolenoid solenoid;
+	public IRSensor irSensor;
     public double OUTPUT_SPEED;
     public double INPUT_SPEED;
+    // TODO determine how far the ball should be from the US sensor before
+	// stopping <code>IntakeIn</code>
+	/**
+	 * The distance between the infrared sensor and the ball at which
+	 * <code>IntakeIn</code> stops
+	 */
+	public double IN_CLOSE_ENOUGH = 1;
 
     /**
      * creates a new Intake Map based on the configuration in the given json
@@ -19,4 +28,21 @@ public class IntakeMap extends MechanismMap {
     public IntakeMap(JSONObject json) {
         super(json);
     }
+
+	public class IRSensor extends MapObject {
+		public int PORT = 0;
+
+		// TODO determine the voltage-to-distance scale factor
+		/**
+		 * The output voltage to actual distance scale factor (inches/Volt)
+		 */
+		public double SCALE_FACTOR = 1;
+		
+		public IRSensor(JSONObject json, String objPath, Class enclosing) {
+			super(json, objPath, enclosing);
+		}
+
+	}
+
+	
 }
