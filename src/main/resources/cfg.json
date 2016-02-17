@@ -1,40 +1,82 @@
 {
+  "components": {},
+  "MechanismMap": {
+    "IntakeMap": {
+      "components": {
+        "IN_CLOSE_ENOUGH": 1,
+        "Motor": {
+          "instances": {
+            "motor": {
+              "PORT": 3,
+              "INVERTED": false
+            }
+          }
+        },
+        "OUTPUT_SPEED": 0.3,
+        "DoubleSolenoid": {
+          "instances": {
+            "solenoid": {
+              "forward": 1,
+              "reverse": 0
+            }
+          }
+        },
+        "IRSensor": {
+          "instances": {
+            "irSensor": {
+              "PORT": 0
+            }
+          },
+          "SCALE_FACTOR": 0
+        },
+        "INPUT_SPEED": 0.3
+      }
+    },
+    "BreachMap": {
+      "components": {
+        "DoubleSolenoid": {
+          "instances": {
+            "back": {
+              "forward": 5,
+              "reverse": 4
+            },
+            "front": {
+              "forward": 6,
+              "reverse": 7
+            }
+          }
+        }
+      }
+    },
+    "components": {}
+  },
   "DriveMap": {
     "TankDriveMap": {
       "components": {
+        "SPEED": 50,
+        "RADIUS": 12,
         "ClusterPID": {
-          "Encoder": {
-            "dpp": 0
-          },
+          "p": 1,
+          "i": 0,
+          "d": 0,
           "MotorCluster": {
             "Motor[]": {
               "0": {
                 "INVERTED": false
               },
               "1": {
-                "INVERTED": false
+                "INVERTED": true
               },
               "2": {
-                "INVERTED": true
+                "INVERTED": false
               }
             }
           },
-          "d": 0,
-          "i": 0,
           "instances": {
-            "leftCluster": {
-              "Encoder": {
-                "instances": {
-                  "encoder": {
-                    "a": 0,
-                    "b": 1
-                  }
-                }
-              },
+            "rightCluster": {
               "MotorCluster": {
                 "instances": {
                   "cluster": {
-                    "INVERTED": false,
                     "Motor[]": {
                       "instances": {
                         "motors": {
@@ -49,12 +91,43 @@
                           }
                         }
                       }
-                    }
+                    },
+                    "INVERTED": true
+                  }
+                }
+              },
+              "Encoder": {
+                "instances": {
+                  "encoder": {
+                    "a": 0,
+                    "b": 1
                   }
                 }
               }
             },
-            "rightCluster": {
+            "leftCluster": {
+              "MotorCluster": {
+                "instances": {
+                  "cluster": {
+                    "Motor[]": {
+                      "instances": {
+                        "motors": {
+                          "0": {
+                            "PORT": 5
+                          },
+                          "1": {
+                            "PORT": 6
+                          },
+                          "2": {
+                            "PORT": 7
+                          }
+                        }
+                      }
+                    },
+                    "INVERTED": false
+                  }
+                }
+              },
               "Encoder": {
                 "instances": {
                   "encoder": {
@@ -62,85 +135,24 @@
                     "b": 3
                   }
                 }
-              },
-              "MotorCluster": {
-                "instances": {
-                  "cluster": {
-                    "INVERTED": true,
-                    "Motor[]": {
-                      "instances": {
-                        "motors": {
-                          "0": {
-                            "PORT": 3
-                          },
-                          "1": {
-                            "PORT": 4
-                          },
-                          "2": {
-                            "PORT": 5
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
               }
             }
           },
-          "p": 0
-        },
-        "SPEED": 0
-      }
-    },
-    "components": {}
-  },
-  "MechanismMap": {
-    "BreachMap": {
-      "components": {
-        "LimitSwitch": {
-          "instances": {
-            "lower": {
-              "PORT": 4
-            },
-            "upper": {
-              "PORT": 5
-            }
-          }
-        },
-        "Motor": {
-          "instances": {
-            "motor": {
-              "INVERTED": false,
-              "PORT": 6
-            }
+          "Encoder": {
+            "dpp": 0.0078125
           }
         }
-      }
-    },
-    "IntakeMap": {
-      "components": {
-        "INPUT_SPEED": 0,
-        "Motor": {
-          "instances": {
-            "motor": {
-              "INVERTED": false,
-              "PORT": 7
-            }
-          }
-        },
-        "OUTPUT_SPEED": 0
       }
     },
     "components": {}
   },
   "OIMap": {
     "components": {
-      "INTAKE_IN": 2,
-      "INTAKE_JOYSTICK": 0,
-      "INTAKE_OUT": 3,
+      "RIGHT_DRIVE_STICK": 3,
       "LEFT_DRIVE_STICK": 1,
-      "RIGHT_DRIVE_STICK": 0
+      "INTAKE_JOYSTICK": 2,
+      "INTAKE_OUT": 4,
+      "INTAKE_IN": 2
     }
-  },
-  "components": {}
+  }
 }

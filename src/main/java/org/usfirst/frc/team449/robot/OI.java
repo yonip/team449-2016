@@ -17,30 +17,37 @@ public class OI/*vey*/ {
     private Joystick leftDriveJoystick;
     private Joystick rightDriveJoystick;
 	private Joystick intakeJoystick;
+	
+	private Joystick gamecube;
 
     public OI(OIMap map) {
         this.map = map;
 
-		leftDriveJoystick = new Joystick(map.LEFT_DRIVE_STICK);
+		/*leftDriveJoystick = new Joystick(map.LEFT_DRIVE_STICK);
         rightDriveJoystick = new Joystick(map.RIGHT_DRIVE_STICK);
-        intakeJoystick = new Joystick(map.INTAKE_JOYSTICK);
+        intakeJoystick = new Joystick(map.INTAKE_JOYSTICK);*/
+        
+        gamecube = new Joystick(map.INTAKE_JOYSTICK);
 
-        Button intakeIn = new JoystickButton(intakeJoystick, map.INTAKE_IN);
-        Button intakeOut = new JoystickButton(intakeJoystick, map.INTAKE_OUT);
+        Button intakeIn = new JoystickButton(gamecube, map.INTAKE_IN);
+        Button intakeOut = new JoystickButton(gamecube, map.INTAKE_OUT);
         
         intakeIn.toggleWhenPressed(new IntakeIn());
         intakeOut.whileHeld(new IntakeOut());
     }
 
 	public double getDriveAxisLeft() {
-		return this.leftDriveJoystick.getAxis(Joystick.AxisType.kY);
+		//return this.leftDriveJoystick.getAxis(Joystick.AxisType.kY);
+		return this.gamecube.getRawAxis(map.LEFT_DRIVE_STICK);
 	}
 
 	public double getDriveAxisRight() {
-		return this.rightDriveJoystick.getAxis(Joystick.AxisType.kY);
+		//return this.rightDriveJoystick.getAxis(Joystick.AxisType.kY);
+		return this.gamecube.getRawAxis(map.RIGHT_DRIVE_STICK);
 	}
 
 	public boolean isDriveStraightMode() {
-		return this.leftDriveJoystick.getTrigger() || this.rightDriveJoystick.getTrigger();
+		//return this.leftDriveJoystick.getTrigger() || this.rightDriveJoystick.getTrigger();
+		return false;
 	}
 }

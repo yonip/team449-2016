@@ -9,15 +9,15 @@ import org.json.JSONObject;
 
 public class OIMap extends RobotMap {
 
-    public int LEFT_DRIVE_STICK = 1;
+    public int LEFT_DRIVE_STICK;
 
-    public int RIGHT_DRIVE_STICK = 0;
+    public int RIGHT_DRIVE_STICK;
 
-    public int INTAKE_JOYSTICK = RIGHT_DRIVE_STICK;
+    public int INTAKE_JOYSTICK;
 
-    public int INTAKE_IN = 2;
+    public int INTAKE_IN;
 
-    public int INTAKE_OUT = 3;
+    public int INTAKE_OUT;
 
     /**
      * creates a new Map based on the configuration in the given json
