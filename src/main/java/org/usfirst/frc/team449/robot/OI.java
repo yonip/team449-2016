@@ -1,5 +1,7 @@
 package org.usfirst.frc.team449.robot;
 
+import org.usfirst.frc.team449.robot.mechanism.breach.commands.BreachChivald;
+import org.usfirst.frc.team449.robot.mechanism.breach.commands.BreachStowed;
 import org.usfirst.frc.team449.robot.mechanism.intake.commands.IntakeIn;
 import org.usfirst.frc.team449.robot.mechanism.intake.commands.IntakeOut;
 
@@ -31,9 +33,16 @@ public class OI/*vey*/ {
 
         Button intakeIn = new JoystickButton(gamecube, map.INTAKE_IN);
         Button intakeOut = new JoystickButton(gamecube, map.INTAKE_OUT);
-        
+        Button intakeToggle = new JoystickButton(gamecube, 8);
+        Button breachChival = new JoystickButton(gamecube, 1);
+        Button breachPortcullis = new JoystickButton(gamecube, 3);
+        Button breachClose = new JoystickButton(gamecube, 10);
+
         intakeIn.toggleWhenPressed(new IntakeIn());
         intakeOut.whileHeld(new IntakeOut());
+        
+        breachChival.whenPressed(new BreachChivald());
+        breachClose.whenPressed(new BreachStowed());
     }
 
 	public double getDriveAxisLeft() {

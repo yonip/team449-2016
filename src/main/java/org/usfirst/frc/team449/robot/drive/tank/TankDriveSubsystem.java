@@ -39,6 +39,10 @@ public class TankDriveSubsystem extends DriveSubsystem {
 		enc = new Encoder(tankMap.leftCluster.encoder.a, tankMap.leftCluster.encoder.b);
 		enc.setDistancePerPulse(tankMap.leftCluster.encoder.dpp);
 		this.leftCluster = new PIDVelocityMotor(tankMap.leftCluster.p, tankMap.leftCluster.i, tankMap.leftCluster.d, mc, enc);
+		this.leftCluster.setOutputRange(-1, 1);
+		this.leftCluster.setInputRange(-tankMap.SPEED, tankMap.SPEED);
+		this.leftCluster.setPercentTolerance(5);
+		this.leftCluster.enable();
 		// right pid
 		mc = new MotorCluster(tankMap.rightCluster.cluster.motors.length);
 		for (int i = 0; i < tankMap.rightCluster.cluster.motors.length; i++) {
@@ -50,6 +54,10 @@ public class TankDriveSubsystem extends DriveSubsystem {
 		enc = new Encoder(tankMap.rightCluster.encoder.a, tankMap.rightCluster.encoder.b);
 		enc.setDistancePerPulse(tankMap.rightCluster.encoder.dpp);
 		this.rightCluster = new PIDVelocityMotor(tankMap.rightCluster.p, tankMap.rightCluster.i, tankMap.rightCluster.d, mc, enc);
+		this.rightCluster.setOutputRange(-1, 1);
+		this.rightCluster.setInputRange(-tankMap.SPEED, tankMap.SPEED);
+		this.rightCluster.setPercentTolerance(5);
+		this.rightCluster.enable();
 	}
 
 	/**
@@ -62,6 +70,7 @@ public class TankDriveSubsystem extends DriveSubsystem {
 	 *            the normalized speed between -1 and 1 for the right cluster
 	 */
 	public void setThrottle(double left, double right) {
+		//System.out.println(left + " " + right);
 		this.leftCluster.setSetpoint(left);
 		this.rightCluster.setSetpoint(right);
 	}
@@ -69,5 +78,10 @@ public class TankDriveSubsystem extends DriveSubsystem {
 	@Override
 	protected void initDefaultCommand() {
 		setDefaultCommand(new DefaultDrive());
+	}
+	
+	public void enable() {
+		this.rightCluster.enable();
+		this.leftCluster.enable();
 	}
 }

@@ -28,7 +28,7 @@ public abstract class RobotMap {
      */
     public RobotMap(JSONObject json) {
         try {
-            Field[] fields = this.getClass().getDeclaredFields();
+            Field[] fields = this.getClass().getFields();
             Map<String, Class> inners = new HashMap<>();
             Class[] classes = this.getClass().getClasses();
             for (Class c : classes) {
@@ -96,7 +96,7 @@ public abstract class RobotMap {
          */
         public MapObject(JSONObject json, String objPath, Class enclosing) {
             try {
-                Field[] fields = this.getClass().getDeclaredFields();
+                Field[] fields = this.getClass().getFields();
                 Map<String, Class> inners = new HashMap<>();
                 Class[] classes = enclosing.getClasses();
                 for (Class c : classes) {
@@ -131,6 +131,7 @@ public abstract class RobotMap {
                         for (int i = 0; i < ln; i++) {
                             arr[i] = moConst.newInstance(json, path + f.getName() + "[" + i + "]", enclosing);
                         }
+                        f.set(this, arr);
 
                     } else {
                         Constructor moConst = inners.get(type).getConstructor(JSONObject.class, String.class, Class.class);
@@ -500,7 +501,11 @@ public abstract class RobotMap {
             try {
                 return obj.getDouble(split[split.length - 1]); // ok exists, now get me the int. or -1 if it's not there
             } catch (JSONException e) {
-                throw new ParserException("Field doesn't exist", e);
+            	try {
+            		return obj.getInt(split[split.length - 1]);
+            	} catch (JSONException e1) {
+                    throw new ParserException("Field doesn't exist", e1);
+            	}
             }
         }
         // maybe it's an int, so I cant pretend it's an double?

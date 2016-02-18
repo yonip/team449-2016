@@ -77,6 +77,7 @@ public class IntakeIn extends Command {
 	 */
 	@Override
 	protected void interrupted() {
+		Robot.intake.setMotorSpeed(0);
 		System.out.println("ItakeIn interrupted");
 	}
 }

@@ -9,6 +9,7 @@ import org.usfirst.frc.team449.robot.mechanism.breach.BreachSubsystem;
 import org.usfirst.frc.team449.robot.mechanism.intake.IntakeMap;
 import org.usfirst.frc.team449.robot.mechanism.intake.IntakeSubsystem;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
@@ -20,21 +21,21 @@ public class Robot extends IterativeRobot {
     /**
      * the JSONObject containing the configuration for this robot
      */
-    private static JSONObject cfg = MappedSubsystem.readConfig("src/main/resources/cfg.json");
+    private static JSONObject cfg;
     /**
      * reference to this robot's Drive subsystem. Any command that uses this field will cast it to the Drive implementation it uses
      */
-    public static final DriveSubsystem drive = new TankDriveSubsystem(new TankDriveMap(cfg));
+    public static DriveSubsystem drive;
     /**
      * reference to this robot's Intake subsystem.
      */
-    public static final IntakeSubsystem intake = new IntakeSubsystem(new IntakeMap(cfg));
+    public static IntakeSubsystem intake;
 
-    public static final BreachSubsystem breach = new BreachSubsystem(new BreachMap(cfg));
+    public static BreachSubsystem breach;
     /**
      * reference to this robot's OI (Operator Interface)
      */
-    public static final OI oi = new OI(new OIMap(cfg));
+    public static OI oi;
 
 
     
@@ -52,7 +53,11 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void robotInit() {
-    	
+    	cfg = MappedSubsystem.readConfig("cfg.json");
+    	drive = new TankDriveSubsystem(new TankDriveMap(cfg));
+    	intake = new IntakeSubsystem(new IntakeMap(cfg));
+    	breach = new BreachSubsystem(new BreachMap(cfg));
+    	oi = new OI(new OIMap(cfg));
     }
     
     @Override
@@ -67,7 +72,6 @@ public class Robot extends IterativeRobot {
     
     @Override
     public void teleopInit() {
-    	
     }
     
     @Override

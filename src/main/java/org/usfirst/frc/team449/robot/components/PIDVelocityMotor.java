@@ -2,6 +2,7 @@ package org.usfirst.frc.team449.robot.components;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * a PID controller to control a motor's velocity through PID via the
@@ -20,10 +21,11 @@ public class PIDVelocityMotor extends PIDComponent {
 	 * that for a stationary robot, in the absence of external forces, 0 signal
 	 * to the motor will result in no wheel movement.
 	 */
-	private double zeroTolerance; // speed at which speed ~= 0
+	private double zeroTolerance = 0; // speed at which speed ~= 0
 
 	public PIDVelocityMotor(double p, double i, double d, SpeedController motor, Encoder encoder) {
 		super(p, i, d);
+		SmartDashboard.putNumber("p", p);
 		this.motor = motor;
 		this.encoder = encoder;
 	}
@@ -38,6 +40,8 @@ public class PIDVelocityMotor extends PIDComponent {
 	 */
 	@Override
 	protected double returnPIDInput() {
+		SmartDashboard.putNumber("pid", encoder.getRate());
+		SmartDashboard.putNumber("setpoint", getSetpoint());
 		return encoder.getRate();
 	}
 
@@ -81,11 +85,14 @@ public class PIDVelocityMotor extends PIDComponent {
 	 */
 	@Override
 	protected void usePIDOutput(double v) {
+		System.out.println(v);
 		this.integratedVelocity += v * 0.020; // mult by delta t
 		this.integratedVelocity = Math.max(-1, Math.min(1, this.integratedVelocity));
 		if (getSetpoint() == 0 && Math.abs(returnPIDInput()) < zeroTolerance) {
 			this.integratedVelocity = 0;
 		}
 		this.motor.pidWrite(integratedVelocity);
+		SmartDashboard.putNumber("delv", v);
+		SmartDashboard.putNumber("vel", integratedVelocity);
 	}
 }
