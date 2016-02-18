@@ -11,6 +11,7 @@ import org.usfirst.frc.team449.robot.mechanism.breach.commands.SetWedgeChivald;
 import org.usfirst.frc.team449.robot.mechanism.breach.commands.SetWedgePortcullis;
 import org.usfirst.frc.team449.robot.mechanism.intake.commands.AutoIntakeOut;
 import org.usfirst.frc.team449.robot.mechanism.intake.commands.AutoShoot;
+import org.usfirst.frc.team449.robot.mechanism.intake.commands.IntakeIn;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -63,8 +64,12 @@ public class Autonomous extends CommandGroup {
 	 */
 	private void executeGet() {
 		// TODO locate ball
-		// TODO intake ball
+		//(field is 26.7by54.1 ft.This is assuming that the robot starts 3 ft and 9.5 inches away fromthe ball/midline)
+		addSequential(new DriveDistance((54.1/2)-3.8));
+		// TODO intake ball 1
+		addSequential(new IntakeIn());
 		// TODO turn (optional)
+	
 	}
 
 	/**
