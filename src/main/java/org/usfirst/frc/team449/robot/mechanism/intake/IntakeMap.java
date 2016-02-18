@@ -29,7 +29,7 @@ public class IntakeMap extends MechanismMap {
         super(json);
     }
 
-	public class IRSensor extends MapObject {
+	public static class IRSensor extends MapObject {
 		public int PORT = 0;
 
 		// TODO determine the voltage-to-distance scale factor
