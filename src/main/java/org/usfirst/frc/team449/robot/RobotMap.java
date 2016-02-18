@@ -440,7 +440,7 @@ public abstract class RobotMap {
             return ((Number) temp).intValue();
         }
         // maybe it's an int hiding as a string
-        if (temp instanceof String && ((String) temp).matches("-?\\d+")) {
+        if (temp instanceof String && ((String) temp).matches("^-?\\d+$")) {
             return Integer.parseInt((String) temp);
         }
         // well ok how did you get here? what even are you?
@@ -461,9 +461,6 @@ public abstract class RobotMap {
         Object temp = obj;
         JSONArray arr = null;
         for (int i = 0; i < split.length - 1; i++) {
-            if (temp instanceof JSONArray) {
-                throw new ParserException("Trying to delve deeper into fields of JSONArray, which is impossible");
-            }
             if (!(temp instanceof JSONObject)) { // only JSONObjects here. JSONArrays should be done and anything else is useless
                 System.err.println("Reached an impossible state in strictGetDouble");
                 throw new FatalParserException("Reached an impossible state while parsing (next object to parse is not a JSONObject)");
@@ -511,7 +508,7 @@ public abstract class RobotMap {
             return ((Number) temp).doubleValue();
         }
         // maybe it's an double hiding as a string
-        if (temp instanceof String && ((String) temp).matches("-?\\d+(\\.\\d+)?")) {
+        if (temp instanceof String && ((String) temp).matches("^-?\\d+(\\.\\d+)?$")) {
             return Double.parseDouble((String) temp);
         }
         // well ok how did you get here? what even are you?
@@ -531,9 +528,6 @@ public abstract class RobotMap {
         Object temp = obj;
         JSONArray arr = null;
         for (int i = 0; i < split.length - 1; i++) {
-            if (temp instanceof JSONArray) {
-                throw new ParserException("Trying to delve deeper into fields of JSONArray, which is impossible");
-            }
             if (!(temp instanceof JSONObject)) { // only JSONObjects here. JSONArrays should be done and anything else is useless
                 System.err.println("Reached an impossible state in strictGetBoolean " + path + " " + split[i] + " " + temp);
                 throw new FatalParserException("Reached an impossible state while parsing (next object to parse is not a JSONObject)");
@@ -571,12 +565,12 @@ public abstract class RobotMap {
         if (temp instanceof JSONObject) {
             obj = (JSONObject) temp;
             try {
-                return obj.getBoolean(split[split.length - 1]); // ok exists, now get me the int. or -1 if it's not there
+                return obj.getBoolean(split[split.length - 1]); // ok exists, now get me the boolean
             } catch (JSONException e) {
                 throw new ParserException("Field doesn't exist", e);
             }
         }
-        // maybe it's an int, so I cant pretend it's an int?
+        // maybe it's a boolean, so I cant pretend it's a boolean?
         if (temp.equals(Boolean.FALSE) || (temp instanceof String && ((String) temp).equalsIgnoreCase("false"))) {
             return false;
         } else if (temp.equals(Boolean.TRUE) || (temp instanceof String && ((String) temp).equalsIgnoreCase("true"))) {
