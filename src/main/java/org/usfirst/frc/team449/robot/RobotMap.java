@@ -422,7 +422,11 @@ public abstract class RobotMap {
         if (temp instanceof JSONObject) {
             obj = (JSONObject) temp;
             if (split[split.length - 1].equals("length")) {
-                return obj.length();
+                int l = 0;
+                while (obj.has(""+l)) {
+                    l++;
+                }
+                return l;
             } else {
                 try {
                     return obj.getInt(split[split.length - 1]); // ok exists, now get me the int. or -4 if it's not there
