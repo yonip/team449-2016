@@ -27,7 +27,7 @@ public class IntakeUp extends Command {
 
 	@Override
 	protected void execute() {
-		Robot.intake.setSolenoidReverse();
+		Robot.intake.setSolenoidForward();
 	}
 
 	@Override
