@@ -1,7 +1,10 @@
 package org.usfirst.frc.team449.robot.mechanism.intake;
 
 import org.usfirst.frc.team449.robot.RobotMap;
+import org.usfirst.frc.team449.robot.components.SmoothedValue;
 import org.usfirst.frc.team449.robot.mechanism.MechanismSubsystem;
+import org.usfirst.frc.team449.robot.mechanism.intake.commands.UpdateUS;
+
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SpeedController;
@@ -23,26 +26,50 @@ public class IntakeSubsystem extends MechanismSubsystem {
 	private DoubleSolenoid solenoid;
 
 	/**
-	 * The infrared rangefinding sensor's <code>AnalogInput<code> channel
+	 * The left ultrasonic rangefinding sensor's <code>AnalogInput<code> channel
 	 */
-	private AnalogInput irSensor;
+	public AnalogInput leftChannel;
+
+	/**
+	 * The right ultrasonic rangefinding sensor's
+	 * <code>AnalogInput<code> channel
+	 */
+	public AnalogInput rightChannel;
+
+	/**
+	 * The left ultrasonic rangefinder's <code>Value</code>
+	 */
+	public SmoothedValue leftVal;
+
+	/**
+	 * The right ultrasonic rangefinder's <code>Value</code>
+	 */
+	public SmoothedValue rightVal;
 
 	public IntakeSubsystem(RobotMap map) {
 		super(map);
 		System.out.println("Intake init started");
 
 		if (!(map instanceof IntakeMap)) {
-			System.err.println("Intake has a map of class " + map.getClass().getSimpleName() + " and not IntakeMap");
+			System.err.println("Intake has a map of class "
+					+ map.getClass().getSimpleName() + " and not IntakeMap");
 		}
-		
+
 		IntakeMap intakeMap = (IntakeMap) map;
 
 		this.mainMotor = new VictorSP(intakeMap.motor.PORT);
 		this.mainMotor.setInverted(intakeMap.motor.INVERTED);
-		
-		solenoid = new DoubleSolenoid(intakeMap.solenoid.forward, intakeMap.solenoid.reverse);
-		irSensor = new AnalogInput(intakeMap.irSensor.PORT);
-		
+
+		solenoid = new DoubleSolenoid(intakeMap.solenoid.forward,
+				intakeMap.solenoid.reverse);
+		// usLeft = new AnalogInput(intakeMap.irSensor.PORT);
+
+		leftChannel = new AnalogInput(0);
+		rightChannel = new AnalogInput(1);
+
+		leftVal = new SmoothedValue(1);
+		rightVal = new SmoothedValue(1);
+
 		System.out.println("Intake init finished");
 	}
 
@@ -70,17 +97,27 @@ public class IntakeSubsystem extends MechanismSubsystem {
 		solenoid.set(DoubleSolenoid.Value.kReverse);
 	}
 
-	private double getBallDistance() {
-		IntakeMap intakeMap = (IntakeMap) map;
-		return irSensor.getVoltage() * intakeMap.irSensor.SCALE_FACTOR;
+	public double getValLeft() {
+		return 0.0982 * leftChannel.getValue() + 2.2752;
 	}
 
-	public boolean getCloseEnough() {
-		IntakeMap intakeMap = (IntakeMap) map;
-		return getBallDistance() <= intakeMap.IN_CLOSE_ENOUGH;
+	public double getValRight() {
+		return 0.0497 * rightChannel.getValue() - 0.2725;
+	}
+
+	public void updateVals() {
+		leftVal.set(leftChannel.getValue());
+		rightVal.set(rightChannel.getValue());
+	}
+
+	public double getAngle() {
+		double y = Math.abs(getValLeft() - getValRight());
+		double x = 24; // 2 feet apart
+		return Math.toDegrees(Math.atan2(y, x));
 	}
 
 	@Override
 	public void initDefaultCommand() {
+		setDefaultCommand(new UpdateUS());
 	}
 }
