@@ -202,10 +202,29 @@ public abstract class RobotMap {
          * the d value for the pid controller
          */
         public double d;
+    	/**
+    	 * the percent error around the setpoint that is "close enough" and requires no more tuning (20 for 20%)
+    	 */
+    	public double percentTolerance;
 
         public PID(JSONObject json, String path, Class enclosing) {
             super(json, path, enclosing);
         }
+    }
+    
+    public static abstract class VelocityPID extends PID {
+    	/**
+    	 * radius of the range of values around zero, that when read from the encoder when setpoint is 0 results in velocity being 0
+    	 */
+    	public double zeroTolerance;
+    	/**
+    	 * the maximum delta velocity from the controller
+    	 */
+    	public double outputRange;
+    	
+    	public VelocityPID(JSONObject json, String path, Class enclosing) {
+    		super(json, path, enclosing);
+    	}
     }
 
     /**

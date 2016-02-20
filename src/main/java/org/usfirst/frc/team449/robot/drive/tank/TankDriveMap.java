@@ -43,7 +43,7 @@ public class TankDriveMap extends DriveMap {
     /**
      * a map for a PID controller that has a MotorCluster, and a single encoder
      */
-    public static class ClusterPID extends PID {
+    public static class ClusterPID extends VelocityPID {
         /** the MotorCluster controlled by this PID controller */
         public MotorCluster cluster;
         /** the Encoder used for control in this PID controller */
