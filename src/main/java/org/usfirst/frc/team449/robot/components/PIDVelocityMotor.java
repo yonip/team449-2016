@@ -12,6 +12,7 @@ public class PIDVelocityMotor extends PIDComponent {
 	private SpeedController motor;
 	private Encoder encoder;
 	private double integratedVelocity = 0;
+	private String velName;
 	/**
 	 * This defines the deadband around zero which, when read from
 	 * {@link #returnPIDInput()}, will be result in no signal to the motor when
@@ -23,11 +24,11 @@ public class PIDVelocityMotor extends PIDComponent {
 	 */
 	private double zeroTolerance = 0; // speed at which speed ~= 0
 
-	public PIDVelocityMotor(double p, double i, double d, SpeedController motor, Encoder encoder) {
+	public PIDVelocityMotor(double p, double i, double d, SpeedController motor, Encoder encoder, String name) {
 		super(p, i, d);
-		SmartDashboard.putNumber("p", p);
 		this.motor = motor;
 		this.encoder = encoder;
+		this.velName = name;
 	}
 
 	/**
@@ -40,8 +41,8 @@ public class PIDVelocityMotor extends PIDComponent {
 	 */
 	@Override
 	protected double returnPIDInput() {
-		SmartDashboard.putNumber("pid", encoder.getRate());
-		SmartDashboard.putNumber("setpoint", getSetpoint());
+		SmartDashboard.putNumber(velName + " enc", encoder.getRate());
+		SmartDashboard.putNumber(velName + " setp", getSetpoint());
 		return encoder.getRate();
 	}
 
@@ -85,14 +86,16 @@ public class PIDVelocityMotor extends PIDComponent {
 	 */
 	@Override
 	protected void usePIDOutput(double v) {
-		System.out.println(v);
 		this.integratedVelocity += v * 0.020; // mult by delta t
 		this.integratedVelocity = Math.max(-1, Math.min(1, this.integratedVelocity));
 		if (getSetpoint() == 0 && Math.abs(returnPIDInput()) < zeroTolerance) {
 			this.integratedVelocity = 0;
 		}
 		this.motor.pidWrite(integratedVelocity);
-		SmartDashboard.putNumber("delv", v);
-		SmartDashboard.putNumber("vel", integratedVelocity);
+		SmartDashboard.putNumber(velName + " intvel", integratedVelocity);
+		SmartDashboard.putNumber(velName + " delv", v);
+		SmartDashboard.putNumber(velName + " ztol", zeroTolerance);
+		SmartDashboard.putNumber(velName + " enc", returnPIDInput());
+		SmartDashboard.putNumber(velName + " setp", getSetpoint());
 	}
 }

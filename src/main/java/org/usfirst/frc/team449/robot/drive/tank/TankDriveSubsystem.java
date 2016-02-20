@@ -38,10 +38,11 @@ public class TankDriveSubsystem extends DriveSubsystem {
 		mc.setInverted(tankMap.leftCluster.cluster.INVERTED);
 		enc = new Encoder(tankMap.leftCluster.encoder.a, tankMap.leftCluster.encoder.b);
 		enc.setDistancePerPulse(tankMap.leftCluster.encoder.dpp);
-		this.leftCluster = new PIDVelocityMotor(tankMap.leftCluster.p, tankMap.leftCluster.i, tankMap.leftCluster.d, mc, enc);
-		this.leftCluster.setOutputRange(-1, 1);
+		this.leftCluster = new PIDVelocityMotor(tankMap.leftCluster.p, tankMap.leftCluster.i, tankMap.leftCluster.d, mc, enc, "left");
+		this.leftCluster.setOutputRange(-tankMap.leftCluster.outputRange, tankMap.leftCluster.outputRange);
 		this.leftCluster.setInputRange(-tankMap.SPEED, tankMap.SPEED);
-		this.leftCluster.setPercentTolerance(5);
+		this.leftCluster.setPercentTolerance(tankMap.leftCluster.percentTolerance);
+		this.leftCluster.setZeroTolerance(tankMap.leftCluster.zeroTolerance);
 		this.leftCluster.enable();
 		// right pid
 		mc = new MotorCluster(tankMap.rightCluster.cluster.motors.length);
@@ -53,10 +54,11 @@ public class TankDriveSubsystem extends DriveSubsystem {
 		mc.setInverted(tankMap.rightCluster.cluster.INVERTED);
 		enc = new Encoder(tankMap.rightCluster.encoder.a, tankMap.rightCluster.encoder.b);
 		enc.setDistancePerPulse(tankMap.rightCluster.encoder.dpp);
-		this.rightCluster = new PIDVelocityMotor(tankMap.rightCluster.p, tankMap.rightCluster.i, tankMap.rightCluster.d, mc, enc);
-		this.rightCluster.setOutputRange(-1, 1);
+		this.rightCluster = new PIDVelocityMotor(tankMap.rightCluster.p, tankMap.rightCluster.i, tankMap.rightCluster.d, mc, enc, "right");
+		this.rightCluster.setOutputRange(-tankMap.rightCluster.outputRange, tankMap.rightCluster.outputRange);
 		this.rightCluster.setInputRange(-tankMap.SPEED, tankMap.SPEED);
-		this.rightCluster.setPercentTolerance(5);
+		this.rightCluster.setPercentTolerance(tankMap.rightCluster.percentTolerance);
+		this.rightCluster.setZeroTolerance(tankMap.rightCluster.zeroTolerance);
 		this.rightCluster.enable();
 	}
 
