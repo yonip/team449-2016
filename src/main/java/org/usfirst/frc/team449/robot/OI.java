@@ -7,6 +7,7 @@ import org.usfirst.frc.team449.robot.mechanism.intake.commands.IntakeDown;
 import org.usfirst.frc.team449.robot.mechanism.intake.commands.IntakeIn;
 import org.usfirst.frc.team449.robot.mechanism.intake.commands.IntakeOut;
 import org.usfirst.frc.team449.robot.mechanism.intake.commands.IntakeUp;
+import org.usfirst.frc.team449.robot.vision.commands.ToggleCamera;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -46,7 +47,8 @@ public class OI/*vey*/ {
         Button cameraToggle = new JoystickButton(gamecube, 9); // new
         Button driveStraightVel = new JoystickButton(gamecube, 6); // new
         //Button driveStraightPos = new JoystickButton(gamecube, 5); // new        
-
+        Button toggleCamera = new JoystickButton(intakeJoystick, 5);
+        
         intakeIn.toggleWhenPressed(new IntakeIn());
         intakeOut.whileHeld(new IntakeOut());
         // TODO intakeToggle command
@@ -56,6 +58,8 @@ public class OI/*vey*/ {
         breachChival.whenPressed(new BreachChivald());
         breachPortcullis.whenPressed(new BreachPortcullis()); // new
         breachClose.whenPressed(new BreachStowed());
+        
+        toggleCamera.whenPressed(new ToggleCamera());
         
 //        cameraToggle.whenActive(new );
     }

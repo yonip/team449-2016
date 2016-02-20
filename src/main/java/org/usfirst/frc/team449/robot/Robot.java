@@ -8,6 +8,7 @@ import org.usfirst.frc.team449.robot.mechanism.breach.BreachMap;
 import org.usfirst.frc.team449.robot.mechanism.breach.BreachSubsystem;
 import org.usfirst.frc.team449.robot.mechanism.intake.IntakeMap;
 import org.usfirst.frc.team449.robot.mechanism.intake.IntakeSubsystem;
+import org.usfirst.frc.team449.robot.vision.VisionSubsystem;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -32,6 +33,10 @@ public class Robot extends IterativeRobot {
     public static IntakeSubsystem intake;
 
     public static BreachSubsystem breach;
+	/**
+	 * 
+	 */
+	public static VisionSubsystem vision;
     /**
      * reference to this robot's OI (Operator Interface)
      */
@@ -57,6 +62,7 @@ public class Robot extends IterativeRobot {
     	drive = new TankDriveSubsystem(new TankDriveMap(cfg));
     	intake = new IntakeSubsystem(new IntakeMap(cfg));
     	breach = new BreachSubsystem(new BreachMap(cfg));
+    	vision = new VisionSubsystem();
     	oi = new OI(new OIMap(cfg));
     }
     
