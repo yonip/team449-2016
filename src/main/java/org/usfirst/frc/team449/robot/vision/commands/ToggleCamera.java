@@ -20,7 +20,7 @@ public class ToggleCamera extends Command {
 	 * Instantiate a ToggleCamera command
 	 */
 	public ToggleCamera() {
-		requires(Robot.vision);
+		//requires(Robot.vision);
 	}
 
 	@Override

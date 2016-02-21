@@ -25,7 +25,7 @@ public class OI/*vey*/ {
 	private Joystick intakeJoystick;
 	
 	private Joystick gamecube;
-	private double db = 0.01;
+	private double db = 0.02;
 
     public OI(OIMap map) {
         this.map = map;
@@ -39,15 +39,13 @@ public class OI/*vey*/ {
         Button intakeIn = new JoystickButton(gamecube, map.INTAKE_IN);
         Button intakeOut = new JoystickButton(gamecube, map.INTAKE_OUT);
         //Button intakeToggle = new JoystickButton(gamecube, 8);
-        Button intakeUp = new JoystickButton(gamecube, 8);
-        Button intakeDown = new JoystickButton(gamecube, 7);
-        Button breachChival = new JoystickButton(gamecube, 1);
-        Button breachPortcullis = new JoystickButton(gamecube, 3);
-        Button breachClose = new JoystickButton(gamecube, 10);
-        Button cameraToggle = new JoystickButton(gamecube, 9); // new
-        Button driveStraightVel = new JoystickButton(gamecube, 6); // new
-        //Button driveStraightPos = new JoystickButton(gamecube, 5); // new        
-        Button toggleCamera = new JoystickButton(intakeJoystick, 5);
+        Button intakeUp = new JoystickButton(gamecube, map.INTAKE_UP);
+        Button intakeDown = new JoystickButton(gamecube, map.INTAKE_DOWN);
+        Button breachChival = new JoystickButton(gamecube, map.BREACH_CHIVAL);
+        Button breachPortcullis = new JoystickButton(gamecube, map.BREACH_PORTCULLIS);
+        Button breachClose = new JoystickButton(gamecube, map.BREACH_CLOSE);
+        Button cameraToggle = new JoystickButton(gamecube, map.CAMERA_TOGGLE);
+        Button driveStraightVel = new JoystickButton(gamecube, map.DRIVE_STRAIGHT);
         
         intakeIn.toggleWhenPressed(new IntakeIn());
         intakeOut.whileHeld(new IntakeOut());
@@ -59,18 +57,17 @@ public class OI/*vey*/ {
         breachPortcullis.whenPressed(new BreachPortcullis()); // new
         breachClose.whenPressed(new BreachStowed());
         
-        toggleCamera.whenPressed(new ToggleCamera());
-        
-//        cameraToggle.whenActive(new );
+        //cameraToggle.whenPressed(new ToggleCamera());
     }
 
 	public double getDriveAxisLeft() {
 		//return this.leftDriveJoystick.getAxis(Joystick.AxisType.kY);
-		double ret= -this.gamecube.getRawAxis(map.LEFT_DRIVE_STICK);
+		double ret= this.gamecube.getRawAxis(map.LEFT_DRIVE_STICK);
 		if (Math.abs(ret) < db) {
 			return 0;
 		}
-		return ret;
+		
+		return quad(ret);
 	}
 
 	public double getDriveAxisRight() {
@@ -79,11 +76,16 @@ public class OI/*vey*/ {
 		if (Math.abs(ret) < db) {
 			return 0;
 		}
-		return ret;
+		return quad(ret);
 	}
 
 	public boolean isDriveStraightMode() {
-		//return this.leftDriveJoystick.getTrigger() || this.rightDriveJoystick.getTrigger();
-		return false;
+		return this.gamecube.getRawButton(map.DRIVE_STRAIGHT);
+	}
+	
+	private static double quad(double inp) {
+		int sign = (inp < 0) ? -1 : 1;
+		inp = sign * inp;
+		return sign * inp * inp * inp;
 	}
 }

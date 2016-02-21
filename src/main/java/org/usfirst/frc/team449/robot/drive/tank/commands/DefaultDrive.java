@@ -29,7 +29,7 @@ public class DefaultDrive extends Command {
 		rightThrottle = Robot.oi.getDriveAxisRight() * ((TankDriveMap) (Robot.drive.map)).SPEED;
 
 		if (Robot.oi.isDriveStraightMode()) {
-			leftThrottle = rightThrottle;
+			leftThrottle = -rightThrottle;
 		}
 		// pushing forward on the stick gives -1 so it is negated
 		((TankDriveSubsystem) Robot.drive).setThrottle(leftThrottle, rightThrottle);

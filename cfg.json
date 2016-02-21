@@ -56,11 +56,11 @@
         "SPEED": 50.0,
         "RADIUS": 12,
         "ClusterPID": {
-          "p": 0.1,
+          "p": 0.4,
           "i": 0,
           "d": 0,
           "zeroTolerance": 5,
-          "outputRange": 5,
+          "outputRange": 50,
           "percentTolerance": 20,
           "MotorCluster": {
             "Motor[]": {
@@ -156,6 +156,13 @@
       "INTAKE_JOYSTICK": 2,
       "INTAKE_OUT": 4,
       "INTAKE_IN": 2,
+      "INTAKE_UP": 8,
+      "INTAKE_DOWN": 7,
+      "BREACH_CHIVAL": 1,
+      "BREACH_PORTCULLIS": 3,
+      "BREACH_CLOSE": 10,
+      "CAMERA_TOGGLE": 9,
+      "DRIVE_STRAIGHT": 7
     }
   }
 }

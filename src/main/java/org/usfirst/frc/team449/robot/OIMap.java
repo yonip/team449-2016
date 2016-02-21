@@ -18,7 +18,21 @@ public class OIMap extends RobotMap {
     public int INTAKE_IN;
 
     public int INTAKE_OUT;
-
+    
+    public int INTAKE_UP;
+    
+    public int INTAKE_DOWN;
+    
+    public int BREACH_CHIVAL;
+    
+    public int BREACH_PORTCULLIS;
+    
+    public int BREACH_CLOSE;
+    
+    public int CAMERA_TOGGLE;
+    
+    public int DRIVE_STRAIGHT;
+    
     /**
      * creates a new Map based on the configuration in the given json
      * any maps in here are to be shared across all subsystems
