@@ -5,5 +5,5 @@ public class VisionMap {
 	/**
 	 * Names of the cameras (from the roborio web interface)
 	 */
-	public static String[] CAMERA_NAMES = { "cam0", "cam1" };
+	public static String[] CAMERA_NAMES = { "cam1", "cam2" };
 }

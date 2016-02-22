@@ -20,7 +20,7 @@ public class Tester {
     public static void main(String[] args) {
         JSONObject jo = null;
         try {
-            jo = new JSONObject(new String(Files.readAllBytes((new File("cfg.json")).toPath()), StandardCharsets.UTF_8));
+            jo = new JSONObject(new String(Files.readAllBytes((new File("src/main/resources/cfg.json")).toPath()), StandardCharsets.UTF_8));
         } catch (IOException e) {
             e.printStackTrace(); // if this happens, we're fucked
         }

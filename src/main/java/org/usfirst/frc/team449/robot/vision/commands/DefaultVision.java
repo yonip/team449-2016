@@ -21,7 +21,7 @@ public class DefaultVision extends Command {
 	 * Instantiate a ToggleCamera command
 	 */
 	public DefaultVision() {
-		//requires(Robot.vision);
+		requires(Robot.vision);
 	}
 
 

@@ -36,24 +36,20 @@ public class VisionSubsystem extends Subsystem {
 	 * Instantiate a new <code>VisionSubsystem</code>
 	 */
 	public VisionSubsystem() {
-		try {
-			System.out.println("Vision init started");
+		System.out.println("Vision init started");
 
-			sessions = new int[VisionMap.CAMERA_NAMES.length];
-			sessionPtr = 0;
-			frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
+		sessions = new int[VisionMap.CAMERA_NAMES.length];
+		sessionPtr = 0;
+		frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
 
-			for (int i = 0; i < VisionMap.CAMERA_NAMES.length; i++) {
-				sessions[i] = NIVision
-						.IMAQdxOpenCamera(
-								VisionMap.CAMERA_NAMES[i],
-								NIVision.IMAQdxCameraControlMode.CameraControlModeController);
-			}
-			NIVision.IMAQdxStartAcquisition(sessions[sessionPtr]);
-			NIVision.IMAQdxConfigureGrab(sessions[sessionPtr]);
-		} catch (Exception e) {
-			e.printStackTrace();
+		for (int i = 0; i < VisionMap.CAMERA_NAMES.length; i++) {
+			sessions[i] = NIVision
+					.IMAQdxOpenCamera(
+							VisionMap.CAMERA_NAMES[i],
+							NIVision.IMAQdxCameraControlMode.CameraControlModeController);
 		}
+		NIVision.IMAQdxStartAcquisition(sessions[sessionPtr]);
+		NIVision.IMAQdxConfigureGrab(sessions[sessionPtr]);
 	}
 
 	public Image getFrame() {

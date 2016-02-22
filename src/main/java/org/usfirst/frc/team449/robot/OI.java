@@ -26,6 +26,7 @@ public class OI/*vey*/ {
 	
 	private Joystick gamecube;
 	private double db = 0.02;
+	private int sign = 1;
 
     public OI(OIMap map) {
         this.map = map;
@@ -57,12 +58,12 @@ public class OI/*vey*/ {
         breachPortcullis.whenPressed(new BreachPortcullis()); // new
         breachClose.whenPressed(new BreachStowed());
         
-        //cameraToggle.whenPressed(new ToggleCamera());
+        cameraToggle.whenPressed(new ToggleCamera());
     }
 
 	public double getDriveAxisLeft() {
 		//return this.leftDriveJoystick.getAxis(Joystick.AxisType.kY);
-		double ret= this.gamecube.getRawAxis(map.LEFT_DRIVE_STICK);
+		double ret= sign*this.gamecube.getRawAxis(map.LEFT_DRIVE_STICK);
 		if (Math.abs(ret) < db) {
 			return 0;
 		}
@@ -72,7 +73,7 @@ public class OI/*vey*/ {
 
 	public double getDriveAxisRight() {
 		//return this.rightDriveJoystick.getAxis(Joystick.AxisType.kY);
-		double ret = -this.gamecube.getRawAxis(map.RIGHT_DRIVE_STICK);
+		double ret = sign*-this.gamecube.getRawAxis(map.RIGHT_DRIVE_STICK);
 		if (Math.abs(ret) < db) {
 			return 0;
 		}
@@ -87,5 +88,9 @@ public class OI/*vey*/ {
 		int sign = (inp < 0) ? -1 : 1;
 		inp = sign * inp;
 		return sign * inp * inp * inp;
+	}
+	
+	public void toggle() {
+		//this.sign = -this.sign;
 	}
 }

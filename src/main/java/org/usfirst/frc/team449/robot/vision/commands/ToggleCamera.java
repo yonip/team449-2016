@@ -20,7 +20,7 @@ public class ToggleCamera extends Command {
 	 * Instantiate a ToggleCamera command
 	 */
 	public ToggleCamera() {
-		//requires(Robot.vision);
+		requires(Robot.vision);
 	}
 
 	@Override
@@ -32,6 +32,7 @@ public class ToggleCamera extends Command {
 		// start capture from new session
 		NIVision.IMAQdxConfigureGrab(Robot.vision.sessions[Robot.vision.sessionPtr]);
 		NIVision.IMAQdxStartAcquisition(Robot.vision.sessions[Robot.vision.sessionPtr]);
+		Robot.oi.toggle();
 	}
 
 	@Override
