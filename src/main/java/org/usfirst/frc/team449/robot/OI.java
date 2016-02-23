@@ -64,20 +64,15 @@ public class OI/*vey*/ {
 	public double getDriveAxisLeft() {
 		//return this.leftDriveJoystick.getAxis(Joystick.AxisType.kY);
 		double ret= sign*this.gamecube.getRawAxis(map.LEFT_DRIVE_STICK);
-		if (Math.abs(ret) < db) {
-			return 0;
-		}
 		
-		return quad(ret);
+		return process(ret);
 	}
 
 	public double getDriveAxisRight() {
 		//return this.rightDriveJoystick.getAxis(Joystick.AxisType.kY);
 		double ret = sign*-this.gamecube.getRawAxis(map.RIGHT_DRIVE_STICK);
-		if (Math.abs(ret) < db) {
-			return 0;
-		}
-		return quad(ret);
+
+		return process(ret);
 	}
 
 	public boolean isDriveStraightMode() {
@@ -89,7 +84,25 @@ public class OI/*vey*/ {
 		inp = sign * inp;
 		return sign * inp * inp * inp;
 	}
-	
+
+    public double process(double input) {
+        int sign = (input < 0) ? -1 : 1; // get the sign of the input
+        input *= sign; // get the absolute value
+        // if in the deadband, return 0
+        if (input < map.DEADBAND) {
+            return 0;
+        }
+        return sign * (map.MAX_VALUE/(1-Math.pow(map.DEADBAND, map.POWER)))*(Math.pow(input, map.POWER) - Math.pow(map.DEADBAND, map.POWER));
+        /*
+         *      sign * max
+         *  ------------------ * (|input|^n - d^n)
+         *  1-(deadband)^power
+         *
+         *  where sign is the sign of the input
+         *  this makes a smooth joytick curve, according to szabo
+         */
+    }
+
 	public void toggle() {
 		//this.sign = -this.sign;
 	}

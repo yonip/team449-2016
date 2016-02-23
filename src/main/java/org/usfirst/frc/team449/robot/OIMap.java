@@ -32,6 +32,12 @@ public class OIMap extends RobotMap {
     public int CAMERA_TOGGLE;
     
     public int DRIVE_STRAIGHT;
+
+    public double DEADBAND;
+
+    public double POWER;
+
+    public double MAX_VALUE;
     
     /**
      * creates a new Map based on the configuration in the given json

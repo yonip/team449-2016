@@ -162,7 +162,10 @@
       "BREACH_PORTCULLIS": 3,
       "BREACH_CLOSE": 10,
       "CAMERA_TOGGLE": 9,
-      "DRIVE_STRAIGHT": 6
+      "DRIVE_STRAIGHT": 6,
+      "DEADBAND": 0.02,
+      "POWER": 2,
+      "MAX_VALUE": 0.75
     }
   }
 }
