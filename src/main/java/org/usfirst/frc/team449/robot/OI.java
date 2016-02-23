@@ -78,12 +78,6 @@ public class OI/*vey*/ {
 	public boolean isDriveStraightMode() {
 		return this.gamecube.getRawButton(map.DRIVE_STRAIGHT);
 	}
-	
-	private static double quad(double inp) {
-		int sign = (inp < 0) ? -1 : 1;
-		inp = sign * inp;
-		return sign * inp * inp * inp;
-	}
 
     public double process(double input) {
         int sign = (input < 0) ? -1 : 1; // get the sign of the input
@@ -95,11 +89,11 @@ public class OI/*vey*/ {
         return sign * (map.MAX_VALUE/(1-Math.pow(map.DEADBAND, map.POWER)))*(Math.pow(input, map.POWER) - Math.pow(map.DEADBAND, map.POWER));
         /*
          *      sign * max
-         *  ------------------ * (|input|^n - d^n)
+         *  ------------------ * (|input|^n - deadband^power)
          *  1-(deadband)^power
          *
          *  where sign is the sign of the input
-         *  this makes a smooth joytick curve, according to szabo
+         *  this makes a smooth joystick curve, according to szabo
          */
     }
 
