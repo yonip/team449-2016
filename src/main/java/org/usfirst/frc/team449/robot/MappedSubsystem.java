@@ -32,10 +32,10 @@ public abstract class MappedSubsystem extends Subsystem {
      */
     public static JSONObject readConfig(String path) {
         URL fileUrl = MappedSubsystem.class.getResource("/" + path);
-        if (fileUrl == null) {
-            DriverStation.reportWarning("Using cached jsonString for json config", false);
-            return new JSONObject(jsonString);
-        }
+//        if (fileUrl == null) {
+//            DriverStation.reportWarning("Using cached jsonString for json config", false);
+//            return new JSONObject(jsonString);
+//        }
         path = fileUrl.getFile().replaceAll("/", "\\");
         //System.out.println(path);
         //System.out.println(new File(".").getAbsolutePath());
