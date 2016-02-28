@@ -25,13 +25,6 @@
   <property file="build.properties"/>
   <property file="${user.home}/wpilib/java/${version}/ant/build.properties"/>
   
-  <target name="deploy" depends="copy-deploy,wpi-deploy"/>
-  <target name="wpi-deploy">
-    <ant antfile="${wpilib.ant.dir}/build.xml" target="deploy"/>
-  </target>
-  <target name="copy-deploy">
-    <ant antfile="copier.xml" target="deploy"/>
-  </target>
-  
   <import file="${wpilib.ant.dir}/build.xml"/>
+
 </project> 

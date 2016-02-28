@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="cfg-copier" default="deploy">
+
+  <!-- Targets (stolen from wpilib deploy) -->
+
+  <target name="get-target-ip">
+    <property name="ant.enable.asserts" value="true"/>
+        <assert name="team-number" exists="true" message="Team number not set. Go to Window->Preferences->WPILib Preferences to set it."/>
+    <property name="target" value="roboRIO-${team-number}-FRC.local" />
+        <echo>Trying Target: ${target}</echo>
+         <if>
+                <isreachable host="${target}" timeout="5"/>
+          <then>
+                <echo>roboRIO found via mDNS</echo>
+          </then>
+          <else>
+                <var name="target" unset="true"/>
+                <echo> roboRIO not found via mDNS, falling back to static USB</echo>
+                <property name="target" value="172.22.11.2"/>
+                <if>
+                        <isreachable host="${target}" timeout="5"/>
+                  <then>
+                        <echo>roboRIO found via static USB</echo>
+                  </then>
+                  <else>
+                        <var name="target" unset="true"/>
+                        <math result="ip.upper" operand1="${team-number}" operation="/" operand2="100" datatype="int"/>
+                        <math result="ip.lower" operand1="${team-number}" operation="%" operand2="100" datatype="int"/>
+                        <property name="target" value="10.${ip.upper}.${ip.lower}.2"/>
+                        <echo>roboRIO not found via USB, falling back to static address of ${target}</echo>
+                        <assert name="roboRIOFound" message="roboRIO not found, please check that the roboRIO is connected, imaged and that the team number is set properly in Eclipse">
+                                <bool>
+                                        <isreachable host="${target}" timeout="5"/>
+                                </bool>
+                        </assert>
+                        <echo>roboRIO found via Ethernet static</echo>
+                  </else>
+                </if>
+          </else>
+         </if>
+  </target>
+
+  <target name="deploy" depends="get-target-ip" description="Copy the config over">
+    <echo>[copier] Copying file over.</echo>
+    <scp file="${resource.dir}/${cfg.json}" todir="${username}@${target}:${deploy.dir}" password="${password}" trust="true"/>
+  	<sshexec host="${target}"
+  	    username="${username}"
+  	    password="${password}"
+  	    trust="true"
+  	    failonerror="true"
+  	    command="sed -i 's/\r//' ${deploy.dir}/${cfg.json}"/>
+  </target>
+</project>

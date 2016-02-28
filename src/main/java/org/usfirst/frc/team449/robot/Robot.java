@@ -59,14 +59,20 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		try {
-			cfg = MappedSubsystem.readConfig("cfg.json");
+			cfg = MappedSubsystem.readConfig("/home/lvuser/cfg.json");
 			drive = new TankDriveSubsystem(new TankDriveMap(cfg));
 			intake = new IntakeSubsystem(new IntakeMap(cfg));
 			breach = new BreachSubsystem(new BreachMap(cfg));
 			vision = new VisionSubsystem();
 			oi = new OI(new OIMap(cfg));
 		} catch (Exception e) {
-			DriverStation.reportError(e.getMessage(), true);
+			String s = e.getMessage();
+			StackTraceElement[] arr = e.getStackTrace();
+			for (StackTraceElement el : arr) {
+				s += "\n  " + el.toString();
+			}
+			DriverStation.reportError(s, false);
+			System.exit(1);
 		}
 	}
 
