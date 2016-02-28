@@ -26,10 +26,20 @@
               "PORT": 0
             },
             "rightIR": {
-              "PORT": 0
+              "PORT": 1
+            }
+          },
+          "SCALE_FACTOR": 1,
+          "IN_CLOSE_ENOUGH": 1
+        },
+        "Ultrasonic": {
+          "instances": {
+            "leftUltrasonic": {
+              "PORT": 2
             },
-            "SCALE_FACTOR": 1,
-            "IN_CLOSE_ENOUGH": 1
+            "rightUltrasonic": {
+              "PORT": 3
+            }
           }
         },
         "INPUT_SPEED": 1

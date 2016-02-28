@@ -70,8 +70,8 @@ public class IntakeSubsystem extends MechanismSubsystem {
 		this.leftIR = new AnalogInput(intakeMap.leftIR.PORT);
 		this.rightIR = new AnalogInput(intakeMap.rightIR.PORT);
 		
-		leftChannel = new AnalogInput(0);
-		rightChannel = new AnalogInput(1);
+		leftChannel = new AnalogInput(intakeMap.leftUltrasonic.PORT);
+		rightChannel = new AnalogInput(intakeMap.rightUltrasonic.PORT);
 
 		leftVal = new SmoothedValue(1);
 		rightVal = new SmoothedValue(1);

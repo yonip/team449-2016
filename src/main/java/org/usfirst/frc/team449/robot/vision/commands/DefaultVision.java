@@ -23,7 +23,7 @@ public class DefaultVision extends Command {
 
 	@Override
 	protected void initialize() {
-		CameraServer.getInstance().setQuality(10);
+//		CameraServer.getInstance().setQuality(10);
 		System.out.println("ToggleCamera init");
 	}
 

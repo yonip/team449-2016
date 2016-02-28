@@ -13,6 +13,8 @@ public class IntakeMap extends MechanismMap {
 	public IRSensor rightIR;
     public double OUTPUT_SPEED;
     public double INPUT_SPEED;
+    public Ultrasonic leftUltrasonic;
+    public Ultrasonic rightUltrasonic;
     
 
     /**
@@ -46,5 +48,11 @@ public class IntakeMap extends MechanismMap {
 
 	}
 
-	
+	public static class Ultrasonic extends MapObject {
+		public int PORT;
+		
+		public Ultrasonic(JSONObject json, String objPath, Class enclosing) {
+			super(json, objPath, enclosing);
+		}
+	}
 }
