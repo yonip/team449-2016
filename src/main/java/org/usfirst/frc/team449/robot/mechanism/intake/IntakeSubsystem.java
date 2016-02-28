@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * a class for intake using a single motor (probably connected to a roller)
@@ -46,9 +47,9 @@ public class IntakeSubsystem extends MechanismSubsystem {
 	 */
 	private SmoothedValue rightVal;
 	
-	private AnalogInput irLeft;
+	private AnalogInput leftIR;
 	
-	private AnalogInput irRight;
+	private AnalogInput rightIR;
 
 	public IntakeSubsystem(RobotMap map) {
 		super(map);
@@ -66,8 +67,9 @@ public class IntakeSubsystem extends MechanismSubsystem {
 
 		solenoid = new DoubleSolenoid(intakeMap.solenoid.forward,
 				intakeMap.solenoid.reverse);
-		// usLeft = new AnalogInput(intakeMap.irSensor.PORT);
-
+		this.leftIR = new AnalogInput(intakeMap.leftIR.PORT);
+		this.rightIR = new AnalogInput(intakeMap.rightIR.PORT);
+		
 		leftChannel = new AnalogInput(0);
 		rightChannel = new AnalogInput(1);
 
@@ -120,6 +122,16 @@ public class IntakeSubsystem extends MechanismSubsystem {
 		return Math.toDegrees(Math.atan2(y, x));
 	}
 
+	/**
+	 * checks on the infrareds whether they sense the ball or not
+	 * @return true if at least one IR is sensing the ball, false otherwise
+	 */
+	public boolean findBall() {
+		SmartDashboard.putNumber("right ir", rightIR.getAverageVoltage());
+		SmartDashboard.putNumber("left ir", leftIR.getAverageVoltage());
+		return false;
+	}
+	
 	@Override
 	public void initDefaultCommand() {
 		setDefaultCommand(new UpdateUS());

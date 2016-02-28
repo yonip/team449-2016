@@ -47,7 +47,7 @@ public class IntakeIn extends Command {
 	 */
 	@Override
 	protected boolean isFinished() {
-		return false;
+		return Robot.intake.findBall();
 	}
 
 	/**
@@ -57,6 +57,7 @@ public class IntakeIn extends Command {
 	 */
 	@Override
 	protected void end() {
+		Robot.intake.setMotorSpeed(0);
 		System.out.println("IntakeIn end");
 	}
 

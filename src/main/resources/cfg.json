@@ -3,7 +3,6 @@
   "MechanismMap": {
     "IntakeMap": {
       "components": {
-        "IN_CLOSE_ENOUGH": 1,
         "Motor": {
           "instances": {
             "motor": {
@@ -23,11 +22,15 @@
         },
         "IRSensor": {
           "instances": {
-            "irSensor": {
+            "leftIR": {
               "PORT": 0
-            }
-          },
-          "SCALE_FACTOR": 0
+            },
+            "rightIR": {
+              "PORT": 0
+            },
+            "SCALE_FACTOR": 1,
+            "IN_CLOSE_ENOUGH": 1
+          }
         },
         "INPUT_SPEED": 1
       }
@@ -53,7 +56,7 @@
   "DriveMap": {
     "TankDriveMap": {
       "components": {
-        "SPEED": 50.0,
+        "SPEED": 50,
         "RADIUS": 12,
         "ClusterPID": {
           "p": 0.4,
