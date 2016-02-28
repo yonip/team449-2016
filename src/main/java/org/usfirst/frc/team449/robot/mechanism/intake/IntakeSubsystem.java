@@ -28,23 +28,27 @@ public class IntakeSubsystem extends MechanismSubsystem {
 	/**
 	 * The left ultrasonic rangefinding sensor's <code>AnalogInput<code> channel
 	 */
-	public AnalogInput leftChannel;
+	private AnalogInput leftChannel;
 
 	/**
 	 * The right ultrasonic rangefinding sensor's
 	 * <code>AnalogInput<code> channel
 	 */
-	public AnalogInput rightChannel;
+	private AnalogInput rightChannel;
 
 	/**
 	 * The left ultrasonic rangefinder's <code>Value</code>
 	 */
-	public SmoothedValue leftVal;
+	private SmoothedValue leftVal;
 
 	/**
 	 * The right ultrasonic rangefinder's <code>Value</code>
 	 */
-	public SmoothedValue rightVal;
+	private SmoothedValue rightVal;
+	
+	private AnalogInput irLeft;
+	
+	private AnalogInput irRight;
 
 	public IntakeSubsystem(RobotMap map) {
 		super(map);

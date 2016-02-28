@@ -1,9 +1,6 @@
 package org.usfirst.frc.team449.robot.vision.commands;
 
 import org.usfirst.frc.team449.robot.Robot;
-import org.usfirst.frc.team449.robot.vision.VisionMap;
-
-import com.ni.vision.NIVision;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.command.Command;
@@ -24,11 +21,10 @@ public class DefaultVision extends Command {
 		requires(Robot.vision);
 	}
 
-
 	@Override
 	protected void initialize() {
+		CameraServer.getInstance().setQuality(10);
 		System.out.println("ToggleCamera init");
-		
 	}
 
 	@Override
