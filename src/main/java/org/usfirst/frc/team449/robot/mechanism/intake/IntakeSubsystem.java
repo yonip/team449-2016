@@ -72,7 +72,7 @@ public class IntakeSubsystem extends MechanismSubsystem {
 		
 		leftChannel = new AnalogInput(intakeMap.leftUltrasonic.PORT);
 		rightChannel = new AnalogInput(intakeMap.rightUltrasonic.PORT);
-
+		
 		leftVal = new SmoothedValue(1);
 		rightVal = new SmoothedValue(1);
 
@@ -127,9 +127,13 @@ public class IntakeSubsystem extends MechanismSubsystem {
 	 * @return true if at least one IR is sensing the ball, false otherwise
 	 */
 	public boolean findBall() {
-		SmartDashboard.putNumber("right ir", rightIR.getAverageVoltage());
-		SmartDashboard.putNumber("left ir", leftIR.getAverageVoltage());
-		return false;
+		double right = rightIR.getAverageVoltage();
+		double left = leftIR.getAverageVoltage();
+		IntakeMap intakeMap = (IntakeMap) map;
+		SmartDashboard.putNumber("right ir voltage", right);
+		SmartDashboard.putNumber("left ir voltage", left);
+		return (intakeMap.rightIR.LOWER_BOUND < right && right < intakeMap.rightIR.UPPER_BOUND)
+				|| (intakeMap.leftIR.LOWER_BOUND < left && left < intakeMap.leftIR.UPPER_BOUND);
 	}
 	
 	@Override

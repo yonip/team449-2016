@@ -29,18 +29,14 @@ public class IntakeMap extends MechanismMap {
 	public static class IRSensor extends MapObject {
 		public int PORT;
 
-		// TODO determine the voltage-to-distance scale factor
 		/**
-		 * The output voltage to actual distance scale factor (inches/Volt)
+		 * Minimum value at which IntakeIn should stop
 		 */
-		public double SCALE_FACTOR;
-		// TODO determine how far the ball should be from the US sensor before
-		// stopping <code>IntakeIn</code>
+		public double LOWER_BOUND;
 		/**
-		 * The distance between the infrared sensor and the ball at which
-		 * <code>IntakeIn</code> stops
+		 * Maximum value at which IntakeIn should stop
 		 */
-		public double IN_CLOSE_ENOUGH;
+		public double UPPER_BOUND;
 		
 		public IRSensor(JSONObject json, String objPath, Class enclosing) {
 			super(json, objPath, enclosing);

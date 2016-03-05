@@ -29,8 +29,8 @@
               "PORT": 1
             }
           },
-          "SCALE_FACTOR": 1,
-          "IN_CLOSE_ENOUGH": 1
+          "LOWER_BOUND": 0.6,
+          "UPPER_BOUND": 3.2
         },
         "Ultrasonic": {
           "instances": {
