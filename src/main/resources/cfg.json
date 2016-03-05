@@ -166,7 +166,7 @@
     "components": {
       "RIGHT_DRIVE_STICK": 3,
       "LEFT_DRIVE_STICK": 1,
-      "INTAKE_JOYSTICK": 2,
+      "MAIN_CONTROLLER": 0,
       "INTAKE_OUT": 4,
       "INTAKE_IN": 2,
       "INTAKE_UP": 8,

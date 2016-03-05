@@ -35,7 +35,7 @@ public class OI/*vey*/ {
         rightDriveJoystick = new Joystick(map.RIGHT_DRIVE_STICK);
         intakeJoystick = new Joystick(map.INTAKE_JOYSTICK);*/
         
-        gamecube = new Joystick(map.INTAKE_JOYSTICK);
+        gamecube = new Joystick(map.MAIN_CONTROLLER);
 
         Button intakeIn = new JoystickButton(gamecube, map.INTAKE_IN);
         Button intakeOut = new JoystickButton(gamecube, map.INTAKE_OUT);
