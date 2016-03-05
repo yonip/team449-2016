@@ -1,28 +1,19 @@
 <xml version="1.0">
 <dashboard>
-	<widget field="vel" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="632"/>
+	<widget field="left ir voltage" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="185" y="265"/>
 	</widget>
-	<widget field="setpoint" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="611"/>
+	<widget field="right ir voltage" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="390" y="262"/>
 	</widget>
 	<widget field="right" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="590"/>
-	</widget>
-	<widget field="pid" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="569"/>
-	</widget>
-	<widget field="p" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="548"/>
+		<location x="278" y="84"/>
 	</widget>
 	<widget field="left" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="527"/>
-	</widget>
-	<widget field="delv" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="21" y="506"/>
+		<location x="284" y="111"/>
 	</widget>
 	<widget field="angle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="21" y="485"/>
+		<location x="275" y="54"/>
 	</widget>
 	<widget field="left enc" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="438" y="85"/>
@@ -61,10 +52,16 @@
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.ConnectionIndicator">
 		<location x="0" y="0"/>
 	</static-widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.ConnectionIndicator">
+		<location x="0" y="0"/>
+	</static-widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.ConnectionIndicator">
+		<location x="0" y="0"/>
+	</static-widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.WebcamViewerExtension">
-		<location x="325" y="196"/>
-		<width>971</width>
-		<height>473</height>
+		<location x="950" y="-1"/>
+		<width>958</width>
+		<height>709</height>
 	</static-widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.ConnectionIndicator">
 		<location x="0" y="0"/>
@@ -72,4 +69,9 @@
 </dashboard>
 <live-window>
 </live-window>
+	<hidden field="p"/>
+	<hidden field="setpoint"/>
+	<hidden field="delv"/>
+	<hidden field="pid"/>
+	<hidden field="vel"/>
 </xml>
