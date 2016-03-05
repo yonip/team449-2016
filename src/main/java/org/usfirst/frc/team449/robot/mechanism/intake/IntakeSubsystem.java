@@ -3,6 +3,7 @@ package org.usfirst.frc.team449.robot.mechanism.intake;
 import org.usfirst.frc.team449.robot.RobotMap;
 import org.usfirst.frc.team449.robot.components.SmoothedValue;
 import org.usfirst.frc.team449.robot.mechanism.MechanismSubsystem;
+import org.usfirst.frc.team449.robot.mechanism.intake.commands.IntakeIn;
 import org.usfirst.frc.team449.robot.mechanism.intake.commands.UpdateUS;
 
 import edu.wpi.first.wpilibj.AnalogInput;
@@ -50,6 +51,8 @@ public class IntakeSubsystem extends MechanismSubsystem {
 	private AnalogInput leftIR;
 	
 	private AnalogInput rightIR;
+	
+	private boolean ignoreIR;
 
 	public IntakeSubsystem(RobotMap map) {
 		super(map);
@@ -75,6 +78,8 @@ public class IntakeSubsystem extends MechanismSubsystem {
 		
 		leftVal = new SmoothedValue(1);
 		rightVal = new SmoothedValue(1);
+		
+		ignoreIR = false;
 
 		System.out.println("Intake init finished");
 	}
@@ -134,6 +139,28 @@ public class IntakeSubsystem extends MechanismSubsystem {
 		SmartDashboard.putNumber("left ir voltage", left);
 		return (intakeMap.rightIR.LOWER_BOUND < right && right < intakeMap.rightIR.UPPER_BOUND)
 				|| (intakeMap.leftIR.LOWER_BOUND < left && left < intakeMap.leftIR.UPPER_BOUND);
+	}
+	
+	
+	/**
+	 * Toggles whether the robot is going to ignore the IR values that it's receiving.
+	 * If ignoreIR is false, the robot will only stop {@link IntakeIn IntakeIn} when the
+	 * user presses the button that initialized the command again. If it's true, the
+	 * command will stop when the IR detects the ball.
+	 */
+	public void toggleIgnoreIR() {
+		ignoreIR = !ignoreIR;
+	}
+	
+	/**
+	 * Checks whether the robot is "ignoring IR".
+	 * If ignoreIR is false, the robot will only stop {@link IntakeIn IntakeIn} when the
+	 * user presses the button that initialized the command again. If it's true, the
+	 * command will stop when the IR detects the ball.
+	 * @return whether the IR sensor is being ignored.
+	 */
+	public boolean isIgnoringIR() {
+		return ignoreIR;
 	}
 	
 	@Override

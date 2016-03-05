@@ -47,7 +47,10 @@ public class IntakeIn extends Command {
 	 */
 	@Override
 	protected boolean isFinished() {
-		return Robot.intake.findBall();
+		if (Robot.intake.isIgnoringIR())
+			return false;
+		else
+			return Robot.intake.findBall();
 	}
 
 	/**

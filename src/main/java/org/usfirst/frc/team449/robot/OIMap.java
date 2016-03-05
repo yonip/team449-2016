@@ -14,6 +14,8 @@ public class OIMap extends RobotMap {
     public int RIGHT_DRIVE_STICK;
 
     public int MAIN_CONTROLLER;
+    
+    public int MANUAL_OVERRIDES;
 
     public int INTAKE_IN;
 
@@ -32,6 +34,8 @@ public class OIMap extends RobotMap {
     public int CAMERA_TOGGLE;
     
     public int DRIVE_STRAIGHT;
+    
+    public int IGNORE_IR;
 
     public double DEADBAND;
 

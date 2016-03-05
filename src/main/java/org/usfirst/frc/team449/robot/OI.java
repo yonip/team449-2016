@@ -7,6 +7,7 @@ import org.usfirst.frc.team449.robot.mechanism.intake.commands.IntakeDown;
 import org.usfirst.frc.team449.robot.mechanism.intake.commands.IntakeIn;
 import org.usfirst.frc.team449.robot.mechanism.intake.commands.IntakeOut;
 import org.usfirst.frc.team449.robot.mechanism.intake.commands.IntakeUp;
+import org.usfirst.frc.team449.robot.mechanism.intake.commands.ToggleIgnoreIR;
 import org.usfirst.frc.team449.robot.vision.commands.ToggleCamera;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -23,6 +24,7 @@ public class OI/*vey*/ {
     private Joystick leftDriveJoystick;
     private Joystick rightDriveJoystick;
 	private Joystick intakeJoystick;
+	private Joystick manualOverrides;
 	
 	private Joystick gamecube;
 	private double db = 0.02;
@@ -36,10 +38,10 @@ public class OI/*vey*/ {
         intakeJoystick = new Joystick(map.INTAKE_JOYSTICK);*/
         
         gamecube = new Joystick(map.MAIN_CONTROLLER);
+        manualOverrides = new Joystick(map.MANUAL_OVERRIDES);
 
         Button intakeIn = new JoystickButton(gamecube, map.INTAKE_IN);
         Button intakeOut = new JoystickButton(gamecube, map.INTAKE_OUT);
-        //Button intakeToggle = new JoystickButton(gamecube, 8);
         Button intakeUp = new JoystickButton(gamecube, map.INTAKE_UP);
         Button intakeDown = new JoystickButton(gamecube, map.INTAKE_DOWN);
         Button breachChival = new JoystickButton(gamecube, map.BREACH_CHIVAL);
@@ -47,6 +49,8 @@ public class OI/*vey*/ {
         Button breachClose = new JoystickButton(gamecube, map.BREACH_CLOSE);
         Button cameraToggle = new JoystickButton(gamecube, map.CAMERA_TOGGLE);
         Button driveStraightVel = new JoystickButton(gamecube, map.DRIVE_STRAIGHT);
+        
+        Button ignoreIR = new JoystickButton(manualOverrides, map.IGNORE_IR);
         
         intakeIn.toggleWhenPressed(new IntakeIn());
         intakeOut.whileHeld(new IntakeOut());
@@ -59,6 +63,8 @@ public class OI/*vey*/ {
         breachClose.whenPressed(new BreachStowed());
         
         cameraToggle.whenPressed(new ToggleCamera());
+        
+        ignoreIR.whenPressed(new ToggleIgnoreIR());
     }
 
 	public double getDriveAxisLeft() {
