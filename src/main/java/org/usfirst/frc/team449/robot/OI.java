@@ -17,60 +17,65 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * the Operator Interface, includes access to all joysticks and any other for of
  * input from the drivers
  */
-public class OI/*vey*/ {
-    private OIMap map;
+public class OI/* vey */{
+	private OIMap map;
 
-    private Joystick leftDriveJoystick;
-    private Joystick rightDriveJoystick;
+	private Joystick leftDriveJoystick;
+	private Joystick rightDriveJoystick;
 	private Joystick intakeJoystick;
-	
+
 	private Joystick gamecube;
 	private double db = 0.02;
 	private int sign = 1;
 
-    public OI(OIMap map) {
-        this.map = map;
+	public OI(OIMap map) {
+		this.map = map;
 
-		/*leftDriveJoystick = new Joystick(map.LEFT_DRIVE_STICK);
-        rightDriveJoystick = new Joystick(map.RIGHT_DRIVE_STICK);
-        intakeJoystick = new Joystick(map.INTAKE_JOYSTICK);*/
-        
-        gamecube = new Joystick(map.INTAKE_JOYSTICK);
+		/*
+		 * leftDriveJoystick = new Joystick(map.LEFT_DRIVE_STICK);
+		 * rightDriveJoystick = new Joystick(map.RIGHT_DRIVE_STICK);
+		 * intakeJoystick = new Joystick(map.INTAKE_JOYSTICK);
+		 */
 
-        Button intakeIn = new JoystickButton(gamecube, map.INTAKE_IN);
-        Button intakeOut = new JoystickButton(gamecube, map.INTAKE_OUT);
-        //Button intakeToggle = new JoystickButton(gamecube, 8);
-        Button intakeUp = new JoystickButton(gamecube, map.INTAKE_UP);
-        Button intakeDown = new JoystickButton(gamecube, map.INTAKE_DOWN);
-        Button breachChival = new JoystickButton(gamecube, map.BREACH_CHIVAL);
-        Button breachPortcullis = new JoystickButton(gamecube, map.BREACH_PORTCULLIS);
-        Button breachClose = new JoystickButton(gamecube, map.BREACH_CLOSE);
-        Button cameraToggle = new JoystickButton(gamecube, map.CAMERA_TOGGLE);
-        Button driveStraightVel = new JoystickButton(gamecube, map.DRIVE_STRAIGHT);
-        
-        intakeIn.toggleWhenPressed(new IntakeIn());
-        intakeOut.whileHeld(new IntakeOut());
-        // TODO intakeToggle command
-        intakeUp.whenPressed(new IntakeUp());
-        intakeDown.whenPressed(new IntakeDown());
-        
-        breachChival.whenPressed(new BreachChivald());
-        breachPortcullis.whenPressed(new BreachPortcullis()); // new
-        breachClose.whenPressed(new BreachStowed());
-        
-        cameraToggle.whenPressed(new ToggleCamera());
-    }
+		gamecube = new Joystick(map.INTAKE_JOYSTICK);
+
+		Button intakeIn = new JoystickButton(gamecube, map.INTAKE_IN);
+		Button intakeOut = new JoystickButton(gamecube, map.INTAKE_OUT);
+		// Button intakeToggle = new JoystickButton(gamecube, 8);
+		Button intakeUp = new JoystickButton(gamecube, map.INTAKE_UP);
+		Button intakeDown = new JoystickButton(gamecube, map.INTAKE_DOWN);
+		Button breachChival = new JoystickButton(gamecube, map.BREACH_CHIVAL);
+		Button breachPortcullis = new JoystickButton(gamecube,
+				map.BREACH_PORTCULLIS);
+		Button breachClose = new JoystickButton(gamecube, map.BREACH_CLOSE);
+		Button cameraToggle = new JoystickButton(gamecube, map.CAMERA_TOGGLE);
+		Button driveStraightVel = new JoystickButton(gamecube,
+				map.DRIVE_STRAIGHT);
+		Button faceFront = new JoystickButton(gamecube, map.FACE_FRONT);
+
+		intakeIn.toggleWhenPressed(new IntakeIn());
+		intakeOut.whileHeld(new IntakeOut());
+		// TODO intakeToggle command
+		intakeUp.whenPressed(new IntakeUp());
+		intakeDown.whenPressed(new IntakeDown());
+
+		breachChival.whenPressed(new BreachChivald());
+		breachPortcullis.whenPressed(new BreachPortcullis()); // new
+		breachClose.whenPressed(new BreachStowed());
+
+		cameraToggle.whenPressed(new ToggleCamera());
+	}
 
 	public double getDriveAxisLeft() {
-		//return this.leftDriveJoystick.getAxis(Joystick.AxisType.kY);
-		double ret= sign*this.gamecube.getRawAxis(map.LEFT_DRIVE_STICK);
-		
+		// return this.leftDriveJoystick.getAxis(Joystick.AxisType.kY);
+		double ret = sign * this.gamecube.getRawAxis(map.LEFT_DRIVE_STICK);
+
 		return process(ret);
 	}
 
 	public double getDriveAxisRight() {
-		//return this.rightDriveJoystick.getAxis(Joystick.AxisType.kY);
-		double ret = sign*-this.gamecube.getRawAxis(map.RIGHT_DRIVE_STICK);
+		// return this.rightDriveJoystick.getAxis(Joystick.AxisType.kY);
+		double ret = sign * -this.gamecube.getRawAxis(map.RIGHT_DRIVE_STICK);
 
 		return process(ret);
 	}
@@ -79,25 +84,27 @@ public class OI/*vey*/ {
 		return this.gamecube.getRawButton(map.DRIVE_STRAIGHT);
 	}
 
-    public double process(double input) {
-        int sign = (input < 0) ? -1 : 1; // get the sign of the input
-        input *= sign; // get the absolute value
-        // if in the deadband, return 0
-        if (input < map.DEADBAND) {
-            return 0;
-        }
-        return sign * (map.MAX_VALUE/(1-Math.pow(map.DEADBAND, map.POWER)))*(Math.pow(input, map.POWER) - Math.pow(map.DEADBAND, map.POWER));
-        /*
-         *      sign * max
-         *  ------------------ * (|input|^n - deadband^power)
-         *  1-(deadband)^power
-         *
-         *  where sign is the sign of the input
-         *  this makes a smooth joystick curve, according to szabo
-         */
-    }
+	public double process(double input) {
+		int sign = (input < 0) ? -1 : 1; // get the sign of the input
+		input *= sign; // get the absolute value
+		// if in the deadband, return 0
+		if (input < map.DEADBAND) {
+			return 0;
+		}
+		return sign
+				* (map.MAX_VALUE / (1 - Math.pow(map.DEADBAND, map.POWER)))
+				* (Math.pow(input, map.POWER) - Math.pow(map.DEADBAND,
+						map.POWER));
+		/*
+		 * sign * max ------------------ * (|input|^n - deadband^power)
+		 * 1-(deadband)^power
+		 * 
+		 * where sign is the sign of the input this makes a smooth joystick
+		 * curve, according to szabo
+		 */
+	}
 
 	public void toggle() {
-		//this.sign = -this.sign;
+		// this.sign = -this.sign;
 	}
 }

@@ -157,6 +157,11 @@
           "Encoder": {
             "dpp": 0.0245436926
           }
+        },
+        "AnglePID": {
+          "p": 0.4,
+          "i": 0,
+          "d": 0
         }
       }
     },
@@ -176,9 +181,16 @@
       "BREACH_CLOSE": 10,
       "CAMERA_TOGGLE": 9,
       "DRIVE_STRAIGHT": 6,
+      "FACE_FRONT": 8,
+      "FACE_LEFT_GOAL": 9,
+      "FACE_RIGHT_GOAL": 10,
       "DEADBAND": 0.02,
       "POWER": 2,
       "MAX_VALUE": 1
     }
+  },
+  "GameDetailsMap": {
+    "leftGoalAngle": 0.523599,
+    "rightGoalAngle": -0.523599
   }
 }
