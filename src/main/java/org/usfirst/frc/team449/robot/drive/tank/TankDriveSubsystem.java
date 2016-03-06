@@ -1,5 +1,6 @@
 package org.usfirst.frc.team449.robot.drive.tank;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team449.robot.RobotMap;
 import org.usfirst.frc.team449.robot.components.PIDVelocityMotor;
 import org.usfirst.frc.team449.robot.drive.DriveSubsystem;
@@ -15,6 +16,7 @@ import edu.wpi.first.wpilibj.VictorSP;
 public class TankDriveSubsystem extends DriveSubsystem {
 	private PIDVelocityMotor rightCluster;
 	private PIDVelocityMotor leftCluster;
+    private boolean pidEnabled;
 
 	public TankDriveSubsystem(RobotMap map) {
 		super(map);
@@ -43,7 +45,6 @@ public class TankDriveSubsystem extends DriveSubsystem {
 		this.leftCluster.setInputRange(-tankMap.SPEED, tankMap.SPEED);
 		this.leftCluster.setPercentTolerance(tankMap.leftCluster.percentTolerance);
 		this.leftCluster.setZeroTolerance(tankMap.leftCluster.zeroTolerance);
-		this.leftCluster.enable();
 		// right pid
 		mc = new MotorCluster(tankMap.rightCluster.cluster.motors.length);
 		for (int i = 0; i < tankMap.rightCluster.cluster.motors.length; i++) {
@@ -59,7 +60,8 @@ public class TankDriveSubsystem extends DriveSubsystem {
 		this.rightCluster.setInputRange(-tankMap.SPEED, tankMap.SPEED);
 		this.rightCluster.setPercentTolerance(tankMap.rightCluster.percentTolerance);
 		this.rightCluster.setZeroTolerance(tankMap.rightCluster.zeroTolerance);
-		this.rightCluster.enable();
+
+        this.setPidEnabled(true);
 	}
 
 	/**
@@ -72,9 +74,14 @@ public class TankDriveSubsystem extends DriveSubsystem {
 	 *            the normalized speed between -1 and 1 for the right cluster
 	 */
 	public void setThrottle(double left, double right) {
-		//System.out.println(left + " " + right);
-		this.leftCluster.setSetpoint(left);
-		this.rightCluster.setSetpoint(right);
+		if (pidEnabled) {
+            this.leftCluster.setSetpoint(left);
+            this.rightCluster.setSetpoint(right);
+        } else {
+            TankDriveMap tankDriveMap = (TankDriveMap) map;
+            this.leftCluster.setMotorVoltage(left/tankDriveMap.SPEED);
+            this.rightCluster.setMotorVoltage(right/tankDriveMap.SPEED);
+        }
 	}
 
 	@Override
@@ -82,8 +89,19 @@ public class TankDriveSubsystem extends DriveSubsystem {
 		setDefaultCommand(new DefaultDrive());
 	}
 	
-	public void enable() {
-		this.rightCluster.enable();
-		this.leftCluster.enable();
+	public void togglePID() {
+		setPidEnabled(!this.pidEnabled);
 	}
+
+    private void setPidEnabled(boolean pidEnabled) {
+        this.pidEnabled = pidEnabled;
+        if (pidEnabled) {
+            this.rightCluster.enable();
+            this.leftCluster.enable();
+        } else {
+            this.rightCluster.disable();
+            this.leftCluster.disable();
+        }
+        SmartDashboard.putBoolean("Drive PID", pidEnabled);
+    }
 }

@@ -98,4 +98,15 @@ public class PIDVelocityMotor extends PIDComponent {
 //		SmartDashboard.putNumber(velName + " enc", returnPIDInput());
 //		SmartDashboard.putNumber(velName + " setp", getSetpoint());
 	}
+
+	/**
+	 * sets the voltage on the stored <code>SpeedController</code> "motor" using {@link SpeedController#set(double)},
+	 * but only if the PID controller is disabled. Otherwise, this method does nothing.
+	 * @param v the voltage (from -1 to 1) to set this motor to
+	 */
+	public void setMotorVoltage(double v) {
+		if (!this.getPIDController().isEnabled()) {
+			this.motor.set(v);
+		}
+	}
 }
