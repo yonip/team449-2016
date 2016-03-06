@@ -84,7 +84,8 @@ public class IntakeSubsystem extends MechanismSubsystem {
 		rightVal = new SmoothedValue(1);
 		
 		ignoreIR = false;
-
+		SmartDashboard.putBoolean("IR Enabled", !ignoreIR);
+		
 		System.out.println("Intake init finished");
 	}
 
@@ -154,6 +155,7 @@ public class IntakeSubsystem extends MechanismSubsystem {
 	 */
 	public void toggleIgnoreIR() {
 		ignoreIR = !ignoreIR;
+		SmartDashboard.putBoolean("IR Enabled", !ignoreIR);
 	}
 	
 	/**
