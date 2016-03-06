@@ -21,7 +21,8 @@ public class IntakeOut extends Command {
 
 	@Override
 	protected void execute() {
-		Robot.intake.setMotorSpeed(((IntakeMap) (Robot.intake.map)).OUTPUT_SPEED);
+		Robot.intake
+				.setMotorSpeed(((IntakeMap) (Robot.intake.map)).OUTPUT_SPEED);
 	}
 
 	@Override

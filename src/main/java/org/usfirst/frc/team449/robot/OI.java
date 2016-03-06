@@ -1,5 +1,6 @@
 package org.usfirst.frc.team449.robot;
 
+import org.usfirst.frc.team449.robot.drive.tank.commands.TogglePid;
 import org.usfirst.frc.team449.robot.mechanism.breach.commands.BreachChivald;
 import org.usfirst.frc.team449.robot.mechanism.breach.commands.BreachPortcullis;
 import org.usfirst.frc.team449.robot.mechanism.breach.commands.BreachStowed;
@@ -7,6 +8,7 @@ import org.usfirst.frc.team449.robot.mechanism.intake.commands.IntakeDown;
 import org.usfirst.frc.team449.robot.mechanism.intake.commands.IntakeIn;
 import org.usfirst.frc.team449.robot.mechanism.intake.commands.IntakeOut;
 import org.usfirst.frc.team449.robot.mechanism.intake.commands.IntakeUp;
+import org.usfirst.frc.team449.robot.mechanism.intake.commands.ToggleIgnoreIR;
 import org.usfirst.frc.team449.robot.vision.commands.ToggleCamera;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -24,6 +26,8 @@ public class OI/* vey */{
 	private Joystick rightDriveJoystick;
 	private Joystick intakeJoystick;
 
+	private Joystick manualOverrides;
+
 	private Joystick gamecube;
 	private double db = 0.02;
 	private int sign = 1;
@@ -31,12 +35,8 @@ public class OI/* vey */{
 	public OI(OIMap map) {
 		this.map = map;
 
-		/*
-		 * leftDriveJoystick = new Joystick(map.LEFT_DRIVE_STICK);
-		 * rightDriveJoystick = new Joystick(map.RIGHT_DRIVE_STICK);
-		 * intakeJoystick = new Joystick(map.INTAKE_JOYSTICK);
-		 */
-
+		gamecube = new Joystick(map.MAIN_CONTROLLER);
+		manualOverrides = new Joystick(map.MANUAL_OVERRIDES);
 		gamecube = new Joystick(map.INTAKE_JOYSTICK);
 
 		Button intakeIn = new JoystickButton(gamecube, map.INTAKE_IN);
@@ -52,6 +52,8 @@ public class OI/* vey */{
 		Button driveStraightVel = new JoystickButton(gamecube,
 				map.DRIVE_STRAIGHT);
 		Button faceFront = new JoystickButton(gamecube, map.FACE_FRONT);
+		Button ignoreIR = new JoystickButton(manualOverrides, map.IGNORE_IR);
+		Button togglePid = new JoystickButton(manualOverrides, map.TOGGLE_PID);
 
 		intakeIn.toggleWhenPressed(new IntakeIn());
 		intakeOut.whileHeld(new IntakeOut());
@@ -64,6 +66,9 @@ public class OI/* vey */{
 		breachClose.whenPressed(new BreachStowed());
 
 		cameraToggle.whenPressed(new ToggleCamera());
+
+		ignoreIR.whenPressed(new ToggleIgnoreIR());
+		togglePid.whenPressed(new TogglePid());
 	}
 
 	public double getDriveAxisLeft() {

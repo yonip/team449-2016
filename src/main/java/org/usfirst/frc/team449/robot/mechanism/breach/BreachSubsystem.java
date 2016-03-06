@@ -1,11 +1,9 @@
 package org.usfirst.frc.team449.robot.mechanism.breach;
 
 import org.usfirst.frc.team449.robot.RobotMap;
-import org.usfirst.frc.team449.robot.drive.tank.TankDriveMap;
 import org.usfirst.frc.team449.robot.mechanism.MechanismSubsystem;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  * Subsystem for the defense breaching arm
@@ -32,12 +30,15 @@ public class BreachSubsystem extends MechanismSubsystem {
 		super(map);
 		System.out.println("Drive init started");
 		if (!(map instanceof BreachMap)) {
-			System.err.println("Breach has a map of class " + map.getClass().getSimpleName() + " and not BreachMap");
+			System.err.println("Breach has a map of class "
+					+ map.getClass().getSimpleName() + " and not BreachMap");
 		}
 
 		BreachMap breachMap = (BreachMap) map;
-		backSolenoid = new DoubleSolenoid(breachMap.back.forward, breachMap.back.reverse);
-		frontSolenoid = new DoubleSolenoid(breachMap.front.forward, breachMap.front.reverse);
+		backSolenoid = new DoubleSolenoid(breachMap.back.forward,
+				breachMap.back.reverse);
+		frontSolenoid = new DoubleSolenoid(breachMap.front.forward,
+				breachMap.front.reverse);
 	}
 
 	/**

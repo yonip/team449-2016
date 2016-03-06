@@ -3,6 +3,7 @@ package org.usfirst.frc.team449.robot.mechanism.intake;
 import org.usfirst.frc.team449.robot.RobotMap;
 import org.usfirst.frc.team449.robot.components.SmoothedValue;
 import org.usfirst.frc.team449.robot.mechanism.MechanismSubsystem;
+import org.usfirst.frc.team449.robot.mechanism.intake.commands.IntakeIn;
 import org.usfirst.frc.team449.robot.mechanism.intake.commands.UpdateUS;
 
 import edu.wpi.first.wpilibj.AnalogInput;
@@ -46,10 +47,12 @@ public class IntakeSubsystem extends MechanismSubsystem {
 	 * The right ultrasonic rangefinder's <code>Value</code>
 	 */
 	private SmoothedValue rightVal;
-	
+
 	private AnalogInput leftIR;
-	
+
 	private AnalogInput rightIR;
+
+	private boolean ignoreIR;
 
 	public IntakeSubsystem(RobotMap map) {
 		super(map);
@@ -68,13 +71,20 @@ public class IntakeSubsystem extends MechanismSubsystem {
 		solenoid = new DoubleSolenoid(intakeMap.solenoid.forward,
 				intakeMap.solenoid.reverse);
 		this.leftIR = new AnalogInput(intakeMap.leftIR.PORT);
+		this.leftIR.setAverageBits(intakeMap.leftIR.AVERAGE_BITS);
+		this.leftIR.setOversampleBits(intakeMap.leftIR.OVERSAMPLING_BITS);
 		this.rightIR = new AnalogInput(intakeMap.rightIR.PORT);
-		
+		this.rightIR.setAverageBits(intakeMap.rightIR.AVERAGE_BITS);
+		this.rightIR.setOversampleBits(intakeMap.rightIR.OVERSAMPLING_BITS);
+
 		leftChannel = new AnalogInput(intakeMap.leftUltrasonic.PORT);
 		rightChannel = new AnalogInput(intakeMap.rightUltrasonic.PORT);
 
 		leftVal = new SmoothedValue(1);
 		rightVal = new SmoothedValue(1);
+
+		ignoreIR = false;
+		SmartDashboard.putBoolean("IR Enabled", !ignoreIR);
 
 		System.out.println("Intake init finished");
 	}
@@ -124,14 +134,43 @@ public class IntakeSubsystem extends MechanismSubsystem {
 
 	/**
 	 * checks on the infrareds whether they sense the ball or not
+	 * 
 	 * @return true if at least one IR is sensing the ball, false otherwise
 	 */
 	public boolean findBall() {
-		SmartDashboard.putNumber("right ir", rightIR.getAverageVoltage());
-		SmartDashboard.putNumber("left ir", leftIR.getAverageVoltage());
-		return false;
+		double right = rightIR.getAverageVoltage();
+		double left = leftIR.getAverageVoltage();
+		IntakeMap intakeMap = (IntakeMap) map;
+		SmartDashboard.putNumber("right ir voltage", right);
+		SmartDashboard.putNumber("left ir voltage", left);
+		return (intakeMap.rightIR.LOWER_BOUND < right && right < intakeMap.rightIR.UPPER_BOUND)
+				|| (intakeMap.leftIR.LOWER_BOUND < left && left < intakeMap.leftIR.UPPER_BOUND);
 	}
-	
+
+	/**
+	 * Toggles whether the robot is going to ignore the IR values that it's
+	 * receiving. If ignoreIR is false, the robot will only stop
+	 * {@link IntakeIn IntakeIn} when the user presses the button that
+	 * initialized the command again. If it's true, the command will stop when
+	 * the IR detects the ball.
+	 */
+	public void toggleIgnoreIR() {
+		ignoreIR = !ignoreIR;
+		SmartDashboard.putBoolean("IR Enabled", !ignoreIR);
+	}
+
+	/**
+	 * Checks whether the robot is "ignoring IR". If ignoreIR is false, the
+	 * robot will only stop {@link IntakeIn IntakeIn} when the user presses the
+	 * button that initialized the command again. If it's true, the command will
+	 * stop when the IR detects the ball.
+	 * 
+	 * @return whether the IR sensor is being ignored.
+	 */
+	public boolean isIgnoringIR() {
+		return ignoreIR;
+	}
+
 	@Override
 	public void initDefaultCommand() {
 		setDefaultCommand(new UpdateUS());

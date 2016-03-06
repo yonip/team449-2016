@@ -15,6 +15,10 @@ public class OIMap extends RobotMap {
 
 	public int INTAKE_JOYSTICK;
 
+	public int MAIN_CONTROLLER;
+
+	public int MANUAL_OVERRIDES;
+
 	public int INTAKE_IN;
 
 	public int INTAKE_OUT;
@@ -32,6 +36,10 @@ public class OIMap extends RobotMap {
 	public int CAMERA_TOGGLE;
 
 	public int DRIVE_STRAIGHT;
+
+	public int IGNORE_IR;
+
+	public int TOGGLE_PID;
 
 	public int FACE_FRONT;
 

@@ -2,7 +2,6 @@ package org.usfirst.frc.team449.robot.mechanism.intake.commands;
 
 import org.usfirst.frc.team449.robot.Robot;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -23,7 +22,7 @@ public class UpdateUS extends Command {
 		SmartDashboard.putNumber("left", Robot.intake.getValLeft());
 		SmartDashboard.putNumber("right", Robot.intake.getValRight());
 		SmartDashboard.putNumber("angle", Robot.intake.getAngle());
-//		Timer.delay(0.005);
+		Robot.intake.findBall(); // for debugging ir
 	}
 
 	@Override

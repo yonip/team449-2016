@@ -29,7 +29,8 @@ public class IntakeIn extends Command {
 	 */
 	@Override
 	protected void execute() {
-		Robot.intake.setMotorSpeed(((IntakeMap) (Robot.intake.map)).INPUT_SPEED);
+		Robot.intake
+				.setMotorSpeed(((IntakeMap) (Robot.intake.map)).INPUT_SPEED);
 	}
 
 	/**
@@ -47,7 +48,10 @@ public class IntakeIn extends Command {
 	 */
 	@Override
 	protected boolean isFinished() {
-		return Robot.intake.findBall();
+		if (Robot.intake.isIgnoringIR())
+			return false;
+		else
+			return Robot.intake.findBall();
 	}
 
 	/**

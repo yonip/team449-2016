@@ -8,12 +8,15 @@ import org.usfirst.frc.team449.robot.RobotMap;
  * defined higher in the hierarchy
  */
 public abstract class DriveMap extends RobotMap {
-    /**
-     * creates a new Drive Map based on the configuration in the given json
-     * any maps in here are to be shared across all drive subsystems
-     * @param json a JSONObject containing the configuration for the maps in this object
-     */
-    public DriveMap(JSONObject json) {
-        super(json);
-    }
+	/**
+	 * creates a new Drive Map based on the configuration in the given json any
+	 * maps in here are to be shared across all drive subsystems
+	 * 
+	 * @param json
+	 *            a JSONObject containing the configuration for the maps in this
+	 *            object
+	 */
+	public DriveMap(JSONObject json) {
+		super(json);
+	}
 }

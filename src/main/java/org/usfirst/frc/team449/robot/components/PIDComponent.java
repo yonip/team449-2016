@@ -17,7 +17,8 @@ public abstract class PIDComponent extends PIDSubsystem {
 		super(name, p, i, d, f);
 	}
 
-	public PIDComponent(String name, double p, double i, double d, double f, double period) {
+	public PIDComponent(String name, double p, double i, double d, double f,
+			double period) {
 		super(name, p, i, d, f, period);
 	}
 

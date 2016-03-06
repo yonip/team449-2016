@@ -12,6 +12,7 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * a Drive subsystem that operates with a tank drive
@@ -21,6 +22,7 @@ public class TankDriveSubsystem extends DriveSubsystem {
 	private PIDVelocityMotor leftCluster;
 	private PIDAngleController angleController;
 	private AHRS gyro;
+	private boolean pidEnabled;
 
 	public TankDriveSubsystem(RobotMap map) {
 		super(map);
@@ -54,7 +56,6 @@ public class TankDriveSubsystem extends DriveSubsystem {
 		this.leftCluster
 				.setPercentTolerance(tankMap.leftCluster.percentTolerance);
 		this.leftCluster.setZeroTolerance(tankMap.leftCluster.zeroTolerance);
-		this.leftCluster.enable();
 		// right pid
 		mc = new MotorCluster(tankMap.rightCluster.cluster.motors.length);
 		for (int i = 0; i < tankMap.rightCluster.cluster.motors.length; i++) {
@@ -81,6 +82,8 @@ public class TankDriveSubsystem extends DriveSubsystem {
 		angleController = new PIDAngleController(tankMap.anglePID.p,
 				tankMap.anglePID.i, tankMap.anglePID.d, leftCluster,
 				rightCluster, gyro);
+
+		this.setPidEnabled(true);
 	}
 
 	/**
@@ -126,5 +129,21 @@ public class TankDriveSubsystem extends DriveSubsystem {
 	public void enable() {
 		this.rightCluster.enable();
 		this.leftCluster.enable();
+	}
+
+	public void togglePID() {
+		setPidEnabled(!this.pidEnabled);
+	}
+
+	private void setPidEnabled(boolean pidEnabled) {
+		this.pidEnabled = pidEnabled;
+		if (pidEnabled) {
+			this.rightCluster.enable();
+			this.leftCluster.enable();
+		} else {
+			this.rightCluster.disable();
+			this.leftCluster.disable();
+		}
+		SmartDashboard.putBoolean("Drive PID", pidEnabled);
 	}
 }
