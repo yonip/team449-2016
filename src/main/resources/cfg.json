@@ -30,7 +30,9 @@
             }
           },
           "LOWER_BOUND": 0.6,
-          "UPPER_BOUND": 3.2
+          "UPPER_BOUND": 3.2,
+          "OVERSAMPLING_BITS": 6,
+          "AVERAGE_BITS": 6
         },
         "Ultrasonic": {
           "instances": {
@@ -177,7 +179,8 @@
       "BREACH_CLOSE": 1,
       "CAMERA_TOGGLE": 9,
       "DRIVE_STRAIGHT": 6,
-      "IGNORE_IR": 1,
+      "IGNORE_IR": 6,
+      "TOGGLE_PID": 7,
       "DEADBAND": 0.02,
       "POWER": 2,
       "MAX_VALUE": 1

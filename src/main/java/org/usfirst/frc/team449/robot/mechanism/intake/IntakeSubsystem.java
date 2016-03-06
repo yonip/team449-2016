@@ -71,7 +71,11 @@ public class IntakeSubsystem extends MechanismSubsystem {
 		solenoid = new DoubleSolenoid(intakeMap.solenoid.forward,
 				intakeMap.solenoid.reverse);
 		this.leftIR = new AnalogInput(intakeMap.leftIR.PORT);
+		this.leftIR.setAverageBits(intakeMap.leftIR.AVERAGE_BITS);
+		this.leftIR.setOversampleBits(intakeMap.leftIR.OVERSAMPLING_BITS);
 		this.rightIR = new AnalogInput(intakeMap.rightIR.PORT);
+		this.rightIR.setAverageBits(intakeMap.rightIR.AVERAGE_BITS);
+		this.rightIR.setOversampleBits(intakeMap.rightIR.OVERSAMPLING_BITS);
 		
 		leftChannel = new AnalogInput(intakeMap.leftUltrasonic.PORT);
 		rightChannel = new AnalogInput(intakeMap.rightUltrasonic.PORT);

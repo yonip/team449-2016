@@ -3,6 +3,8 @@ package org.usfirst.frc.team449.robot.mechanism.intake;
 import org.json.JSONObject;
 import org.usfirst.frc.team449.robot.mechanism.MechanismMap;
 
+import edu.wpi.first.wpilibj.AnalogInput;
+
 /**
  * a map of constants needed for any form of Drive or its subclasses, and not defined higher in the hierarchy
  */
@@ -37,6 +39,17 @@ public class IntakeMap extends MechanismMap {
 		 * Maximum value at which IntakeIn should stop
 		 */
 		public double UPPER_BOUND;
+		/**
+		 * number of bits for oversampling as defined by {@link AnalogInput#setOversampleBits(int)} <br/>
+		 * Should probably be the same as {@link #AVERAGE_BITS}
+		 */
+		public int OVERSAMPLING_BITS;
+		/**
+		 * number of bits for averaging as defined by {@link AnalogInput#setAverageBits(int)
+		 * } <br/>
+		 * Should probably be the same as {@link #OVERSAMPLING_BITS}
+		 */
+		public int AVERAGE_BITS;
 		
 		public IRSensor(JSONObject json, String objPath, Class enclosing) {
 			super(json, objPath, enclosing);
