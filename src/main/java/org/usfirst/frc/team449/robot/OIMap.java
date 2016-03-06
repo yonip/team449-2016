@@ -36,6 +36,8 @@ public class OIMap extends RobotMap {
     public int DRIVE_STRAIGHT;
     
     public int IGNORE_IR;
+    
+    public int TOGGLE_PID;
 
     public double DEADBAND;
 

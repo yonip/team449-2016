@@ -1,5 +1,6 @@
 package org.usfirst.frc.team449.robot;
 
+import org.usfirst.frc.team449.robot.drive.tank.commands.TogglePid;
 import org.usfirst.frc.team449.robot.mechanism.breach.commands.BreachChivald;
 import org.usfirst.frc.team449.robot.mechanism.breach.commands.BreachPortcullis;
 import org.usfirst.frc.team449.robot.mechanism.breach.commands.BreachStowed;
@@ -51,6 +52,7 @@ public class OI/*vey*/ {
         Button driveStraightVel = new JoystickButton(gamecube, map.DRIVE_STRAIGHT);
         
         Button ignoreIR = new JoystickButton(manualOverrides, map.IGNORE_IR);
+        Button togglePid = new JoystickButton(manualOverrides, map.TOGGLE_PID);
         
         intakeIn.toggleWhenPressed(new IntakeIn());
         intakeOut.whileHeld(new IntakeOut());
@@ -65,6 +67,7 @@ public class OI/*vey*/ {
         cameraToggle.whenPressed(new ToggleCamera());
         
         ignoreIR.whenPressed(new ToggleIgnoreIR());
+        togglePid.whenPressed(new TogglePid());
     }
 
 	public double getDriveAxisLeft() {
