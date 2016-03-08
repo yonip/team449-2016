@@ -11,9 +11,8 @@ import org.usfirst.frc.team449.robot.mechanism.breach.BreachMap;
 import org.usfirst.frc.team449.robot.mechanism.intake.IntakeMap;
 
 /**
- * tests the json on the computer by instantiating all the maps. prints and
- * unescaped and an escaped version of the current json in case it is needed to
- * get config on the roboRIO via {@link MappedSubsystem#jsonString}
+ * tests the json on the computer by instantiating all the maps. prints an
+ * unescaped and an escaped version of the current json if needed.
  */
 public class Tester {
 
