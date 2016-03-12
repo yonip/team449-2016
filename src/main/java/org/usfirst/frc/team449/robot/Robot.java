@@ -1,6 +1,7 @@
 package org.usfirst.frc.team449.robot;
 
 import org.json.JSONObject;
+import org.usfirst.frc.team449.robot.commands.DefenseType;
 import org.usfirst.frc.team449.robot.drive.DriveSubsystem;
 import org.usfirst.frc.team449.robot.drive.tank.TankDriveMap;
 import org.usfirst.frc.team449.robot.drive.tank.TankDriveSubsystem;
@@ -32,7 +33,9 @@ public class Robot extends IterativeRobot {
 	 * reference to this robot's Intake subsystem.
 	 */
 	public static IntakeSubsystem intake;
-
+	/**
+	 * 
+	 */
 	public static BreachSubsystem breach;
 	/**
 	 * 
@@ -42,6 +45,11 @@ public class Robot extends IterativeRobot {
 	 * reference to this robot's OI (Operator Interface)
 	 */
 	public static OI oi;
+
+	/**
+	 * which obstacle the robot will try to breach during auto
+	 */
+	public static DefenseType autoDefenseType = DefenseType.PORTCULLIS;
 
 	/**
 	 * Robot-wide initialization code should go here.

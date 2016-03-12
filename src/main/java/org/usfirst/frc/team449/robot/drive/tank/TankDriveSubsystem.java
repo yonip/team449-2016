@@ -101,6 +101,13 @@ public class TankDriveSubsystem extends DriveSubsystem {
 	}
 
 	/**
+	 * @return pitch indicated by the gyro
+	 */
+	public double getPitch() {
+		return gyro.getPitch();
+	}
+
+	/**
 	 * sets the throttle for the left and right clusters as specified by the
 	 * parameters
 	 * 
