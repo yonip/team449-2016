@@ -6,9 +6,6 @@ import org.usfirst.frc.team449.robot.drive.tank.TankDriveSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-/**
- *
- */
 public class DefaultDrive extends Command {
 
 	public DefaultDrive() {
@@ -25,17 +22,14 @@ public class DefaultDrive extends Command {
 		double leftThrottle = 0;
 		double rightThrottle = 0;
 
-		leftThrottle = Robot.oi.getDriveAxisLeft()
-				* ((TankDriveMap) (Robot.drive.map)).SPEED;
-		rightThrottle = Robot.oi.getDriveAxisRight()
-				* ((TankDriveMap) (Robot.drive.map)).SPEED;
+		leftThrottle = Robot.oi.getDriveAxisLeft() * ((TankDriveMap) (Robot.drive.map)).SPEED;
+		rightThrottle = Robot.oi.getDriveAxisRight() * ((TankDriveMap) (Robot.drive.map)).SPEED;
 
 		if (Robot.oi.isDriveStraightMode()) {
 			leftThrottle = -rightThrottle;
 		}
 		// pushing forward on the stick gives -1 so it is negated
-		((TankDriveSubsystem) Robot.drive).setThrottle(leftThrottle,
-				rightThrottle);
+		((TankDriveSubsystem) Robot.drive).setThrottle(leftThrottle, rightThrottle);
 	}
 
 	@Override
@@ -49,7 +43,6 @@ public class DefaultDrive extends Command {
 
 	@Override
 	protected void interrupted() {
-		((TankDriveSubsystem) Robot.drive).setThrottle(
-				Robot.oi.getDriveAxisLeft(), Robot.oi.getDriveAxisRight());
+		((TankDriveSubsystem) Robot.drive).setThrottle(Robot.oi.getDriveAxisLeft(), Robot.oi.getDriveAxisRight());
 	}
 }
