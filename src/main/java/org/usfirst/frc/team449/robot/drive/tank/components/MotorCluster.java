@@ -1,7 +1,6 @@
 package org.usfirst.frc.team449.robot.drive.tank.components;
 
 import org.usfirst.frc.team449.robot.components.Component;
-import org.usfirst.frc.team449.robot.drive.tank.TankDriveMap;
 
 import edu.wpi.first.wpilibj.SpeedController;
 
@@ -36,7 +35,7 @@ public class MotorCluster extends Component implements SpeedController {
 		this.controllerList = controllers;
 		this.lastSet = 0;
 	}
-	
+
 	/**
 	 * add a motor that will be considered a part of the cluster
 	 * 
@@ -50,7 +49,9 @@ public class MotorCluster extends Component implements SpeedController {
 				return;
 			}
 		}
-		System.err.println("Motor cluster over capacity, not adding a new motor! (" + controllerList.length + ")");
+		System.err
+				.println("Motor cluster over capacity, not adding a new motor! ("
+						+ controllerList.length + ")");
 	}
 
 	@Override
@@ -69,7 +70,8 @@ public class MotorCluster extends Component implements SpeedController {
 
 	@Override
 	public void set(double speed, byte syncGroup) {
-		System.out.println("This shit is deprecated and shouldn't be called.\n TL;DR: YOU DONE FUCKED UP");
+		System.out
+				.println("This shit is deprecated and shouldn't be called.\n TL;DR: YOU DONE FUCKED UP");
 	}
 
 	@Override

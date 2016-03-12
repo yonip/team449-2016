@@ -24,7 +24,8 @@ public class Robot extends IterativeRobot {
 	 */
 	private static JSONObject cfg;
 	/**
-	 * reference to this robot's Drive subsystem. Any command that uses this field will cast it to the Drive implementation it uses
+	 * reference to this robot's Drive subsystem. Any command that uses this
+	 * field will cast it to the Drive implementation it uses
 	 */
 	public static DriveSubsystem drive;
 	/**
@@ -42,14 +43,12 @@ public class Robot extends IterativeRobot {
 	 */
 	public static OI oi;
 
-
-
 	/**
 	 * Robot-wide initialization code should go here.
 	 *
 	 * Users should override this method for default Robot-wide initialization
-	 * which will be called when the robot is first powered on. It will be called
-	 * exactly one time.
+	 * which will be called when the robot is first powered on. It will be
+	 * called exactly one time.
 	 *
 	 * Warning: the Driver Station "Robot Code" light and FMS "Robot Ready"
 	 * indicators will be off until RobotInit() exits. Code in RobotInit() that

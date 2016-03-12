@@ -47,15 +47,17 @@ public class VisionSubsystem extends Subsystem {
 							VisionMap.CAMERA_NAMES[i],
 							NIVision.IMAQdxCameraControlMode.CameraControlModeController);
 		}
-//		NIVision.IMAQdxEnumItem[] arr = NIVision.IMAQdxEnumerateVideoModes(sessions[sessionPtr]).videoModeArray;
-//		NIVision.IMAQdxSetAttributeEnum(sessions[sessionPtr], "AcquisitionAttributes::VideoMode", arr[15]);
+		// NIVision.IMAQdxEnumItem[] arr =
+		// NIVision.IMAQdxEnumerateVideoModes(sessions[sessionPtr]).videoModeArray;
+		// NIVision.IMAQdxSetAttributeEnum(sessions[sessionPtr],
+		// "AcquisitionAttributes::VideoMode", arr[15]);
 		NIVision.IMAQdxStartAcquisition(sessions[sessionPtr]);
 		NIVision.IMAQdxConfigureGrab(sessions[sessionPtr]);
 
 	}
 
 	public Image getFrame() {
-//		NIVision.IMAQdxStartAcquisition(sessions[sessionPtr]);
+		// NIVision.IMAQdxStartAcquisition(sessions[sessionPtr]);
 		NIVision.IMAQdxGrab(sessions[sessionPtr], frame, 1);
 		return frame;
 	}
