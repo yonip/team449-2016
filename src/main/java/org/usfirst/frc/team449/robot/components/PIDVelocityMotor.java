@@ -41,8 +41,8 @@ public class PIDVelocityMotor extends PIDComponent {
 	 */
 	@Override
 	protected double returnPIDInput() {
-//		SmartDashboard.putNumber(velName + " enc", encoder.getRate());
-//		SmartDashboard.putNumber(velName + " setp", getSetpoint());
+		SmartDashboard.putNumber(velName + " enc", encoder.getRate());
+		SmartDashboard.putNumber(velName + " setp", getSetpoint());
 		return encoder.getRate();
 	}
 
@@ -92,11 +92,11 @@ public class PIDVelocityMotor extends PIDComponent {
 			this.integratedVelocity = 0;
 		}
 		this.motor.pidWrite(integratedVelocity);
-//		SmartDashboard.putNumber(velName + " intvel", integratedVelocity);
-//		SmartDashboard.putNumber(velName + " delv", v);
-//		SmartDashboard.putNumber(velName + " ztol", zeroTolerance);
-//		SmartDashboard.putNumber(velName + " enc", returnPIDInput());
-//		SmartDashboard.putNumber(velName + " setp", getSetpoint());
+		SmartDashboard.putNumber(velName + " intvel", integratedVelocity);
+		SmartDashboard.putNumber(velName + " delv", v);
+		SmartDashboard.putNumber(velName + " ztol", zeroTolerance);
+		SmartDashboard.putNumber(velName + " enc", returnPIDInput());
+		SmartDashboard.putNumber(velName + " setp", getSetpoint());
 	}
 
 	/**
