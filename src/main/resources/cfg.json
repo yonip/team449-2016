@@ -15,8 +15,8 @@
         "DoubleSolenoid": {
           "instances": {
             "solenoid": {
-              "forward": 0,
-              "reverse": 1
+              "forward": 1,
+              "reverse": 0
             }
           }
         },
@@ -68,14 +68,14 @@
   "DriveMap": {
     "TankDriveMap": {
       "components": {
-        "SPEED": 50,
+        "SPEED": 100,
         "RADIUS": 12,
         "ClusterPID": {
           "p": 0.4,
           "i": 0,
           "d": 0,
           "zeroTolerance": 5,
-          "outputRange": 50,
+          "outputRange": 5,
           "percentTolerance": 20,
           "MotorCluster": {
             "Motor[]": {
@@ -157,13 +157,14 @@
             }
           },
           "Encoder": {
-            "dpp": 0.0245436926
+            "dpp": 0.0490873852
           }
         },
         "AnglePID": {
           "p": 0.4,
           "i": 0,
-          "d": 0
+          "d": 0,
+          "percentTolerance" : 5
         }
       }
     },
@@ -177,8 +178,8 @@
       "MANUAL_OVERRIDES": 1,
       "INTAKE_OUT": 4,
       "INTAKE_IN": 2,
-      "INTAKE_UP": 7,
-      "INTAKE_DOWN": 5,
+      "INTAKE_UP": 5,
+      "INTAKE_DOWN": 7,
       "BREACH_CHIVAL": 3,
       "BREACH_PORTCULLIS": 8,
       "BREACH_CLOSE": 1,
