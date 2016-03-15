@@ -27,6 +27,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * the class tying all of the components of the robot together.
  */
 public class Robot extends IterativeRobot {
+	
+	public static final double DELTAT = 0.020;
 
 	/**
 	 * the JSONObject containing the configuration for this robot
