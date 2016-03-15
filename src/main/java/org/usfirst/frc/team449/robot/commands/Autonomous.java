@@ -47,7 +47,7 @@ public class Autonomous extends CommandGroup {
 	 */
 	private void driveToDefense() {
 		// TODO fix and externalize constants
-		addSequential(new DriveDistance(1d));
+		//addSequential(new DriveDistance(1d));
 	}
 
 	/**
@@ -55,7 +55,7 @@ public class Autonomous extends CommandGroup {
 	 */
 	private void driveClearOfDefense() {
 		// TODO fix and externalize constants
-		addSequential(new DriveDistance(1d));
+		//addSequential(new DriveDistance(1d));
 	}
 
 	/**
