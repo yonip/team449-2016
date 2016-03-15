@@ -5,7 +5,7 @@ import org.usfirst.frc.team449.robot.RobotMap;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class FaceLeftGoal extends CommandGroup {
-	public FaceLeftGoal() {
+	/*public FaceLeftGoal() {
 		addSequential(new TurnAngle(RobotMap.leftGoalHeading));
-	}
+	}*/
 }
