@@ -5,6 +5,7 @@ import org.usfirst.frc.team449.robot.drive.tank.TankDriveMap;
 import org.usfirst.frc.team449.robot.drive.tank.TankDriveSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DefaultDrive extends Command {
 
@@ -15,6 +16,7 @@ public class DefaultDrive extends Command {
 
 	@Override
 	protected void initialize() {
+		((TankDriveSubsystem) Robot.drive).reset();
 	}
 
 	@Override
@@ -30,6 +32,7 @@ public class DefaultDrive extends Command {
 		}
 		// pushing forward on the stick gives -1 so it is negated
 		((TankDriveSubsystem) Robot.drive).setThrottle(leftThrottle, rightThrottle);
+		SmartDashboard.putNumber("Distance", ((TankDriveSubsystem) Robot.drive).getDistance());
 	}
 
 	@Override
