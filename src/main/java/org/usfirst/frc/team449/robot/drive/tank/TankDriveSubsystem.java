@@ -61,6 +61,7 @@ public class TankDriveSubsystem extends DriveSubsystem {
 		this.leftClusterVelocity.setPercentTolerance(tankMap.leftCluster.percentTolerance);
 		this.leftClusterVelocity.setZeroTolerance(tankMap.leftCluster.zeroTolerance);
 		this.leftClusterVelocity.setInverted(tankMap.leftCluster.inverted);
+		this.leftClusterVelocity.setRampRate(tankMap.leftCluster.rampRate);
 
 		// right pid
 		rightCluster = new MotorCluster(tankMap.rightCluster.cluster.motors.length);
@@ -79,6 +80,7 @@ public class TankDriveSubsystem extends DriveSubsystem {
 		this.rightClusterVelocity.setPercentTolerance(tankMap.rightCluster.percentTolerance);
 		this.rightClusterVelocity.setZeroTolerance(tankMap.rightCluster.zeroTolerance);
 		this.rightClusterVelocity.setInverted(tankMap.rightCluster.inverted);
+		this.rightClusterVelocity.setRampRate(tankMap.rightCluster.rampRate);
 
 		gyro = new AHRS(SPI.Port.kMXP);
 		angleController = new PIDAngleController(tankMap.anglePID.p, tankMap.anglePID.i, tankMap.anglePID.d,

@@ -1,5 +1,7 @@
 package org.usfirst.frc.team449.robot.components;
 
+import org.usfirst.frc.team449.robot.Robot;
+
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -15,6 +17,9 @@ public class PIDVelocityMotor extends PIDComponent implements SpeedController {
 	private String velName;
 	private boolean inverted;
 	private double speed;
+	private boolean rampEnabled;
+	private double rampRate;
+	private double change;
 	/**
 	 * This defines the deadband around zero which, when read from
 	 * {@link #returnPIDInput()}, will be result in no signal to the motor when
@@ -86,7 +91,7 @@ public class PIDVelocityMotor extends PIDComponent implements SpeedController {
 	 */
 	@Override
 	protected void usePIDOutput(double v) {
-		this.integratedVelocity += v * 0.020; // mult by delta t
+		this.integratedVelocity += v * Robot.DELTAT; // mult by delta t
 		this.integratedVelocity = Math.max(-1, Math.min(1, this.integratedVelocity));
 		if (getSetpoint() == 0 && Math.abs(returnPIDInput()) < zeroTolerance) {
 			this.integratedVelocity = 0;
@@ -95,14 +100,26 @@ public class PIDVelocityMotor extends PIDComponent implements SpeedController {
 		SmartDashboard.putNumber(velName + " intvel", integratedVelocity);
 		SmartDashboard.putNumber(velName + " delv", v);
 		SmartDashboard.putNumber(velName + " ztol", zeroTolerance);
-		SmartDashboard.putNumber(velName + " setp", getSetpoint());
 	}
 	
 	@Override
 	public void setSetpoint(double setpoint) {
-		super.setSetpoint(inverted ? -setpoint : setpoint);
+		if (rampEnabled) {
+			change = setpoint - getSetpoint();
+			change = Math.max(-rampRate*Robot.DELTAT, Math.min(rampRate*Robot.DELTAT, change));
+			setpoint = getSetpoint() + change;
+		} else {
+			change = 0;
+		}
+		SmartDashboard.putNumber(velName + " passed setp", setpoint - change);
+		SmartDashboard.putNumber(velName + " set setp", setpoint);
+		super.setSetpoint(setpoint);
 	}
-
+	
+	public void setRampRate(double rampRate) {
+		this.rampRate = rampRate;
+	}
+	
 	/**
 	 * @return whether or not the pid subsystem is enabled
 	 */
@@ -136,7 +153,11 @@ public class PIDVelocityMotor extends PIDComponent implements SpeedController {
 
 	@Override
 	public void setInverted(boolean isInverted) {
-		this.inverted = isInverted;
+		boolean changed = inverted != isInverted;
+		inverted = isInverted;
+		if (changed) {
+			this.motor.setInverted(!motor.getInverted());
+		}
 	}
 
 	@Override

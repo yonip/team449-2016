@@ -78,6 +78,7 @@
           "percentTolerance": 20,
           "inverted": false,
           "speed": 100,
+          "rampRate": 240,
           "MotorCluster": {
             "Motor[]": {
               "0": {

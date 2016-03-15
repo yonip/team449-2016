@@ -255,6 +255,7 @@ public abstract class RobotMap {
 		 * max speed to run these motors at
 		 */
 		public double speed;
+		public double rampRate;
 
 		public VelocityPID(JSONObject json, String path, Class enclosing) {
 			super(json, path, enclosing);
