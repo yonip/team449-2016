@@ -5,6 +5,8 @@ import org.usfirst.frc.team449.robot.components.PIDVelocityMotor;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 /**
  * a PID controller to control a tank drive's wheels' velocities through PID via
  * the PIDSubsystem in order to turn to a specific angle.
@@ -15,13 +17,15 @@ public class PIDAngleController extends PIDComponent {
 	private PIDVelocityMotor rightMotor;
 	private AHRS gyro;
 
-	public PIDAngleController(double p, double i, double d,
-			PIDVelocityMotor leftMotor, PIDVelocityMotor rightMotor, AHRS gyro) {
+	public PIDAngleController(double p, double i, double d, PIDVelocityMotor leftMotor, PIDVelocityMotor rightMotor,
+			AHRS gyro) {
 		super(p, i, d);
-
+		this.getPIDController().setContinuous(true);
+		this.setInputRange(0, 360);
 		this.leftMotor = leftMotor;
 		this.rightMotor = rightMotor;
 		this.gyro = gyro;
+		this.setPercentTolerance(2);
 	}
 
 	/**
@@ -34,7 +38,22 @@ public class PIDAngleController extends PIDComponent {
 	 */
 	@Override
 	protected double returnPIDInput() {
-		return gyro.getAngle();
+		// SmartDashboard.putNumber("start - gyro reading", startAngle -
+		// gyro.getAngle());
+		// SmartDashboard.putNumber("start - gyro reading", -(startAngle -
+		// gyro.getAngle()));
+
+		double n = gyro.getAngle();
+
+		while (n < 0) {
+			n += 360;
+		}
+
+		n %= 360;
+
+		SmartDashboard.putNumber("raw gyro reading", n);
+
+		return n;
 	}
 
 	/**
@@ -49,7 +68,8 @@ public class PIDAngleController extends PIDComponent {
 
 	@Override
 	protected void usePIDOutput(double output) {
-		this.leftMotor.setSetpoint(output);
+		this.leftMotor.setSetpoint(-output);
 		this.rightMotor.setSetpoint(-output);
+		SmartDashboard.putNumber("angle sp", -output);
 	}
 }
