@@ -8,11 +8,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * a PID controller to control a motor's velocity through PID via the
  * PIDSubsystem
  */
-public class PIDVelocityMotor extends PIDComponent {
+public class PIDVelocityMotor extends PIDComponent implements SpeedController {
 	private SpeedController motor;
 	private Encoder encoder;
 	private double integratedVelocity = 0;
 	private String velName;
+	private boolean inverted;
+	private double speed;
 	/**
 	 * This defines the deadband around zero which, when read from
 	 * {@link #returnPIDInput()}, will be result in no signal to the motor when
@@ -41,8 +43,7 @@ public class PIDVelocityMotor extends PIDComponent {
 	 */
 	@Override
 	protected double returnPIDInput() {
-		SmartDashboard.putNumber(velName + " setp", getSetpoint());
-		return encoder.getRate();
+		return (inverted ? -encoder.getRate() : encoder.getRate());
 	}
 
 	@Override
@@ -96,33 +97,55 @@ public class PIDVelocityMotor extends PIDComponent {
 		SmartDashboard.putNumber(velName + " ztol", zeroTolerance);
 		SmartDashboard.putNumber(velName + " setp", getSetpoint());
 	}
-
-	/**
-	 * sets the voltage on the stored <code>SpeedController</code> "motor" using
-	 * {@link SpeedController#set(double)}, but only if the PID controller is
-	 * disabled. Otherwise, this method does nothing.
-	 * 
-	 * @param v
-	 *            the voltage (from -1 to 1) to set this motor to
-	 */
-	public void setMotorVoltage(double v) {
-		if (!this.getPIDController().isEnabled()) {
-			this.motor.set(v);
-		}
+	
+	@Override
+	public void setSetpoint(double setpoint) {
+		super.setSetpoint(inverted ? -setpoint : setpoint);
 	}
 
 	/**
 	 * @return whether or not the pid subsystem is enabled
 	 */
 	public boolean getEnabled() {
-		return getEnabled();
+		return this.getPIDController().isEnabled();
 	}
 	
-	public void reset() {
-		encoder.reset();
-	}
-	
+	/**
+	 * Sets the setpoint for this
+	 * @param v
+	 */
+	@Override
 	public void set(double v) {
-		motor.set(v);
+		this.setSetpoint(v*speed);
+	}
+
+	@Override
+	public void pidWrite(double output) {
+		this.set(output);
+	}
+
+	@Override
+	public double get() {
+		return this.getSetpoint()/speed;
+	}
+
+	@Override
+	public void set(double speed, byte syncGroup) {
+		set(speed);
+	}
+
+	@Override
+	public void setInverted(boolean isInverted) {
+		this.inverted = isInverted;
+	}
+
+	@Override
+	public boolean getInverted() {
+		return this.inverted;
+	}
+
+	@Override
+	public void stopMotor() {
+		this.set(0);
 	}
 }

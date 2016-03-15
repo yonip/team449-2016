@@ -23,8 +23,10 @@ public class TankDriveSubsystem extends DriveSubsystem {
 	private PIDVelocityMotor leftClusterVelocity;
 	// private PIDPositionMotor rightClusterPosition;
 	// private PIDPositionMotor leftClusterPosition;
-	private Encoder leftEnc;
+	private MotorCluster rightCluster;
+	private MotorCluster leftCluster;
 	private Encoder rightEnc;
+	private Encoder leftEnc;
 
 	// private boolean usingVelocityControl;
 
@@ -36,74 +38,52 @@ public class TankDriveSubsystem extends DriveSubsystem {
 		super(map);
 		System.out.println("Drive init started");
 		if (!(map instanceof TankDriveMap)) {
-			System.err.println(
-					"TankDrive has a map of class " + map.getClass().getSimpleName() + " and not TankDriveMap");
+			System.err.println("TankDrive has a map of class " + map.getClass().getSimpleName() + " and not TankDriveMap");
 		}
 
 		TankDriveMap tankMap = (TankDriveMap) map;
 		// initialize motor clusters and add slaves
 		VictorSP motor;
-		MotorCluster mc;
 		// left pid
-		mc = new MotorCluster(tankMap.leftCluster.cluster.motors.length);
+		leftCluster = new MotorCluster(tankMap.leftCluster.cluster.motors.length);
 		for (int i = 0; i < tankMap.leftCluster.cluster.motors.length; i++) {
 			motor = new VictorSP(tankMap.leftCluster.cluster.motors[i].PORT);
 			motor.setInverted(tankMap.leftCluster.cluster.motors[i].INVERTED);
-			mc.addSlave(motor);
+			leftCluster.addSlave(motor);
 		}
-		mc.setInverted(tankMap.leftCluster.cluster.INVERTED);
+		leftCluster.setInverted(tankMap.leftCluster.cluster.INVERTED);
 		leftEnc = new Encoder(tankMap.leftCluster.encoder.a, tankMap.leftCluster.encoder.b);
 		leftEnc.setDistancePerPulse(tankMap.leftCluster.encoder.dpp);
 		this.leftClusterVelocity = new PIDVelocityMotor(tankMap.leftCluster.p, tankMap.leftCluster.i,
-				tankMap.leftCluster.d, mc, leftEnc, "left");
+				tankMap.leftCluster.d, leftCluster, leftEnc, "left");
 		this.leftClusterVelocity.setOutputRange(-tankMap.leftCluster.outputRange, tankMap.leftCluster.outputRange);
-		this.leftClusterVelocity.setInputRange(-tankMap.SPEED, tankMap.SPEED);
+		this.leftClusterVelocity.setInputRange(-tankMap.leftCluster.speed, tankMap.leftCluster.speed);
 		this.leftClusterVelocity.setPercentTolerance(tankMap.leftCluster.percentTolerance);
 		this.leftClusterVelocity.setZeroTolerance(tankMap.leftCluster.zeroTolerance);
-
-		// // TODO fix the constants and add them to cfg.json
-		// this.leftClusterPosition = new
-		// PIDPositionMotor(tankMap.leftCluster.p, tankMap.leftCluster.i,
-		// tankMap.leftCluster.d, mc, leftEnc);
-		// this.leftClusterPosition.setOutputRange(-tankMap.leftCluster.outputRange,
-		// tankMap.leftCluster.outputRange);
-		// this.leftClusterPosition.setInputRange(-tankMap.SPEED,
-		// tankMap.SPEED);
-		// this.leftClusterPosition.setPercentTolerance(tankMap.leftCluster.percentTolerance);
+		this.leftClusterVelocity.setInverted(tankMap.leftCluster.inverted);
 
 		// right pid
-		mc = new MotorCluster(tankMap.rightCluster.cluster.motors.length);
+		rightCluster = new MotorCluster(tankMap.rightCluster.cluster.motors.length);
 		for (int i = 0; i < tankMap.rightCluster.cluster.motors.length; i++) {
 			motor = new VictorSP(tankMap.rightCluster.cluster.motors[i].PORT);
 			motor.setInverted(tankMap.rightCluster.cluster.motors[i].INVERTED);
-			mc.addSlave(motor);
+			rightCluster.addSlave(motor);
 		}
-		mc.setInverted(tankMap.rightCluster.cluster.INVERTED);
+		rightCluster.setInverted(tankMap.rightCluster.cluster.INVERTED);
 		rightEnc = new Encoder(tankMap.rightCluster.encoder.a, tankMap.rightCluster.encoder.b);
 		rightEnc.setDistancePerPulse(tankMap.rightCluster.encoder.dpp);
 		this.rightClusterVelocity = new PIDVelocityMotor(tankMap.rightCluster.p, tankMap.rightCluster.i,
-				tankMap.rightCluster.d, mc, rightEnc, "right");
+				tankMap.rightCluster.d, rightCluster, rightEnc, "right");
 		this.rightClusterVelocity.setOutputRange(-tankMap.rightCluster.outputRange, tankMap.rightCluster.outputRange);
-		this.rightClusterVelocity.setInputRange(-tankMap.SPEED, tankMap.SPEED);
+		this.rightClusterVelocity.setInputRange(-tankMap.rightCluster.speed, tankMap.rightCluster.speed);
 		this.rightClusterVelocity.setPercentTolerance(tankMap.rightCluster.percentTolerance);
 		this.rightClusterVelocity.setZeroTolerance(tankMap.rightCluster.zeroTolerance);
-		this.rightClusterVelocity.enable();
-
-		// // TODO fix the constants and add them to cfg.json
-		// this.rightClusterPosition = new
-		// PIDPositionMotor(tankMap.rightCluster.p, tankMap.rightCluster.i,
-		// tankMap.rightCluster.d, mc, rightEnc);
-		// this.rightClusterPosition.setOutputRange(-tankMap.rightCluster.outputRange,
-		// tankMap.rightCluster.outputRange);
-		// this.rightClusterPosition.setInputRange(-tankMap.SPEED,
-		// tankMap.SPEED);
-		// this.rightClusterPosition.setPercentTolerance(tankMap.rightCluster.percentTolerance);
-		// this.rightClusterPosition.enable();
+		this.rightClusterVelocity.setInverted(tankMap.rightCluster.inverted);
 
 		gyro = new AHRS(SPI.Port.kMXP);
 		angleController = new PIDAngleController(tankMap.anglePID.p, tankMap.anglePID.i, tankMap.anglePID.d,
 				leftClusterVelocity, rightClusterVelocity, gyro);
-		angleController.setOutputRange(-tankMap.SPEED/2, tankMap.SPEED/2);
+		angleController.setOutputRange(-1, 1);
 
 		this.setPidEnabled(true);
 	}
@@ -135,15 +115,12 @@ public class TankDriveSubsystem extends DriveSubsystem {
 	 *            the normalized speed between -1 and 1 for the right cluster
 	 */
 	public void setThrottle(double left, double right) {
-		// if (!usingVelocityControl) {
-		// enableVelocity();
-		// }
 		if (pidEnabled) {
 			this.leftClusterVelocity.setSetpoint(left);
 			this.rightClusterVelocity.setSetpoint(right);
 		} else {
-			this.leftClusterVelocity.set(left / ((TankDriveMap) map).SPEED);
-			this.rightClusterVelocity.set(right / ((TankDriveMap) map).SPEED);
+			this.leftCluster.set(left);
+			this.rightCluster.set(right);
 		}
 		SmartDashboard.putNumber("right enc", rightEnc.getRate());
 		SmartDashboard.putNumber("left enc", leftEnc.getRate());
@@ -222,8 +199,8 @@ public class TankDriveSubsystem extends DriveSubsystem {
 	// }
 
 	public void reset() {
-		this.leftClusterVelocity.reset();
-		this.rightClusterVelocity.reset();
+		this.leftEnc.reset();
+		this.rightEnc.reset();
 	}
 
 	public double getDistance() {

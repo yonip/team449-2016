@@ -87,7 +87,7 @@ public class OI/* vey */ {
 
 	public double getDriveAxisRight() {
 		// return this.rightDriveJoystick.getAxis(Joystick.AxisType.kY);
-		double ret = sign * -this.gamecube.getRawAxis(map.RIGHT_DRIVE_STICK);
+		double ret = sign * this.gamecube.getRawAxis(map.RIGHT_DRIVE_STICK);
 
 		return process(ret);
 	}

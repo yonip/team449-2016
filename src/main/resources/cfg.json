@@ -68,7 +68,6 @@
   "DriveMap": {
     "TankDriveMap": {
       "components": {
-        "SPEED": 100,
         "RADIUS": 12,
         "ClusterPID": {
           "p": 0.4,
@@ -77,6 +76,8 @@
           "zeroTolerance": 5,
           "outputRange": 5,
           "percentTolerance": 20,
+          "inverted": false,
+          "speed": 100,
           "MotorCluster": {
             "Motor[]": {
               "0": {
@@ -92,6 +93,7 @@
           },
           "instances": {
             "rightCluster": {
+            "inverted": true,
               "MotorCluster": {
                 "instances": {
                   "cluster": {

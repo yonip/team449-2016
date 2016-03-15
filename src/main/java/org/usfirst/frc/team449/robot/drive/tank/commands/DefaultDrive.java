@@ -24,8 +24,8 @@ public class DefaultDrive extends Command {
 		double leftThrottle = 0;
 		double rightThrottle = 0;
 
-		leftThrottle = Robot.oi.getDriveAxisLeft() * ((TankDriveMap) (Robot.drive.map)).SPEED;
-		rightThrottle = Robot.oi.getDriveAxisRight() * ((TankDriveMap) (Robot.drive.map)).SPEED;
+		leftThrottle = Robot.oi.getDriveAxisLeft() * ((TankDriveMap) (Robot.drive.map)).leftCluster.speed;
+		rightThrottle = Robot.oi.getDriveAxisRight() * ((TankDriveMap) (Robot.drive.map)).rightCluster.speed;
 
 		if (Robot.oi.isDriveStraightMode()) {
 			leftThrottle = -rightThrottle;

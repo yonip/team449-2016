@@ -247,6 +247,14 @@ public abstract class RobotMap {
 		 * the maximum delta velocity from the controller
 		 */
 		public double outputRange;
+		/**
+		 * whether this PIDVelocityMotor should be run backwards
+		 */
+		public boolean inverted;
+		/**
+		 * max speed to run these motors at
+		 */
+		public double speed;
 
 		public VelocityPID(JSONObject json, String path, Class enclosing) {
 			super(json, path, enclosing);

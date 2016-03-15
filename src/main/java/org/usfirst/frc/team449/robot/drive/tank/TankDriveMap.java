@@ -15,7 +15,7 @@ public class TankDriveMap extends DriveMap {
 	/** the map for angle controller of the tank drive */
 	public AnglePID anglePID;
 	/** the speed at which this tank drive should go */
-	public double SPEED;
+	//public double SPEED;
 	/** the radius of the drive */
 	public double RADIUS;
 

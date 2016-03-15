@@ -5,6 +5,7 @@ import org.usfirst.frc.team449.robot.components.PIDVelocityMotor;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -13,11 +14,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class PIDAngleController extends PIDComponent {
 
-	private PIDVelocityMotor leftMotor;
-	private PIDVelocityMotor rightMotor;
+	private SpeedController leftMotor;
+	private SpeedController rightMotor;
 	private AHRS gyro;
 
-	public PIDAngleController(double p, double i, double d, PIDVelocityMotor leftMotor, PIDVelocityMotor rightMotor,
+	public PIDAngleController(double p, double i, double d, SpeedController leftMotor, SpeedController rightMotor,
 			AHRS gyro) {
 		super(p, i, d);
 		this.getPIDController().setContinuous(true);
@@ -38,11 +39,6 @@ public class PIDAngleController extends PIDComponent {
 	 */
 	@Override
 	protected double returnPIDInput() {
-		// SmartDashboard.putNumber("start - gyro reading", startAngle -
-		// gyro.getAngle());
-		// SmartDashboard.putNumber("start - gyro reading", -(startAngle -
-		// gyro.getAngle()));
-
 		double n = gyro.getAngle();
 
 		while (n < 0) {
@@ -68,8 +64,8 @@ public class PIDAngleController extends PIDComponent {
 
 	@Override
 	protected void usePIDOutput(double output) {
-		this.leftMotor.setSetpoint(-output);
-		this.rightMotor.setSetpoint(-output);
-		SmartDashboard.putNumber("angle sp", -output);
+		this.leftMotor.pidWrite(-output);
+		this.rightMotor.pidWrite(output);
+		SmartDashboard.putNumber("angle sp", output);
 	}
 }
