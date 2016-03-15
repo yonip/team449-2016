@@ -13,7 +13,7 @@ public class OIMap extends RobotMap {
 
 	public int RIGHT_DRIVE_STICK;
 
-	public int INTAKE_JOYSTICK;
+	//public int INTAKE_JOYSTICK;
 
 	public int MAIN_CONTROLLER;
 

@@ -1,6 +1,7 @@
 package org.usfirst.frc.team449.robot;
 
 import org.usfirst.frc.team449.robot.drive.tank.commands.TogglePid;
+import org.usfirst.frc.team449.robot.drive.tank.commands.TurnAngle;
 import org.usfirst.frc.team449.robot.mechanism.breach.commands.BreachChivald;
 import org.usfirst.frc.team449.robot.mechanism.breach.commands.BreachPortcullis;
 import org.usfirst.frc.team449.robot.mechanism.breach.commands.BreachStowed;
@@ -19,12 +20,12 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * the Operator Interface, includes access to all joysticks and any other for of
  * input from the drivers
  */
-public class OI/* vey */{
+public class OI/* vey */ {
 	private OIMap map;
 
 	private Joystick leftDriveJoystick;
 	private Joystick rightDriveJoystick;
-	private Joystick intakeJoystick;
+	// private Joystick intakeJoystick;
 
 	private Joystick manualOverrides;
 
@@ -37,7 +38,7 @@ public class OI/* vey */{
 
 		gamecube = new Joystick(map.MAIN_CONTROLLER);
 		manualOverrides = new Joystick(map.MANUAL_OVERRIDES);
-		gamecube = new Joystick(map.INTAKE_JOYSTICK);
+		// gamecube = new Joystick(map.INTAKE_JOYSTICK);
 
 		Button intakeIn = new JoystickButton(gamecube, map.INTAKE_IN);
 		Button intakeOut = new JoystickButton(gamecube, map.INTAKE_OUT);
@@ -45,15 +46,15 @@ public class OI/* vey */{
 		Button intakeUp = new JoystickButton(gamecube, map.INTAKE_UP);
 		Button intakeDown = new JoystickButton(gamecube, map.INTAKE_DOWN);
 		Button breachChival = new JoystickButton(gamecube, map.BREACH_CHIVAL);
-		Button breachPortcullis = new JoystickButton(gamecube,
-				map.BREACH_PORTCULLIS);
+		Button breachPortcullis = new JoystickButton(gamecube, map.BREACH_PORTCULLIS);
 		Button breachClose = new JoystickButton(gamecube, map.BREACH_CLOSE);
 		Button cameraToggle = new JoystickButton(gamecube, map.CAMERA_TOGGLE);
-		Button driveStraightVel = new JoystickButton(gamecube,
-				map.DRIVE_STRAIGHT);
-		Button faceFront = new JoystickButton(gamecube, map.FACE_FRONT);
+		Button driveStraightVel = new JoystickButton(gamecube, map.DRIVE_STRAIGHT);
 		Button ignoreIR = new JoystickButton(manualOverrides, map.IGNORE_IR);
 		Button togglePid = new JoystickButton(manualOverrides, map.TOGGLE_PID);
+
+		Button faceFront = new JoystickButton(manualOverrides,
+				map.FACE_FRONT);
 
 		intakeIn.toggleWhenPressed(new IntakeIn());
 		intakeOut.whileHeld(new IntakeOut());
@@ -65,10 +66,16 @@ public class OI/* vey */{
 		breachPortcullis.whenPressed(new BreachPortcullis()); // new
 		breachClose.whenPressed(new BreachStowed());
 
-		cameraToggle.whenPressed(new ToggleCamera());
+		try {
+			cameraToggle.whenPressed(new ToggleCamera());
+		} catch (Exception e) {
+			System.out.println("(OI constructor) Cameras done goofed, but everything else is (maybe) functional.");
+		}
 
 		ignoreIR.whenPressed(new ToggleIgnoreIR());
 		togglePid.whenPressed(new TogglePid());
+
+		faceFront.whenPressed(new TurnAngle(0));
 	}
 
 	public double getDriveAxisLeft() {
@@ -96,10 +103,8 @@ public class OI/* vey */{
 		if (input < map.DEADBAND) {
 			return 0;
 		}
-		return sign
-				* (map.MAX_VALUE / (1 - Math.pow(map.DEADBAND, map.POWER)))
-				* (Math.pow(input, map.POWER) - Math.pow(map.DEADBAND,
-						map.POWER));
+		return sign * (map.MAX_VALUE / (1 - Math.pow(map.DEADBAND, map.POWER)))
+				* (Math.pow(input, map.POWER) - Math.pow(map.DEADBAND, map.POWER));
 		/*
 		 * sign * max ------------------ * (|input|^n - deadband^power)
 		 * 1-(deadband)^power
