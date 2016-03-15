@@ -21,10 +21,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class TankDriveSubsystem extends DriveSubsystem {
 	private PIDVelocityMotor rightClusterVelocity;
 	private PIDVelocityMotor leftClusterVelocity;
-	private PIDPositionMotor rightClusterPosition;
-	private PIDPositionMotor leftClusterPosition;
+	// private PIDPositionMotor rightClusterPosition;
+	// private PIDPositionMotor leftClusterPosition;
+	private Encoder leftEnc;
+	private Encoder rightEnc;
 
-	private boolean usingVelocityControl;
+	// private boolean usingVelocityControl;
 
 	private PIDAngleController angleController;
 	private AHRS gyro;
@@ -42,7 +44,6 @@ public class TankDriveSubsystem extends DriveSubsystem {
 		// initialize motor clusters and add slaves
 		VictorSP motor;
 		MotorCluster mc;
-		Encoder enc;
 		// left pid
 		mc = new MotorCluster(tankMap.leftCluster.cluster.motors.length);
 		for (int i = 0; i < tankMap.leftCluster.cluster.motors.length; i++) {
@@ -51,21 +52,24 @@ public class TankDriveSubsystem extends DriveSubsystem {
 			mc.addSlave(motor);
 		}
 		mc.setInverted(tankMap.leftCluster.cluster.INVERTED);
-		enc = new Encoder(tankMap.leftCluster.encoder.a, tankMap.leftCluster.encoder.b);
-		enc.setDistancePerPulse(tankMap.leftCluster.encoder.dpp);
+		leftEnc = new Encoder(tankMap.leftCluster.encoder.a, tankMap.leftCluster.encoder.b);
+		leftEnc.setDistancePerPulse(tankMap.leftCluster.encoder.dpp);
 		this.leftClusterVelocity = new PIDVelocityMotor(tankMap.leftCluster.p, tankMap.leftCluster.i,
-				tankMap.leftCluster.d, mc, enc, "left");
+				tankMap.leftCluster.d, mc, leftEnc, "left");
 		this.leftClusterVelocity.setOutputRange(-tankMap.leftCluster.outputRange, tankMap.leftCluster.outputRange);
 		this.leftClusterVelocity.setInputRange(-tankMap.SPEED, tankMap.SPEED);
 		this.leftClusterVelocity.setPercentTolerance(tankMap.leftCluster.percentTolerance);
 		this.leftClusterVelocity.setZeroTolerance(tankMap.leftCluster.zeroTolerance);
 
-		// TODO fix the constants and add them to cfg.json
-		this.leftClusterPosition = new PIDPositionMotor(tankMap.leftCluster.p, tankMap.leftCluster.i,
-				tankMap.leftCluster.d, mc, enc);
-		this.leftClusterPosition.setOutputRange(-tankMap.leftCluster.outputRange, tankMap.leftCluster.outputRange);
-		this.leftClusterPosition.setInputRange(-tankMap.SPEED, tankMap.SPEED);
-		this.leftClusterPosition.setPercentTolerance(tankMap.leftCluster.percentTolerance);
+		// // TODO fix the constants and add them to cfg.json
+		// this.leftClusterPosition = new
+		// PIDPositionMotor(tankMap.leftCluster.p, tankMap.leftCluster.i,
+		// tankMap.leftCluster.d, mc, leftEnc);
+		// this.leftClusterPosition.setOutputRange(-tankMap.leftCluster.outputRange,
+		// tankMap.leftCluster.outputRange);
+		// this.leftClusterPosition.setInputRange(-tankMap.SPEED,
+		// tankMap.SPEED);
+		// this.leftClusterPosition.setPercentTolerance(tankMap.leftCluster.percentTolerance);
 
 		// right pid
 		mc = new MotorCluster(tankMap.rightCluster.cluster.motors.length);
@@ -75,29 +79,43 @@ public class TankDriveSubsystem extends DriveSubsystem {
 			mc.addSlave(motor);
 		}
 		mc.setInverted(tankMap.rightCluster.cluster.INVERTED);
-		enc = new Encoder(tankMap.rightCluster.encoder.a, tankMap.rightCluster.encoder.b);
-		enc.setDistancePerPulse(tankMap.rightCluster.encoder.dpp);
+		rightEnc = new Encoder(tankMap.rightCluster.encoder.a, tankMap.rightCluster.encoder.b);
+		rightEnc.setDistancePerPulse(tankMap.rightCluster.encoder.dpp);
 		this.rightClusterVelocity = new PIDVelocityMotor(tankMap.rightCluster.p, tankMap.rightCluster.i,
-				tankMap.rightCluster.d, mc, enc, "right");
+				tankMap.rightCluster.d, mc, rightEnc, "right");
 		this.rightClusterVelocity.setOutputRange(-tankMap.rightCluster.outputRange, tankMap.rightCluster.outputRange);
 		this.rightClusterVelocity.setInputRange(-tankMap.SPEED, tankMap.SPEED);
 		this.rightClusterVelocity.setPercentTolerance(tankMap.rightCluster.percentTolerance);
 		this.rightClusterVelocity.setZeroTolerance(tankMap.rightCluster.zeroTolerance);
 		this.rightClusterVelocity.enable();
 
-		// TODO fix the constants and add them to cfg.json
-		this.rightClusterPosition = new PIDPositionMotor(tankMap.rightCluster.p, tankMap.rightCluster.i,
-				tankMap.rightCluster.d, mc, enc);
-		this.rightClusterPosition.setOutputRange(-tankMap.rightCluster.outputRange, tankMap.rightCluster.outputRange);
-		this.rightClusterPosition.setInputRange(-tankMap.SPEED, tankMap.SPEED);
-		this.rightClusterPosition.setPercentTolerance(tankMap.rightCluster.percentTolerance);
-		this.rightClusterPosition.enable();
+		// // TODO fix the constants and add them to cfg.json
+		// this.rightClusterPosition = new
+		// PIDPositionMotor(tankMap.rightCluster.p, tankMap.rightCluster.i,
+		// tankMap.rightCluster.d, mc, rightEnc);
+		// this.rightClusterPosition.setOutputRange(-tankMap.rightCluster.outputRange,
+		// tankMap.rightCluster.outputRange);
+		// this.rightClusterPosition.setInputRange(-tankMap.SPEED,
+		// tankMap.SPEED);
+		// this.rightClusterPosition.setPercentTolerance(tankMap.rightCluster.percentTolerance);
+		// this.rightClusterPosition.enable();
 
 		gyro = new AHRS(SPI.Port.kMXP);
 		angleController = new PIDAngleController(tankMap.anglePID.p, tankMap.anglePID.i, tankMap.anglePID.d,
 				leftClusterVelocity, rightClusterVelocity, gyro);
+		angleController.setOutputRange(-tankMap.SPEED/2, tankMap.SPEED/2);
 
 		this.setPidEnabled(true);
+	}
+
+	public void disableAngleController() {
+		angleController.disable();
+		this.leftClusterVelocity.setSetpoint(0);
+		this.rightClusterVelocity.setSetpoint(0);
+	}
+
+	public void enableAngleController() {
+		angleController.enable();
 	}
 
 	/**
@@ -117,11 +135,18 @@ public class TankDriveSubsystem extends DriveSubsystem {
 	 *            the normalized speed between -1 and 1 for the right cluster
 	 */
 	public void setThrottle(double left, double right) {
-		if (!usingVelocityControl) {
-			enableVelocity();
+		// if (!usingVelocityControl) {
+		// enableVelocity();
+		// }
+		if (pidEnabled) {
+			this.leftClusterVelocity.setSetpoint(left);
+			this.rightClusterVelocity.setSetpoint(right);
+		} else {
+			this.leftClusterVelocity.set(left / ((TankDriveMap) map).SPEED);
+			this.rightClusterVelocity.set(right / ((TankDriveMap) map).SPEED);
 		}
-		this.leftClusterVelocity.setSetpoint(left);
-		this.rightClusterVelocity.setSetpoint(right);
+		SmartDashboard.putNumber("right enc", rightEnc.getRate());
+		SmartDashboard.putNumber("left enc", leftEnc.getRate());
 	}
 
 	/**
@@ -130,20 +155,22 @@ public class TankDriveSubsystem extends DriveSubsystem {
 	 * @param distance
 	 *            distance to drive the robot
 	 */
-	public void driveDistance(double distance) {
-		if (usingVelocityControl) {
-			enablePosition();
-		}
-		this.leftClusterPosition.setSetpoint(distance);
-		this.rightClusterPosition.setSetpoint(distance);
-	}
+	// public void driveDistance(double distance) {
+	// if (usingVelocityControl) {
+	// enablePosition();
+	// }
+	// this.leftClusterPosition.reset();
+	// this.rightClusterPosition.reset();
+	// this.leftClusterPosition.setSetpoint(distance);
+	// this.rightClusterPosition.setSetpoint(distance);
+	// }
 
 	/**
 	 * @return whether the robot has driven the requested distance
 	 */
-	public boolean getDriveDistanceDone() {
-		return leftClusterPosition.onTarget() && rightClusterPosition.onTarget();
-	}
+	// public boolean getDriveDistanceDone() {
+	// return leftClusterPosition.onTarget() && rightClusterPosition.onTarget();
+	// }
 
 	/**
 	 * sets the angle controller to go to theta
@@ -175,23 +202,32 @@ public class TankDriveSubsystem extends DriveSubsystem {
 	 * call at beginning and before switching from position control to velocity
 	 * control
 	 */
-	private void enableVelocity() {
-		rightClusterVelocity.enable();
-		leftClusterVelocity.enable();
-		rightClusterPosition.disable();
-		leftClusterPosition.disable();
-		usingVelocityControl = true;
-	}
+	// private void enableVelocity() {
+	// rightClusterVelocity.enable();
+	// leftClusterVelocity.enable();
+	// rightClusterPosition.disable();
+	// leftClusterPosition.disable();
+	// usingVelocityControl = true;
+	// }
 
 	/**
 	 * call before switching from velocity control to position control
 	 */
-	private void enablePosition() {
-		rightClusterPosition.enable();
-		leftClusterPosition.enable();
-		rightClusterVelocity.disable();
-		leftClusterVelocity.disable();
-		usingVelocityControl = false;
+	// private void enablePosition() {
+	// rightClusterPosition.enable();
+	// leftClusterPosition.enable();
+	// rightClusterVelocity.disable();
+	// leftClusterVelocity.disable();
+	// usingVelocityControl = false;
+	// }
+
+	public void reset() {
+		this.leftClusterVelocity.reset();
+		this.rightClusterVelocity.reset();
+	}
+
+	public double getDistance() {
+		return Math.abs(leftEnc.getDistance());
 	}
 
 	/**
