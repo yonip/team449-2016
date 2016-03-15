@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class DefaultVision extends Command {
 
+	private boolean cameraFailed = false;
+
 	/**
 	 * Instantiate a ToggleCamera command
 	 */
@@ -29,7 +31,15 @@ public class DefaultVision extends Command {
 
 	@Override
 	protected void execute() {
-		CameraServer.getInstance().setImage(Robot.vision.getFrame());
+		try {
+			CameraServer.getInstance().setImage(Robot.vision.getFrame());
+		} catch (Exception e) {
+			if (!cameraFailed) {
+				System.out.println(
+						"(DefaultVision execute) Cameras done goofed, but everything else is (maybe) functional.");
+				cameraFailed = true;
+			}
+		}
 	}
 
 	@Override
