@@ -94,7 +94,6 @@ public class PIDVelocityMotor extends PIDComponent {
 		SmartDashboard.putNumber(velName + " intvel", integratedVelocity);
 		SmartDashboard.putNumber(velName + " delv", v);
 		SmartDashboard.putNumber(velName + " ztol", zeroTolerance);
-		SmartDashboard.putNumber(velName + " enc", returnPIDInput());
 		SmartDashboard.putNumber(velName + " setp", getSetpoint());
 	}
 
@@ -117,5 +116,13 @@ public class PIDVelocityMotor extends PIDComponent {
 	 */
 	public boolean getEnabled() {
 		return getEnabled();
+	}
+	
+	public void reset() {
+		encoder.reset();
+	}
+	
+	public void set(double v) {
+		motor.set(v);
 	}
 }
