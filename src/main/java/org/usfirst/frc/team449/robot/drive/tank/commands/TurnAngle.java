@@ -17,11 +17,12 @@ public class TurnAngle extends Command {
 	@Override
 	protected void initialize() {
 		System.out.println("TurnAngle init");
+		((TankDriveSubsystem) Robot.drive).enableAngleController();
+		((TankDriveSubsystem) Robot.drive).setTurnToAngle(theta);
 	}
 
 	@Override
 	protected void execute() {
-		((TankDriveSubsystem) Robot.drive).setTurnToAngle(theta);
 	}
 
 	@Override
@@ -32,10 +33,13 @@ public class TurnAngle extends Command {
 	@Override
 	protected void end() {
 		System.out.println("TurnAngle end");
+
+		((TankDriveSubsystem) Robot.drive).disableAngleController();
 	}
 
 	@Override
 	protected void interrupted() {
 		System.out.println("TurnAngle interrupted");
+		((TankDriveSubsystem) Robot.drive).disableAngleController();
 	}
 }
