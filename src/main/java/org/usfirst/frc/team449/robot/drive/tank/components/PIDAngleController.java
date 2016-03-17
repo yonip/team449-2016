@@ -17,6 +17,8 @@ public class PIDAngleController extends PIDComponent {
 	private SpeedController leftMotor;
 	private SpeedController rightMotor;
 	private AHRS gyro;
+	private double minimumOutput;
+	private boolean minimumOutputEnabled;
 
 	public PIDAngleController(double p, double i, double d, SpeedController leftMotor, SpeedController rightMotor,
 			AHRS gyro) {
@@ -26,6 +28,17 @@ public class PIDAngleController extends PIDComponent {
 		this.leftMotor = leftMotor;
 		this.rightMotor = rightMotor;
 		this.gyro = gyro;
+		this.minimumOutput = 0;
+		this.minimumOutputEnabled = false;
+	}
+	
+	public void setMinimumOutput(double minimumOutput) {
+		this.minimumOutput = minimumOutput;
+	}
+	
+
+	public void setMinimumOutputEnabled(boolean minimumOutputEnabled) {
+		this.minimumOutputEnabled = minimumOutputEnabled;
 	}
 
 	/**
@@ -53,6 +66,13 @@ public class PIDAngleController extends PIDComponent {
 
 	@Override
 	protected void usePIDOutput(double output) {
+		if (minimumOutputEnabled) {
+			if (output > 0 && output < minimumOutput) {
+				output = minimumOutput;
+			} else if (output < 0 && output > -minimumOutput) {
+				output = -minimumOutput;
+			}
+		}
 		this.leftMotor.pidWrite(-output);
 		this.rightMotor.pidWrite(output);
 		SmartDashboard.putNumber("angle out", output);

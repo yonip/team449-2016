@@ -263,13 +263,17 @@
           "d": 0,
           "absoluteTolerance": 1,
           "percentTolerance": 1,
+          "minimumOutput": 0.1,
+          "minimumOutputEnabled": true,
           "instances": 
           {
             "driveStraightAnglePID": 
             {
               "p": 0.01,
               "absoluteTolerance": 0,
-              "percentTolerance": 0
+              "percentTolerance": 0,
+              "minimumOutput": 0,
+              "minimumOutputEnabled": false
             }
           }
         }

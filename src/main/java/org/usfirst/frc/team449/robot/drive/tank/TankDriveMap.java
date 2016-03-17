@@ -61,6 +61,8 @@ public class TankDriveMap extends DriveMap {
 
 	public static class AnglePID extends PID {
 		public double absoluteTolerance;
+		public double minimumOutput;
+		public boolean minimumOutputEnabled;
 		
 		public AnglePID(JSONObject json, String path, Class enclosing) {
 			super(json, path, enclosing);

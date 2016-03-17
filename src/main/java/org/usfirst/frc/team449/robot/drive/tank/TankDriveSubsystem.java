@@ -90,11 +90,15 @@ public class TankDriveSubsystem extends DriveSubsystem {
 		angleController = new PIDAngleController(tankMap.anglePID.p, tankMap.anglePID.i, tankMap.anglePID.d,
 				leftClusterVelocity, rightClusterVelocity, gyro);
 		angleController.setAbsoluteTolerance(tankMap.anglePID.absoluteTolerance);
+		angleController.setMinimumOutput(tankMap.anglePID.minimumOutput);
+		angleController.setMinimumOutputEnabled(tankMap.anglePID.minimumOutputEnabled);
 		leftVelCorrector = new PIDOutputGetter();
 		rightVelCorrector = new PIDOutputGetter();
 		driveStraightAngleController = new PIDAngleController(tankMap.driveStraightAnglePID.p, tankMap.driveStraightAnglePID.i, tankMap.driveStraightAnglePID.d,
 				leftVelCorrector, rightVelCorrector, gyro);
-		angleController.setAbsoluteTolerance(tankMap.driveStraightAnglePID.absoluteTolerance);
+		driveStraightAngleController.setAbsoluteTolerance(tankMap.driveStraightAnglePID.absoluteTolerance);
+		driveStraightAngleController.setMinimumOutput(tankMap.driveStraightAnglePID.minimumOutput);
+		driveStraightAngleController.setMinimumOutputEnabled(tankMap.driveStraightAnglePID.minimumOutputEnabled);
 		SmartDashboard.putData("pid drive straight", driveStraightAngleController);
 		this.setPidEnabled(true);
 	}
