@@ -30,35 +30,15 @@ public class PIDAngleController extends PIDComponent {
 
 	/**
 	 * used by the PIDSubsystem to calculate the output wanted for the setpoint
-	 * in this class, this returns the attached gyro's angle via getAngle()
+	 * in this class, this returns the attached gyro's angle via pidGet()
 	 * 
-	 * @return the rate of rotation of the gyro as per the gyro's getAngle()
+	 * @return the rate of rotation of the gyro as per the gyro's pidGet()
 	 *         method
-	 * @see AHRS#getAngle()
+	 * @see AHRS#pidGet()
 	 */
 	@Override
 	protected double returnPIDInput() {
-		double n = gyro.getAngle();
-
-		while (n < 0) {
-			n += 360;
-		}
-
-		n %= 360;
-
-		SmartDashboard.putNumber("raw gyro reading", n);
-
-		return n;
-	}
-	
-	@Override
-	public void setSetpoint(double setpoint) {
-		while (setpoint < 0) {
-			setpoint += 360;
-		}
-
-		setpoint %= 360;
-		super.setSetpoint(setpoint);
+		return gyro.pidGet();
 	}
 
 	/**
