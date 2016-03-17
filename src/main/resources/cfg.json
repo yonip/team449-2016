@@ -120,7 +120,7 @@
           "d": 0,
           "zeroTolerance": 5,
           "outputRange": 5,
-          "percentTolerance": 20,
+          "percentTolerance": 5,
           "inverted": false,
           "speed": 100,
           "rampRate": 720,
