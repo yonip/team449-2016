@@ -256,6 +256,7 @@ public abstract class RobotMap {
 		 */
 		public double speed;
 		public double rampRate;
+		public boolean rampRateEnabled;
 
 		public VelocityPID(JSONObject json, String path, Class enclosing) {
 			super(json, path, enclosing);

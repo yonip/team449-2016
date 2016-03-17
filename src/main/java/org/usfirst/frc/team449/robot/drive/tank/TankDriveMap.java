@@ -14,6 +14,7 @@ public class TankDriveMap extends DriveMap {
 	public ClusterPID rightCluster;
 	/** the map for angle controller of the tank drive */
 	public AnglePID anglePID;
+	public AnglePID driveStraightAnglePID;
 	/** the radius of the drive */
 	public double RADIUS;
 
@@ -59,6 +60,8 @@ public class TankDriveMap extends DriveMap {
 	}
 
 	public static class AnglePID extends PID {
+		public double absoluteTolerance;
+		
 		public AnglePID(JSONObject json, String path, Class enclosing) {
 			super(json, path, enclosing);
 		}

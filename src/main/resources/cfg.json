@@ -1,61 +1,97 @@
 {
-  "components": {},
-  "MechanismMap": {
-    "IntakeMap": {
-      "components": {
-        "Motor": {
-          "instances": {
-            "motor": {
+  "components": 
+  {
+    
+  },
+
+  "MechanismMap": 
+  {
+    "IntakeMap": 
+    {
+      "components": 
+      {
+        "Motor": 
+        {
+          "instances": 
+          {
+            "motor": 
+            {
               "PORT": 3,
               "INVERTED": false
             }
           }
         },
+
         "OUTPUT_SPEED": -1,
-        "DoubleSolenoid": {
-          "instances": {
-            "solenoid": {
+        "DoubleSolenoid": 
+        {
+          "instances": 
+          {
+            "solenoid": 
+            {
               "forward": 1,
               "reverse": 0
             }
           }
         },
-        "IRSensor": {
-          "instances": {
-            "leftIR": {
+
+        "IRSensor": 
+        {
+          "instances": 
+          {
+            "leftIR": 
+            {
               "PORT": 0
             },
-            "rightIR": {
+
+            "rightIR": 
+            {
               "PORT": 1
             }
           },
+
           "LOWER_BOUND": 0.6,
           "UPPER_BOUND": 3.2,
           "OVERSAMPLING_BITS": 6,
           "AVERAGE_BITS": 6
         },
-        "Ultrasonic": {
-          "instances": {
-            "leftUltrasonic": {
+
+        "Ultrasonic": 
+        {
+          "instances": 
+          {
+            "leftUltrasonic": 
+            {
               "PORT": 2
             },
-            "rightUltrasonic": {
+
+            "rightUltrasonic": 
+            {
               "PORT": 3
             }
           }
         },
+
         "INPUT_SPEED": 1
       }
     },
-    "BreachMap": {
-      "components": {
-        "DoubleSolenoid": {
-          "instances": {
-            "back": {
+
+    "BreachMap": 
+    {
+      "components": 
+      {
+        "DoubleSolenoid": 
+        {
+          "instances": 
+          {
+            "back": 
+            {
               "forward": 4,
               "reverse": 5
             },
-            "front": {
+
+            "front": 
+            {
               "forward": 7,
               "reverse": 6
             }
@@ -63,13 +99,22 @@
         }
       }
     },
-    "components": {}
+
+    "components": 
+    {
+      
+    }
   },
-  "DriveMap": {
-    "TankDriveMap": {
-      "components": {
+
+  "DriveMap": 
+  {
+    "TankDriveMap": 
+    {
+      "components": 
+      {
         "RADIUS": 12,
-        "ClusterPID": {
+        "ClusterPID": 
+        {
           "p": 0.4,
           "i": 0,
           "d": 0,
@@ -78,80 +123,125 @@
           "percentTolerance": 20,
           "inverted": false,
           "speed": 100,
-          "rampRate": 240,
-          "MotorCluster": {
-            "Motor[]": {
-              "0": {
+          "rampRate": 720,
+          "rampRateEnabled": false,
+          "MotorCluster": 
+          {
+            "Motor[]": 
+            {
+              "0": 
+              {
                 "INVERTED": false
               },
-              "1": {
+
+              "1": 
+              {
                 "INVERTED": false
               },
-              "2": {
+
+              "2": 
+              {
                 "INVERTED": false
               }
             }
           },
-          "instances": {
-            "rightCluster": {
-            "inverted": true,
-              "MotorCluster": {
-                "instances": {
-                  "cluster": {
-                    "Motor[]": {
-                      "instances": {
-                        "motors": {
-                          "0": {
+
+          "instances": 
+          {
+            "rightCluster": 
+            {
+              "inverted": true,
+              "MotorCluster": 
+              {
+                "instances": 
+                {
+                  "cluster": 
+                  {
+                    "Motor[]": 
+                    {
+                      "instances": 
+                      {
+                        "motors": 
+                        {
+                          "0": 
+                          {
                             "PORT": 4
                           },
-                          "1": {
+
+                          "1": 
+                          {
                             "PORT": 5
                           },
-                          "2": {
+
+                          "2": 
+                          {
                             "PORT": 6
                           }
                         }
                       }
                     },
+
                     "INVERTED": true
                   }
                 }
               },
-              "Encoder": {
-                "instances": {
-                  "encoder": {
+
+              "Encoder": 
+              {
+                "instances": 
+                {
+                  "encoder": 
+                  {
                     "a": 2,
                     "b": 3
                   }
                 }
               }
             },
-            "leftCluster": {
-              "MotorCluster": {
-                "instances": {
-                  "cluster": {
-                    "Motor[]": {
-                      "instances": {
-                        "motors": {
-                          "0": {
+
+            "leftCluster": 
+            {
+              "MotorCluster": 
+              {
+                "instances": 
+                {
+                  "cluster": 
+                  {
+                    "Motor[]": 
+                    {
+                      "instances": 
+                      {
+                        "motors": 
+                        {
+                          "0": 
+                          {
                             "PORT": 0
                           },
-                          "1": {
+
+                          "1": 
+                          {
                             "PORT": 1
                           },
-                          "2": {
+
+                          "2": 
+                          {
                             "PORT": 2
                           }
                         }
                       }
                     },
+
                     "INVERTED": true
                   }
                 }
               },
-              "Encoder": {
-                "instances": {
-                  "encoder": {
+
+              "Encoder": 
+              {
+                "instances": 
+                {
+                  "encoder": 
+                  {
                     "a": 0,
                     "b": 1
                   }
@@ -159,22 +249,43 @@
               }
             }
           },
-          "Encoder": {
+
+          "Encoder": 
+          {
             "dpp": 0.0490873852
           }
         },
-        "AnglePID": {
-          "p": 0.4,
+
+        "AnglePID": 
+        {
+          "p": 0.006,
           "i": 0,
           "d": 0,
-          "percentTolerance" : 5
+          "absoluteTolerance": 1,
+          "percentTolerance": 1,
+          "instances": 
+          {
+            "driveStraightAnglePID": 
+            {
+              "p": 0.01,
+              "absoluteTolerance": 0,
+              "percentTolerance": 0
+            }
+          }
         }
       }
     },
-    "components": {}
+
+    "components": 
+    {
+      
+    }
   },
-  "OIMap": {
-    "components": {
+
+  "OIMap": 
+  {
+    "components": 
+    {
       "RIGHT_DRIVE_STICK": 3,
       "LEFT_DRIVE_STICK": 1,
       "MAIN_CONTROLLER": 0,
@@ -188,9 +299,10 @@
       "BREACH_CLOSE": 1,
       "CAMERA_TOGGLE": 9,
       "DRIVE_STRAIGHT": 6,
-      "FACE_FRONT": 8,
-      "FACE_LEFT_GOAL": 9,
-      "FACE_RIGHT_GOAL": 10,
+      "FACE_FRONT": 3,
+      "FACE_BACK": 2,
+      "FACE_LEFT_GOAL": 4,
+      "FACE_RIGHT_GOAL": 5,
       "IGNORE_IR": 6,
       "TOGGLE_PID": 7,
       "DEADBAND": 0.02,
@@ -198,7 +310,9 @@
       "MAX_VALUE": 1
     }
   },
-  "GameDetailsMap": {
+
+  "GameDetailsMap": 
+  {
     "leftGoalAngle": 0.523599,
     "rightGoalAngle": -0.523599
   }

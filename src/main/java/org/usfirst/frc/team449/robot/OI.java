@@ -1,5 +1,6 @@
 package org.usfirst.frc.team449.robot;
 
+import org.usfirst.frc.team449.robot.drive.tank.commands.DriveStraight;
 import org.usfirst.frc.team449.robot.drive.tank.commands.TogglePid;
 import org.usfirst.frc.team449.robot.drive.tank.commands.TurnAngle;
 import org.usfirst.frc.team449.robot.mechanism.breach.commands.BreachChivald;
@@ -53,8 +54,10 @@ public class OI/* vey */ {
 		Button ignoreIR = new JoystickButton(manualOverrides, map.IGNORE_IR);
 		Button togglePid = new JoystickButton(manualOverrides, map.TOGGLE_PID);
 
-		Button faceFront = new JoystickButton(manualOverrides,
-				map.FACE_FRONT);
+		Button faceFront = new JoystickButton(manualOverrides, map.FACE_FRONT);
+		Button faceBack = new JoystickButton(manualOverrides, map.FACE_BACK);
+		Button faceGoalLeft = new JoystickButton(manualOverrides, map.FACE_LEFT_GOAL);
+		Button faceGoalRight = new JoystickButton(manualOverrides, map.FACE_RIGHT_GOAL);
 
 		intakeIn.toggleWhenPressed(new IntakeIn());
 		intakeOut.whileHeld(new IntakeOut());
@@ -74,8 +77,11 @@ public class OI/* vey */ {
 
 		ignoreIR.whenPressed(new ToggleIgnoreIR());
 		togglePid.whenPressed(new TogglePid());
+		driveStraightVel.whileHeld(new DriveStraight());
 
-		faceFront.whenPressed(new TurnAngle(0));
+		faceFront.toggleWhenPressed(new TurnAngle(0));
+		faceBack.toggleWhenPressed(new TurnAngle(180));
+		faceGoalLeft.toggleWhenPressed(new TurnAngle(15));
 	}
 
 	public double getDriveAxisLeft() {

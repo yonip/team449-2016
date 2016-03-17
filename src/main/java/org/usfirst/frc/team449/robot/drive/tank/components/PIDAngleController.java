@@ -26,7 +26,6 @@ public class PIDAngleController extends PIDComponent {
 		this.leftMotor = leftMotor;
 		this.rightMotor = rightMotor;
 		this.gyro = gyro;
-		this.setPercentTolerance(2);
 	}
 
 	/**
@@ -51,6 +50,16 @@ public class PIDAngleController extends PIDComponent {
 
 		return n;
 	}
+	
+	@Override
+	public void setSetpoint(double setpoint) {
+		while (setpoint < 0) {
+			setpoint += 360;
+		}
+
+		setpoint %= 360;
+		super.setSetpoint(setpoint);
+	}
 
 	/**
 	 * Uses the output decided by the PIDSubsystem This output is the normalized
@@ -66,6 +75,14 @@ public class PIDAngleController extends PIDComponent {
 	protected void usePIDOutput(double output) {
 		this.leftMotor.pidWrite(-output);
 		this.rightMotor.pidWrite(output);
-		SmartDashboard.putNumber("angle sp", output);
+		SmartDashboard.putNumber("angle out", output);
+		SmartDashboard.putNumber("angle sp", getSetpoint());
+	}
+	
+	@Override
+	public void disable() {
+		this.leftMotor.stopMotor();
+		this.rightMotor.stopMotor();
+		super.disable();
 	}
 }

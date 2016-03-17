@@ -1,6 +1,7 @@
 package org.usfirst.frc.team449.robot.drive.tank;
 
 import org.usfirst.frc.team449.robot.RobotMap;
+import org.usfirst.frc.team449.robot.components.PIDOutputGetter;
 import org.usfirst.frc.team449.robot.components.PIDPositionMotor;
 import org.usfirst.frc.team449.robot.components.PIDVelocityMotor;
 import org.usfirst.frc.team449.robot.drive.DriveSubsystem;
@@ -12,6 +13,7 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -21,16 +23,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class TankDriveSubsystem extends DriveSubsystem {
 	private PIDVelocityMotor rightClusterVelocity;
 	private PIDVelocityMotor leftClusterVelocity;
-	// private PIDPositionMotor rightClusterPosition;
-	// private PIDPositionMotor leftClusterPosition;
 	private MotorCluster rightCluster;
 	private MotorCluster leftCluster;
 	private Encoder rightEnc;
 	private Encoder leftEnc;
-
-	// private boolean usingVelocityControl;
+	
+	private PIDOutputGetter leftVelCorrector;
+	private PIDOutputGetter rightVelCorrector;
 
 	private PIDAngleController angleController;
+	private PIDAngleController driveStraightAngleController;
 	private AHRS gyro;
 	private boolean pidEnabled;
 
@@ -57,11 +59,12 @@ public class TankDriveSubsystem extends DriveSubsystem {
 		this.leftClusterVelocity = new PIDVelocityMotor(tankMap.leftCluster.p, tankMap.leftCluster.i,
 				tankMap.leftCluster.d, leftCluster, leftEnc, "left");
 		this.leftClusterVelocity.setOutputRange(-tankMap.leftCluster.outputRange, tankMap.leftCluster.outputRange);
-		this.leftClusterVelocity.setInputRange(-tankMap.leftCluster.speed, tankMap.leftCluster.speed);
+		this.leftClusterVelocity.setSpeed(tankMap.leftCluster.speed);
 		this.leftClusterVelocity.setPercentTolerance(tankMap.leftCluster.percentTolerance);
 		this.leftClusterVelocity.setZeroTolerance(tankMap.leftCluster.zeroTolerance);
 		this.leftClusterVelocity.setInverted(tankMap.leftCluster.inverted);
 		this.leftClusterVelocity.setRampRate(tankMap.leftCluster.rampRate);
+		this.leftClusterVelocity.setRampRateEnabled(tankMap.leftCluster.rampRateEnabled);
 
 		// right pid
 		rightCluster = new MotorCluster(tankMap.rightCluster.cluster.motors.length);
@@ -76,17 +79,23 @@ public class TankDriveSubsystem extends DriveSubsystem {
 		this.rightClusterVelocity = new PIDVelocityMotor(tankMap.rightCluster.p, tankMap.rightCluster.i,
 				tankMap.rightCluster.d, rightCluster, rightEnc, "right");
 		this.rightClusterVelocity.setOutputRange(-tankMap.rightCluster.outputRange, tankMap.rightCluster.outputRange);
-		this.rightClusterVelocity.setInputRange(-tankMap.rightCluster.speed, tankMap.rightCluster.speed);
+		this.rightClusterVelocity.setSpeed(tankMap.rightCluster.speed);
 		this.rightClusterVelocity.setPercentTolerance(tankMap.rightCluster.percentTolerance);
 		this.rightClusterVelocity.setZeroTolerance(tankMap.rightCluster.zeroTolerance);
 		this.rightClusterVelocity.setInverted(tankMap.rightCluster.inverted);
 		this.rightClusterVelocity.setRampRate(tankMap.rightCluster.rampRate);
+		this.rightClusterVelocity.setRampRateEnabled(tankMap.rightCluster.rampRateEnabled);
 
 		gyro = new AHRS(SPI.Port.kMXP);
 		angleController = new PIDAngleController(tankMap.anglePID.p, tankMap.anglePID.i, tankMap.anglePID.d,
 				leftClusterVelocity, rightClusterVelocity, gyro);
-		angleController.setOutputRange(-1, 1);
-
+		angleController.setAbsoluteTolerance(tankMap.anglePID.absoluteTolerance);
+		leftVelCorrector = new PIDOutputGetter();
+		rightVelCorrector = new PIDOutputGetter();
+		driveStraightAngleController = new PIDAngleController(tankMap.driveStraightAnglePID.p, tankMap.driveStraightAnglePID.i, tankMap.driveStraightAnglePID.d,
+				leftVelCorrector, rightVelCorrector, gyro);
+		angleController.setAbsoluteTolerance(tankMap.driveStraightAnglePID.absoluteTolerance);
+		SmartDashboard.putData("pid drive straight", driveStraightAngleController);
 		this.setPidEnabled(true);
 	}
 
@@ -106,6 +115,15 @@ public class TankDriveSubsystem extends DriveSubsystem {
 	public double getPitch() {
 		return gyro.getPitch();
 	}
+	
+	public void enableDriveStraightCorrector() {
+		driveStraightAngleController.enable();
+		driveStraightAngleController.setSetpoint(gyro.getAngle());
+	}
+	
+	public void disableDriveStraightCorrector() {
+		driveStraightAngleController.disable();
+	}
 
 	/**
 	 * sets the throttle for the left and right clusters as specified by the
@@ -117,6 +135,14 @@ public class TankDriveSubsystem extends DriveSubsystem {
 	 *            the normalized speed between -1 and 1 for the right cluster
 	 */
 	public void setThrottle(double left, double right) {
+		SmartDashboard.putNumber("right js", right);
+		SmartDashboard.putNumber("left js", left);
+		SmartDashboard.putNumber("right enc", rightEnc.getRate());
+		SmartDashboard.putNumber("left enc", leftEnc.getRate());
+		SmartDashboard.putNumber("right corr", rightVelCorrector.get());
+		SmartDashboard.putNumber("left corr", leftVelCorrector.get());
+		left += leftVelCorrector.get()*((TankDriveMap) map).leftCluster.speed;
+		right += rightVelCorrector.get()*((TankDriveMap) map).rightCluster.speed;
 		if (pidEnabled) {
 			this.leftClusterVelocity.setSetpoint(left);
 			this.rightClusterVelocity.setSetpoint(right);
@@ -124,32 +150,14 @@ public class TankDriveSubsystem extends DriveSubsystem {
 			this.leftCluster.set(left);
 			this.rightCluster.set(right);
 		}
-		SmartDashboard.putNumber("right enc", rightEnc.getRate());
-		SmartDashboard.putNumber("left enc", leftEnc.getRate());
+		SmartDashboard.putNumber("getangle", gyro.getAngle());
+		double n = gyro.getAngle();
+		while (n < 0) {
+			n += 360;
+		}
+		n %= 360;
+		SmartDashboard.putNumber("modded angle", n);
 	}
-
-	/**
-	 * drive the robot a certain distance
-	 * 
-	 * @param distance
-	 *            distance to drive the robot
-	 */
-	// public void driveDistance(double distance) {
-	// if (usingVelocityControl) {
-	// enablePosition();
-	// }
-	// this.leftClusterPosition.reset();
-	// this.rightClusterPosition.reset();
-	// this.leftClusterPosition.setSetpoint(distance);
-	// this.rightClusterPosition.setSetpoint(distance);
-	// }
-
-	/**
-	 * @return whether the robot has driven the requested distance
-	 */
-	// public boolean getDriveDistanceDone() {
-	// return leftClusterPosition.onTarget() && rightClusterPosition.onTarget();
-	// }
 
 	/**
 	 * sets the angle controller to go to theta
@@ -176,29 +184,6 @@ public class TankDriveSubsystem extends DriveSubsystem {
 	protected void initDefaultCommand() {
 		setDefaultCommand(new DefaultDrive());
 	}
-
-	/**
-	 * call at beginning and before switching from position control to velocity
-	 * control
-	 */
-	// private void enableVelocity() {
-	// rightClusterVelocity.enable();
-	// leftClusterVelocity.enable();
-	// rightClusterPosition.disable();
-	// leftClusterPosition.disable();
-	// usingVelocityControl = true;
-	// }
-
-	/**
-	 * call before switching from velocity control to position control
-	 */
-	// private void enablePosition() {
-	// rightClusterPosition.enable();
-	// leftClusterPosition.enable();
-	// rightClusterVelocity.disable();
-	// leftClusterVelocity.disable();
-	// usingVelocityControl = false;
-	// }
 
 	public void reset() {
 		this.leftEnc.reset();

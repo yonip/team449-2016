@@ -102,6 +102,10 @@ public class PIDVelocityMotor extends PIDComponent implements SpeedController {
 		SmartDashboard.putNumber(velName + " ztol", zeroTolerance);
 	}
 	
+	public void setSpeed(double speed) {
+		this.speed = speed;
+	}
+	
 	@Override
 	public void setSetpoint(double setpoint) {
 		if (rampEnabled) {
@@ -118,6 +122,10 @@ public class PIDVelocityMotor extends PIDComponent implements SpeedController {
 	
 	public void setRampRate(double rampRate) {
 		this.rampRate = rampRate;
+	}
+	
+	public void setRampRateEnabled(boolean rampRateEnabled) {
+		this.rampEnabled = rampRateEnabled;
 	}
 	
 	/**
