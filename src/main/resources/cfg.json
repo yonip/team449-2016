@@ -310,6 +310,7 @@
       "FACE_RIGHT_GOAL": 10,
       "IGNORE_IR": 6,
       "TOGGLE_PID": 7,
+      "ZERO_GYRO": 10,
       "DEADBAND": 0.02,
       "POWER": 2,
       "MAX_VALUE": 1

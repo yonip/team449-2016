@@ -3,6 +3,7 @@ package org.usfirst.frc.team449.robot;
 import org.usfirst.frc.team449.robot.drive.tank.commands.DriveStraight;
 import org.usfirst.frc.team449.robot.drive.tank.commands.TogglePid;
 import org.usfirst.frc.team449.robot.drive.tank.commands.TurnAngle;
+import org.usfirst.frc.team449.robot.drive.tank.commands.ZeroGyro;
 import org.usfirst.frc.team449.robot.mechanism.breach.commands.BreachChivald;
 import org.usfirst.frc.team449.robot.mechanism.breach.commands.BreachPortcullis;
 import org.usfirst.frc.team449.robot.mechanism.breach.commands.BreachStowed;
@@ -60,6 +61,8 @@ public class OI/* vey */ {
 		Button faceGoalLeft = new JoystickButton(manualOverrides, map.FACE_LEFT_GOAL);
 		Button faceGoalRight = new JoystickButton(manualOverrides, map.FACE_RIGHT_GOAL);
 
+		Button zeroGyro = new JoystickButton(gamecube, map.ZERO_GYRO);
+
 		intakeIn.toggleWhenPressed(new IntakeIn());
 		intakeOut.whileHeld(new IntakeOut());
 		// TODO intakeToggle command
@@ -85,6 +88,8 @@ public class OI/* vey */ {
 		faceBack.toggleWhenPressed(new TurnAngle(180));
 		faceGoalLeft.toggleWhenPressed(new TurnAngle(60));
 		faceGoalRight.toggleWhenActive(new TurnAngle(-60));
+
+		zeroGyro.whenPressed(new ZeroGyro());
 	}
 
 	public double getDriveAxisLeft() {

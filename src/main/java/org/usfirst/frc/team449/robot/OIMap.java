@@ -32,7 +32,7 @@ public class OIMap extends RobotMap {
 	public int BREACH_PORTCULLIS;
 
 	public int BREACH_CLOSE_PRIMARY;
-	
+
 	public int BREACH_CLOSE_SECONDARY;
 
 	public int CAMERA_TOGGLE;
@@ -42,6 +42,8 @@ public class OIMap extends RobotMap {
 	public int IGNORE_IR;
 
 	public int TOGGLE_PID;
+
+	public int ZERO_GYRO;
 
 	public int FACE_FRONT;
 

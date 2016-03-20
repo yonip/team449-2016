@@ -27,7 +27,7 @@ public class TankDriveSubsystem extends DriveSubsystem {
 	private MotorCluster leftCluster;
 	private Encoder rightEnc;
 	private Encoder leftEnc;
-	
+
 	private PIDOutputGetter leftVelCorrector;
 	private PIDOutputGetter rightVelCorrector;
 
@@ -40,7 +40,8 @@ public class TankDriveSubsystem extends DriveSubsystem {
 		super(map);
 		System.out.println("Drive init started");
 		if (!(map instanceof TankDriveMap)) {
-			System.err.println("TankDrive has a map of class " + map.getClass().getSimpleName() + " and not TankDriveMap");
+			System.err.println(
+					"TankDrive has a map of class " + map.getClass().getSimpleName() + " and not TankDriveMap");
 		}
 
 		TankDriveMap tankMap = (TankDriveMap) map;
@@ -94,13 +95,18 @@ public class TankDriveSubsystem extends DriveSubsystem {
 		angleController.setMinimumOutputEnabled(tankMap.anglePID.minimumOutputEnabled);
 		leftVelCorrector = new PIDOutputGetter();
 		rightVelCorrector = new PIDOutputGetter();
-		driveStraightAngleController = new PIDAngleController(tankMap.driveStraightAnglePID.p, tankMap.driveStraightAnglePID.i, tankMap.driveStraightAnglePID.d,
-				leftVelCorrector, rightVelCorrector, gyro);
+		driveStraightAngleController = new PIDAngleController(tankMap.driveStraightAnglePID.p,
+				tankMap.driveStraightAnglePID.i, tankMap.driveStraightAnglePID.d, leftVelCorrector, rightVelCorrector,
+				gyro);
 		driveStraightAngleController.setAbsoluteTolerance(tankMap.driveStraightAnglePID.absoluteTolerance);
 		driveStraightAngleController.setMinimumOutput(tankMap.driveStraightAnglePID.minimumOutput);
 		driveStraightAngleController.setMinimumOutputEnabled(tankMap.driveStraightAnglePID.minimumOutputEnabled);
 		SmartDashboard.putData("pid drive straight", driveStraightAngleController);
 		this.setPidEnabled(true);
+	}
+
+	public void zeroGyro() {
+		gyro.zeroYaw();
 	}
 
 	public void disableAngleController() {
@@ -119,12 +125,12 @@ public class TankDriveSubsystem extends DriveSubsystem {
 	public double getPitch() {
 		return gyro.getPitch();
 	}
-	
+
 	public void enableDriveStraightCorrector() {
 		driveStraightAngleController.enable();
 		driveStraightAngleController.setSetpoint(gyro.pidGet());
 	}
-	
+
 	public void disableDriveStraightCorrector() {
 		driveStraightAngleController.disable();
 	}
@@ -145,8 +151,8 @@ public class TankDriveSubsystem extends DriveSubsystem {
 		SmartDashboard.putNumber("left enc", leftEnc.getRate());
 		SmartDashboard.putNumber("right corr", rightVelCorrector.get());
 		SmartDashboard.putNumber("left corr", leftVelCorrector.get());
-		left += leftVelCorrector.get()*((TankDriveMap) map).leftCluster.speed;
-		right += rightVelCorrector.get()*((TankDriveMap) map).rightCluster.speed;
+		left += leftVelCorrector.get() * ((TankDriveMap) map).leftCluster.speed;
+		right += rightVelCorrector.get() * ((TankDriveMap) map).rightCluster.speed;
 		if (pidEnabled) {
 			this.leftClusterVelocity.setSetpoint(left);
 			this.rightClusterVelocity.setSetpoint(right);
