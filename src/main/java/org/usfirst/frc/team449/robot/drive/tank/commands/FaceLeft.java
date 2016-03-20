@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class FaceLeft extends CommandGroup {
 	public FaceLeft() {
-		addSequential(new TurnAngle(Math.PI / 2));
+		// TODO use this ...
+		addSequential(new TurnAngle(90));
 	}
 }

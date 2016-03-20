@@ -25,7 +25,6 @@ public class PIDAngleController extends PIDComponent {
 			SpeedController leftMotor, SpeedController rightMotor, AHRS gyro) {
 		super(p, i, d);
 		this.getPIDController().setContinuous(true);
-		// this.setInputRange(0, 360);
 		this.setInputRange(-180, 180);
 		this.leftMotor = leftMotor;
 		this.rightMotor = rightMotor;
