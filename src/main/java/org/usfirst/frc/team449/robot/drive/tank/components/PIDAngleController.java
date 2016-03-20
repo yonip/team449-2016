@@ -1,8 +1,6 @@
 package org.usfirst.frc.team449.robot.drive.tank.components;
 
-import org.usfirst.frc.team449.robot.Robot;
 import org.usfirst.frc.team449.robot.components.PIDComponent;
-import org.usfirst.frc.team449.robot.components.PIDVelocityMotor;
 
 import com.kauailabs.navx.frc.AHRS;
 

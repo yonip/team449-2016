@@ -21,8 +21,8 @@ public abstract class RobotMap {
 
 	// TODO put this in cfg
 	// TODO get these constants right
-	//public static final double leftGoalHeading = 0.523599;
-	//public static final double rightGoalHeading = -0.523599;
+	// public static final double leftGoalHeading = 0.523599;
+	// public static final double rightGoalHeading = -0.523599;
 
 	/**
 	 * creates a new Map based on the configuration in the given json any maps

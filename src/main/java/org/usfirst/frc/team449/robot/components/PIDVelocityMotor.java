@@ -23,15 +23,15 @@ public class PIDVelocityMotor extends PIDComponent implements SpeedController {
 	/**
 	 * This defines the deadband around zero which, when read from
 	 * {@link #returnPIDInput()}, will be result in no signal to the motor when
-	 * {@link #getSetpoint()} returns 0.
-	 * </p>
-	 * This is done to avoid wheel jitter at near-zero values, since it is known
-	 * that for a stationary robot, in the absence of external forces, 0 signal
-	 * to the motor will result in no wheel movement.
+	 * {@link #getSetpoint()} returns 0. </p> This is done to avoid wheel jitter
+	 * at near-zero values, since it is known that for a stationary robot, in
+	 * the absence of external forces, 0 signal to the motor will result in no
+	 * wheel movement.
 	 */
 	protected double zeroTolerance = 0; // speed at which speed ~= 0
 
-	public PIDVelocityMotor(double p, double i, double d, SpeedController motor, Encoder encoder, String name) {
+	public PIDVelocityMotor(double p, double i, double d,
+			SpeedController motor, Encoder encoder, String name) {
 		super(p, i, d);
 		this.motor = motor;
 		this.encoder = encoder;
@@ -76,7 +76,8 @@ public class PIDVelocityMotor extends PIDComponent implements SpeedController {
 	@Override
 	protected void usePIDOutput(double v) {
 		this.integratedVelocity += v * Robot.DELTAT; // mult by delta t
-		this.integratedVelocity = Math.max(-1, Math.min(1, this.integratedVelocity));
+		this.integratedVelocity = Math.max(-1,
+				Math.min(1, this.integratedVelocity));
 		if (getSetpoint() == 0 && Math.abs(returnPIDInput()) < zeroTolerance) {
 			this.integratedVelocity = 0;
 		}
@@ -89,11 +90,10 @@ public class PIDVelocityMotor extends PIDComponent implements SpeedController {
 	/**
 	 * This defines the deadband around zero which, when read from
 	 * {@link #returnPIDInput()}, will be result in no signal to the motor when
-	 * {@link #getSetpoint()} returns 0.
-	 * </p>
-	 * This is done to avoid wheel jitter at near-zero values, since it is known
-	 * that for a stationary robot, in the absence of external forces, 0 signal
-	 * to the motor will result in no wheel movement.
+	 * {@link #getSetpoint()} returns 0. </p> This is done to avoid wheel jitter
+	 * at near-zero values, since it is known that for a stationary robot, in
+	 * the absence of external forces, 0 signal to the motor will result in no
+	 * wheel movement.
 	 * 
 	 * @param zeroTolerance
 	 *            the radius of the deadband around zero
@@ -101,16 +101,17 @@ public class PIDVelocityMotor extends PIDComponent implements SpeedController {
 	public void setZeroTolerance(double zeroTolerance) {
 		this.zeroTolerance = zeroTolerance;
 	}
-	
+
 	public void setSpeed(double speed) {
 		this.speed = speed;
 	}
-	
+
 	@Override
 	public void setSetpoint(double setpoint) {
 		if (rampEnabled) {
 			change = setpoint - getSetpoint();
-			change = Math.max(-rampRate*Robot.DELTAT, Math.min(rampRate*Robot.DELTAT, change));
+			change = Math.max(-rampRate * Robot.DELTAT,
+					Math.min(rampRate * Robot.DELTAT, change));
 			setpoint = getSetpoint() + change;
 		} else {
 			change = 0;
@@ -119,29 +120,30 @@ public class PIDVelocityMotor extends PIDComponent implements SpeedController {
 		SmartDashboard.putNumber(velName + " set setp", setpoint);
 		super.setSetpoint(setpoint);
 	}
-	
+
 	public void setRampRate(double rampRate) {
 		this.rampRate = rampRate;
 	}
-	
+
 	public void setRampRateEnabled(boolean rampRateEnabled) {
 		this.rampEnabled = rampRateEnabled;
 	}
-	
+
 	/**
 	 * @return whether or not the pid subsystem is enabled
 	 */
 	public boolean getEnabled() {
 		return this.getPIDController().isEnabled();
 	}
-	
+
 	/**
 	 * Sets the setpoint for this
+	 * 
 	 * @param v
 	 */
 	@Override
 	public void set(double v) {
-		this.setSetpoint(v*speed);
+		this.setSetpoint(v * speed);
 	}
 
 	@Override
@@ -151,7 +153,7 @@ public class PIDVelocityMotor extends PIDComponent implements SpeedController {
 
 	@Override
 	public double get() {
-		return this.getSetpoint()/speed;
+		return this.getSetpoint() / speed;
 	}
 
 	@Override
