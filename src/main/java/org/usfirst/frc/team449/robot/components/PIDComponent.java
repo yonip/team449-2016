@@ -13,6 +13,7 @@ public abstract class PIDComponent extends PIDSubsystem {
 	private PIDController.Tolerance tol;
 	private double lower;
 	private double upper;
+
 	/**
 	 * Used internally for when Tolerance hasn't been set.
 	 */
@@ -32,7 +33,7 @@ public abstract class PIDComponent extends PIDSubsystem {
 
 		@Override
 		public boolean onTarget() {
-			return getSetpoint() - returnPIDInput() < percentage / 100 * (upper - lower);
+			return Math.abs(getSetpoint() - returnPIDInput()) < Math.abs(percentage / 100 * (upper - lower));
 		}
 	}
 
@@ -45,7 +46,7 @@ public abstract class PIDComponent extends PIDSubsystem {
 
 		@Override
 		public boolean onTarget() {
-			return getSetpoint() - returnPIDInput() < value;
+			return Math.abs(getSetpoint() - returnPIDInput()) < Math.abs(value);
 		}
 	}
 
@@ -59,8 +60,7 @@ public abstract class PIDComponent extends PIDSubsystem {
 		this.tol = new NullTolerance();
 	}
 
-	public PIDComponent(String name, double p, double i, double d, double f,
-			double period) {
+	public PIDComponent(String name, double p, double i, double d, double f, double period) {
 		super(name, p, i, d, f, period);
 		this.tol = new NullTolerance();
 	}
@@ -79,7 +79,7 @@ public abstract class PIDComponent extends PIDSubsystem {
 		super(p, i, d, period);
 		this.tol = new NullTolerance();
 	}
-	
+
 	@Override
 	public void setInputRange(double lower, double upper) {
 		this.lower = lower;
@@ -92,13 +92,13 @@ public abstract class PIDComponent extends PIDSubsystem {
 		this.tol = new AbsoluteTolerance(tolerance);
 		super.setAbsoluteTolerance(tolerance);
 	}
-	
+
 	@Override
 	public void setPercentTolerance(double p) {
 		this.tol = new PercentageTolerance(p);
 		super.setPercentTolerance(p);
 	}
-	
+
 	@Override
 	public boolean onTarget() {
 		return tol.onTarget() || super.onTarget();

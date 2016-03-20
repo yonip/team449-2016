@@ -42,7 +42,7 @@ public class TurnAngle extends Command {
 
 		((TankDriveSubsystem) Robot.drive).disableAngleController();
 		done = true;
-		SmartDashboard.putBoolean("turnangle done", done);
+		SmartDashboard.putBoolean("turnangle done", done );
 	}
 
 	@Override

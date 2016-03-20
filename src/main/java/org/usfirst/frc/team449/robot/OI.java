@@ -86,8 +86,8 @@ public class OI/* vey */ {
 
 		faceFront.toggleWhenPressed(new TurnAngle(0));
 		faceBack.toggleWhenPressed(new TurnAngle(180));
-		faceGoalLeft.toggleWhenPressed(new TurnAngle(60));
-		faceGoalRight.toggleWhenActive(new TurnAngle(-60));
+		faceGoalLeft.toggleWhenPressed(new TurnAngle(120));
+		faceGoalRight.toggleWhenActive(new TurnAngle(-120));
 
 		zeroGyro.whenPressed(new ZeroGyro());
 	}
