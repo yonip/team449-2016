@@ -83,8 +83,8 @@ public class OI/* vey */ {
 
 		faceFront.toggleWhenPressed(new TurnAngle(0));
 		faceBack.toggleWhenPressed(new TurnAngle(180));
-		faceGoalLeft.toggleWhenPressed(new TurnAngle(15));
-		faceGoalRight.toggleWhenActive(new TurnAngle(-15));
+		faceGoalLeft.toggleWhenPressed(new TurnAngle(60));
+		faceGoalRight.toggleWhenActive(new TurnAngle(-60));
 	}
 
 	public double getDriveAxisLeft() {
