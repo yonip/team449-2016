@@ -21,22 +21,22 @@ public class PIDAngleController extends PIDComponent {
 	private double minimumOutput;
 	private boolean minimumOutputEnabled;
 
-	public PIDAngleController(double p, double i, double d, SpeedController leftMotor, SpeedController rightMotor,
-			AHRS gyro) {
+	public PIDAngleController(double p, double i, double d,
+			SpeedController leftMotor, SpeedController rightMotor, AHRS gyro) {
 		super(p, i, d);
 		this.getPIDController().setContinuous(true);
-		this.setInputRange(0, 360);
+		// this.setInputRange(0, 360);
+		this.setInputRange(-180, 180);
 		this.leftMotor = leftMotor;
 		this.rightMotor = rightMotor;
 		this.gyro = gyro;
 		this.minimumOutput = 0;
 		this.minimumOutputEnabled = false;
 	}
-	
+
 	public void setMinimumOutput(double minimumOutput) {
 		this.minimumOutput = minimumOutput;
 	}
-	
 
 	public void setMinimumOutputEnabled(boolean minimumOutputEnabled) {
 		this.minimumOutputEnabled = minimumOutputEnabled;
@@ -46,14 +46,14 @@ public class PIDAngleController extends PIDComponent {
 	 * used by the PIDSubsystem to calculate the output wanted for the setpoint
 	 * in this class, this returns the attached gyro's angle via pidGet()
 	 * 
-	 * @return the rate of rotation of the gyro as per the gyro's pidGet()
-	 *         method
+	 * @return the angle of the gyro as per the gyro's pidGet() method (between
+	 *         -180 and 180 degrees)
 	 * @see AHRS#pidGet()
 	 */
 	@Override
 	protected double returnPIDInput() {
 		return gyro.pidGet();
-		//return Robot.oi.getDebugAngle();
+		// return Robot.oi.getDebugAngle();
 	}
 
 	/**
@@ -81,7 +81,7 @@ public class PIDAngleController extends PIDComponent {
 		SmartDashboard.putNumber("angle sp", getSetpoint());
 		SmartDashboard.putNumber("avger", getPIDController().getAvgError());
 	}
-	
+
 	@Override
 	public void disable() {
 		this.leftMotor.stopMotor();
