@@ -18,7 +18,7 @@ public class DriveStraight extends Command {
 
 	@Override
 	protected void initialize() {
-		((TankDriveSubsystem) Robot.drive).enableDriveStraightCorrector();
+		//((TankDriveSubsystem) Robot.drive).enableDriveStraightCorrector();
 		SmartDashboard.putBoolean("straigt on", true);
 	}
 
@@ -38,13 +38,13 @@ public class DriveStraight extends Command {
 
 	@Override
 	protected void end() {
-		((TankDriveSubsystem) Robot.drive).disableDriveStraightCorrector();
+		//((TankDriveSubsystem) Robot.drive).disableDriveStraightCorrector();
 		SmartDashboard.putBoolean("straigt on", false);
 	}
 
 	@Override
 	protected void interrupted() {
-		((TankDriveSubsystem) Robot.drive).disableDriveStraightCorrector();
+		//((TankDriveSubsystem) Robot.drive).disableDriveStraightCorrector();
 		SmartDashboard.putBoolean("straigt on", false);
 		
 		

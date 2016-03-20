@@ -24,14 +24,14 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class OI/* vey */ {
 	private OIMap map;
 
-	private Joystick leftDriveJoystick;
-	private Joystick rightDriveJoystick;
+	// private Joystick leftDriveJoystick;
+	// private Joystick rightDriveJoystick;
 	// private Joystick intakeJoystick;
 
 	private Joystick manualOverrides;
 
 	private Joystick gamecube;
-	private double db = 0.02;
+	// private double db = 0.02;
 	private int sign = 1;
 
 	public OI(OIMap map) {
@@ -48,7 +48,8 @@ public class OI/* vey */ {
 		Button intakeDown = new JoystickButton(gamecube, map.INTAKE_DOWN);
 		Button breachChival = new JoystickButton(gamecube, map.BREACH_CHIVAL);
 		Button breachPortcullis = new JoystickButton(gamecube, map.BREACH_PORTCULLIS);
-		Button breachClose = new JoystickButton(gamecube, map.BREACH_CLOSE);
+		Button breachClosePrimary = new JoystickButton(gamecube, map.BREACH_CLOSE_PRIMARY);
+		Button breachCloseSecondary = new JoystickButton(manualOverrides, map.BREACH_CLOSE_SECONDARY);
 		Button cameraToggle = new JoystickButton(gamecube, map.CAMERA_TOGGLE);
 		Button driveStraightVel = new JoystickButton(gamecube, map.DRIVE_STRAIGHT);
 		Button ignoreIR = new JoystickButton(manualOverrides, map.IGNORE_IR);
@@ -67,7 +68,8 @@ public class OI/* vey */ {
 
 		breachChival.whenPressed(new BreachChivald());
 		breachPortcullis.whenPressed(new BreachPortcullis()); // new
-		breachClose.whenPressed(new BreachStowed());
+		breachClosePrimary.whenPressed(new BreachStowed());
+		breachCloseSecondary.whenPressed(new BreachStowed());
 
 		try {
 			cameraToggle.whenPressed(new ToggleCamera());
@@ -82,6 +84,7 @@ public class OI/* vey */ {
 		faceFront.toggleWhenPressed(new TurnAngle(0));
 		faceBack.toggleWhenPressed(new TurnAngle(180));
 		faceGoalLeft.toggleWhenPressed(new TurnAngle(15));
+		faceGoalRight.toggleWhenActive(new TurnAngle(-15));
 	}
 
 	public double getDriveAxisLeft() {
@@ -97,6 +100,12 @@ public class OI/* vey */ {
 
 		return process(ret);
 	}
+
+	// public double getDebugAngle() {
+	// double n = (manualOverrides.getRawAxis(2))*180;
+	// SmartDashboard.putNumber("angle from sd", n);
+	// return n;
+	// }
 
 	public boolean isDriveStraightMode() {
 		return this.gamecube.getRawButton(map.DRIVE_STRAIGHT);

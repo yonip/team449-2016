@@ -1,5 +1,6 @@
 package org.usfirst.frc.team449.robot.drive.tank.components;
 
+import org.usfirst.frc.team449.robot.Robot;
 import org.usfirst.frc.team449.robot.components.PIDComponent;
 import org.usfirst.frc.team449.robot.components.PIDVelocityMotor;
 
@@ -52,6 +53,7 @@ public class PIDAngleController extends PIDComponent {
 	@Override
 	protected double returnPIDInput() {
 		return gyro.pidGet();
+		//return Robot.oi.getDebugAngle();
 	}
 
 	/**
@@ -77,6 +79,7 @@ public class PIDAngleController extends PIDComponent {
 		this.rightMotor.pidWrite(output);
 		SmartDashboard.putNumber("angle out", output);
 		SmartDashboard.putNumber("angle sp", getSetpoint());
+		SmartDashboard.putNumber("avger", getPIDController().getAvgError());
 	}
 	
 	@Override
