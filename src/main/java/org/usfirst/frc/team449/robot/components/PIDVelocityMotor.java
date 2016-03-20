@@ -29,7 +29,7 @@ public class PIDVelocityMotor extends PIDComponent implements SpeedController {
 	 * that for a stationary robot, in the absence of external forces, 0 signal
 	 * to the motor will result in no wheel movement.
 	 */
-	private double zeroTolerance = 0; // speed at which speed ~= 0
+	protected double zeroTolerance = 0; // speed at which speed ~= 0
 
 	public PIDVelocityMotor(double p, double i, double d, SpeedController motor, Encoder encoder, String name) {
 		super(p, i, d);
@@ -64,22 +64,6 @@ public class PIDVelocityMotor extends PIDComponent implements SpeedController {
 	}
 
 	/**
-	 * This defines the deadband around zero which, when read from
-	 * {@link #returnPIDInput()}, will be result in no signal to the motor when
-	 * {@link #getSetpoint()} returns 0.
-	 * </p>
-	 * This is done to avoid wheel jitter at near-zero values, since it is known
-	 * that for a stationary robot, in the absence of external forces, 0 signal
-	 * to the motor will result in no wheel movement.
-	 * 
-	 * @param zeroTolerance
-	 *            the radius of the deadband around zero
-	 */
-	public void setZeroTolerance(double zeroTolerance) {
-		this.zeroTolerance = zeroTolerance;
-	}
-
-	/**
 	 * Uses the output decided by the PIDSubsystem This output is actually the
 	 * derivative of the voltage (and therefore also of the velocity) so it is
 	 * integrated by multiplying by the change in time and adding to a field in
@@ -100,6 +84,22 @@ public class PIDVelocityMotor extends PIDComponent implements SpeedController {
 		SmartDashboard.putNumber(velName + " intvel", integratedVelocity);
 		SmartDashboard.putNumber(velName + " delv", v);
 		SmartDashboard.putNumber(velName + " ztol", zeroTolerance);
+	}
+
+	/**
+	 * This defines the deadband around zero which, when read from
+	 * {@link #returnPIDInput()}, will be result in no signal to the motor when
+	 * {@link #getSetpoint()} returns 0.
+	 * </p>
+	 * This is done to avoid wheel jitter at near-zero values, since it is known
+	 * that for a stationary robot, in the absence of external forces, 0 signal
+	 * to the motor will result in no wheel movement.
+	 * 
+	 * @param zeroTolerance
+	 *            the radius of the deadband around zero
+	 */
+	public void setZeroTolerance(double zeroTolerance) {
+		this.zeroTolerance = zeroTolerance;
 	}
 	
 	public void setSpeed(double speed) {

@@ -122,7 +122,7 @@ public class TankDriveSubsystem extends DriveSubsystem {
 	
 	public void enableDriveStraightCorrector() {
 		driveStraightAngleController.enable();
-		driveStraightAngleController.setSetpoint(gyro.getAngle());
+		driveStraightAngleController.setSetpoint(gyro.pidGet());
 	}
 	
 	public void disableDriveStraightCorrector() {
@@ -154,13 +154,8 @@ public class TankDriveSubsystem extends DriveSubsystem {
 			this.leftCluster.set(left);
 			this.rightCluster.set(right);
 		}
-		SmartDashboard.putNumber("getangle", gyro.getAngle());
-		double n = gyro.getAngle();
-		while (n < 0) {
-			n += 360;
-		}
-		n %= 360;
-		SmartDashboard.putNumber("modded angle", n);
+		SmartDashboard.putNumber("getangle", gyro.pidGet());
+		SmartDashboard.putNumber("modded angle", gyro.pidGet());
 	}
 
 	/**
