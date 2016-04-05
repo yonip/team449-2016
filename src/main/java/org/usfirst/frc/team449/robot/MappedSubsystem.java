@@ -43,8 +43,7 @@ public abstract class MappedSubsystem extends Subsystem {
 		}
 		JSONObject json = null;
 		try {
-			json = new JSONObject(new String(Files.readAllBytes(cfg.toPath()),
-					StandardCharsets.UTF_8));
+			json = new JSONObject(new String(Files.readAllBytes(cfg.toPath()), StandardCharsets.UTF_8));
 		} catch (IOException e) {
 			e.printStackTrace(); // if this happens, we're fucked
 		}

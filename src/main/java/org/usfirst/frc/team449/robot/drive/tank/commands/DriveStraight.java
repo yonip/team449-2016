@@ -18,7 +18,7 @@ public class DriveStraight extends Command {
 
 	@Override
 	protected void initialize() {
-		//((TankDriveSubsystem) Robot.drive).enableDriveStraightCorrector();
+		// ((TankDriveSubsystem) Robot.drive).enableDriveStraightCorrector();
 		SmartDashboard.putBoolean("straight on", true);
 		// ((TankDriveSubsystem) Robot.drive).enableDriveStraightCorrector();
 		// SmartDashboard.putBoolean("straigt on", true);
@@ -28,12 +28,9 @@ public class DriveStraight extends Command {
 	protected void execute() {
 		// leftThrottle = Robot.oi.getDriveAxisLeft() * ((TankDriveMap)
 		// (Robot.drive.map)).leftCluster.speed;
-		rightThrottle = Robot.oi.getDriveAxisRight()
-				* ((TankDriveMap) (Robot.drive.map)).rightCluster.speed;
-		((TankDriveSubsystem) Robot.drive).setThrottle(rightThrottle,
-				rightThrottle);
-		SmartDashboard.putNumber("Distance",
-				((TankDriveSubsystem) Robot.drive).getDistance());
+		rightThrottle = Robot.oi.getDriveAxisRight() * ((TankDriveMap) (Robot.drive.map)).rightCluster.speed;
+		((TankDriveSubsystem) Robot.drive).setThrottle(rightThrottle, rightThrottle);
+		SmartDashboard.putNumber("Distance", ((TankDriveSubsystem) Robot.drive).getDistance());
 		// SmartDashboard.putBoolean("straigt on", true);
 	}
 
@@ -44,7 +41,7 @@ public class DriveStraight extends Command {
 
 	@Override
 	protected void end() {
-		//((TankDriveSubsystem) Robot.drive).disableDriveStraightCorrector();
+		// ((TankDriveSubsystem) Robot.drive).disableDriveStraightCorrector();
 		SmartDashboard.putBoolean("straight on", false);
 		// ((TankDriveSubsystem) Robot.drive).disableDriveStraightCorrector();
 		// SmartDashboard.putBoolean("straigt on", false);
@@ -52,7 +49,7 @@ public class DriveStraight extends Command {
 
 	@Override
 	protected void interrupted() {
-		//((TankDriveSubsystem) Robot.drive).disableDriveStraightCorrector();
+		// ((TankDriveSubsystem) Robot.drive).disableDriveStraightCorrector();
 		SmartDashboard.putBoolean("straight on", false);
 		// ((TankDriveSubsystem) Robot.drive).disableDriveStraightCorrector();
 	}

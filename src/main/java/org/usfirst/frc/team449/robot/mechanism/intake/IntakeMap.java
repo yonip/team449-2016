@@ -50,8 +50,7 @@ public class IntakeMap extends MechanismMap {
 		public int OVERSAMPLING_BITS;
 		/**
 		 * number of bits for averaging as defined by
-		 * {@link AnalogInput#setAverageBits(int)
-		 * } <br/>
+		 * {@link AnalogInput#setAverageBits(int) } <br/>
 		 * Should probably be the same as {@link #OVERSAMPLING_BITS}
 		 */
 		public int AVERAGE_BITS;

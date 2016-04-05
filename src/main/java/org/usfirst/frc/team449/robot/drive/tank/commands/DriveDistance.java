@@ -35,8 +35,7 @@ public class DriveDistance extends Command {
 	protected void execute() {
 		TankDriveSubsystem drive = (TankDriveSubsystem) (Robot.drive);
 		TankDriveMap map = (TankDriveMap) (drive.map);
-		drive.setThrottle(-map.leftCluster.speed * .5,
-				-map.rightCluster.speed * .5);
+		drive.setThrottle(-map.leftCluster.speed * .5, -map.rightCluster.speed * .5);
 	}
 
 	@Override

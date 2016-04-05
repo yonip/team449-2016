@@ -49,9 +49,7 @@ public class MotorCluster extends Component implements SpeedController {
 				return;
 			}
 		}
-		System.err
-				.println("Motor cluster over capacity, not adding a new motor! ("
-						+ controllerList.length + ")");
+		System.err.println("Motor cluster over capacity, not adding a new motor! (" + controllerList.length + ")");
 	}
 
 	@Override
@@ -70,8 +68,7 @@ public class MotorCluster extends Component implements SpeedController {
 
 	@Override
 	public void set(double speed, byte syncGroup) {
-		System.out
-				.println("This shit is deprecated and shouldn't be called.\n TL;DR: YOU DONE FUCKED UP");
+		System.out.println("This shit is deprecated and shouldn't be called.\n TL;DR: YOU DONE FUCKED UP");
 	}
 
 	@Override

@@ -23,15 +23,11 @@ public class DefaultDrive extends Command {
 
 	@Override
 	protected void execute() {
-		leftThrottle = Robot.oi.getDriveAxisLeft()
-				* ((TankDriveMap) (Robot.drive.map)).leftCluster.speed;
-		rightThrottle = Robot.oi.getDriveAxisRight()
-				* ((TankDriveMap) (Robot.drive.map)).rightCluster.speed;
+		leftThrottle = Robot.oi.getDriveAxisLeft() * ((TankDriveMap) (Robot.drive.map)).leftCluster.speed;
+		rightThrottle = Robot.oi.getDriveAxisRight() * ((TankDriveMap) (Robot.drive.map)).rightCluster.speed;
 		// pushing forward on the stick gives -1 so it is negated
-		((TankDriveSubsystem) Robot.drive).setThrottle(leftThrottle,
-				rightThrottle);
-		SmartDashboard.putNumber("Distance",
-				((TankDriveSubsystem) Robot.drive).getDistance());
+		((TankDriveSubsystem) Robot.drive).setThrottle(leftThrottle, rightThrottle);
+		SmartDashboard.putNumber("Distance", ((TankDriveSubsystem) Robot.drive).getDistance());
 	}
 
 	@Override
@@ -45,7 +41,6 @@ public class DefaultDrive extends Command {
 
 	@Override
 	protected void interrupted() {
-		((TankDriveSubsystem) Robot.drive).setThrottle(
-				Robot.oi.getDriveAxisLeft(), Robot.oi.getDriveAxisRight());
+		((TankDriveSubsystem) Robot.drive).setThrottle(Robot.oi.getDriveAxisLeft(), Robot.oi.getDriveAxisRight());
 	}
 }

@@ -89,8 +89,7 @@ public class Robot extends IterativeRobot {
 			autoChooser.addDefault("nothing", new Auto());
 			autoChooser.addObject("Drive dist", new AutoDrive(190, 4.5));
 			autoChooser.addObject("Drive Port", new AutoPortcullis(4.5));
-			autoChooser.addObject("Drive Intake Up)", new AutoDriveIntakeUp(
-					190, 4.5));
+			autoChooser.addObject("Drive Intake Up)", new AutoDriveIntakeUp(190, 4.5));
 			SmartDashboard.putData("Auto chooser", autoChooser);
 		} catch (Exception e) {
 			String s = e.getMessage();

@@ -43,10 +43,8 @@ public class VisionSubsystem extends Subsystem {
 			frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
 
 			for (int i = 0; i < VisionMap.CAMERA_NAMES.length; i++) {
-				sessions[i] = NIVision
-						.IMAQdxOpenCamera(
-								VisionMap.CAMERA_NAMES[i],
-								NIVision.IMAQdxCameraControlMode.CameraControlModeController);
+				sessions[i] = NIVision.IMAQdxOpenCamera(VisionMap.CAMERA_NAMES[i],
+						NIVision.IMAQdxCameraControlMode.CameraControlModeController);
 			}
 			// NIVision.IMAQdxEnumItem[] arr =
 			// NIVision.IMAQdxEnumerateVideoModes(sessions[sessionPtr]).videoModeArray;
@@ -55,8 +53,8 @@ public class VisionSubsystem extends Subsystem {
 			NIVision.IMAQdxStartAcquisition(sessions[sessionPtr]);
 			NIVision.IMAQdxConfigureGrab(sessions[sessionPtr]);
 		} catch (Exception e) {
-			System.out
-					.println("(VisionSubsystem constructor) Cameras done goofed, but everything else is (maybe) functional.");
+			System.out.println(
+					"(VisionSubsystem constructor) Cameras done goofed, but everything else is (maybe) functional.");
 		}
 	}
 
@@ -71,8 +69,7 @@ public class VisionSubsystem extends Subsystem {
 		try {
 			setDefaultCommand(new DefaultVision());
 		} catch (Exception e) {
-			System.out
-					.println("(initDefaultCommand) Cameras done goofed, but everything else is (maybe) functional.");
+			System.out.println("(initDefaultCommand) Cameras done goofed, but everything else is (maybe) functional.");
 		}
 	}
 }

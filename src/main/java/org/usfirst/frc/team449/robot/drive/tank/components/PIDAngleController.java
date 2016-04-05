@@ -1,6 +1,5 @@
 package org.usfirst.frc.team449.robot.drive.tank.components;
 
-import org.usfirst.frc.team449.robot.Robot;
 import org.usfirst.frc.team449.robot.components.PIDComponent;
 
 import com.kauailabs.navx.frc.AHRS;
@@ -20,8 +19,8 @@ public class PIDAngleController extends PIDComponent {
 	private double minimumOutput;
 	private boolean minimumOutputEnabled;
 
-	public PIDAngleController(double p, double i, double d,
-			SpeedController leftMotor, SpeedController rightMotor, AHRS gyro) {
+	public PIDAngleController(double p, double i, double d, SpeedController leftMotor, SpeedController rightMotor,
+			AHRS gyro) {
 		super(p, i, d);
 		this.getPIDController().setContinuous(true);
 		this.setInputRange(-180, 180);
@@ -51,7 +50,7 @@ public class PIDAngleController extends PIDComponent {
 	@Override
 	protected double returnPIDInput() {
 		return gyro.pidGet();
-		//return Robot.oi.getDebugAngle();
+		// return Robot.oi.getDebugAngle();
 	}
 
 	/**

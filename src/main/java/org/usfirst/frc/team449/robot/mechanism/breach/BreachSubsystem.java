@@ -30,15 +30,12 @@ public class BreachSubsystem extends MechanismSubsystem {
 		super(map);
 		System.out.println("Drive init started");
 		if (!(map instanceof BreachMap)) {
-			System.err.println("Breach has a map of class "
-					+ map.getClass().getSimpleName() + " and not BreachMap");
+			System.err.println("Breach has a map of class " + map.getClass().getSimpleName() + " and not BreachMap");
 		}
 
 		BreachMap breachMap = (BreachMap) map;
-		backSolenoid = new DoubleSolenoid(breachMap.back.forward,
-				breachMap.back.reverse);
-		frontSolenoid = new DoubleSolenoid(breachMap.front.forward,
-				breachMap.front.reverse);
+		backSolenoid = new DoubleSolenoid(breachMap.back.forward, breachMap.back.reverse);
+		frontSolenoid = new DoubleSolenoid(breachMap.front.forward, breachMap.front.reverse);
 	}
 
 	/**

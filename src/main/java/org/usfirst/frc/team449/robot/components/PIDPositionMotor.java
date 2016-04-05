@@ -11,8 +11,7 @@ public class PIDPositionMotor extends PIDComponent {
 	private SpeedController motor;
 	private Encoder encoder;
 
-	public PIDPositionMotor(double p, double i, double d,
-			SpeedController motor, Encoder encoder) {
+	public PIDPositionMotor(double p, double i, double d, SpeedController motor, Encoder encoder) {
 		super(p, i, d);
 		this.motor = motor;
 		this.encoder = encoder;
