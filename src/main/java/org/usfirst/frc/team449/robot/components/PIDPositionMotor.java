@@ -48,14 +48,14 @@ public class PIDPositionMotor extends PIDComponent {
 			this.motor.set(.8);
 		}
 	}
-	
+
 	/**
 	 * @return whether or not the pid subsystem is enabled
 	 */
 	public boolean getEnabled() {
 		return getEnabled();
 	}
-	
+
 	public void reset() {
 		encoder.reset();
 	}

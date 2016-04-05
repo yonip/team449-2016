@@ -35,8 +35,8 @@ public class DefaultVision extends Command {
 			CameraServer.getInstance().setImage(Robot.vision.getFrame());
 		} catch (Exception e) {
 			if (!cameraFailed) {
-				System.out.println(
-						"(DefaultVision execute) Cameras done goofed, but everything else is (maybe) functional.");
+				System.out
+						.println("(DefaultVision execute) Cameras done goofed, but everything else is (maybe) functional.");
 				cameraFailed = true;
 			}
 		}

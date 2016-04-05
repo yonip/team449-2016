@@ -2,7 +2,6 @@ package org.usfirst.frc.team449.robot.commands;
 
 import org.usfirst.frc.team449.robot.Robot;
 import org.usfirst.frc.team449.robot.drive.tank.commands.CrossByPitch;
-import org.usfirst.frc.team449.robot.drive.tank.commands.DriveDistance;
 import org.usfirst.frc.team449.robot.mechanism.breach.commands.BreachChivald;
 import org.usfirst.frc.team449.robot.mechanism.breach.commands.BreachPortcullis;
 
@@ -47,7 +46,7 @@ public class Autonomous extends CommandGroup {
 	 */
 	private void driveToDefense() {
 		// TODO fix and externalize constants
-		//addSequential(new DriveDistance(1d));
+		// addSequential(new DriveDistance(1d));
 	}
 
 	/**
@@ -55,7 +54,7 @@ public class Autonomous extends CommandGroup {
 	 */
 	private void driveClearOfDefense() {
 		// TODO fix and externalize constants
-		//addSequential(new DriveDistance(1d));
+		// addSequential(new DriveDistance(1d));
 	}
 
 	/**

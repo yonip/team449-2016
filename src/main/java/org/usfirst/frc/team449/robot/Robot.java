@@ -9,7 +9,6 @@ import org.usfirst.frc.team449.robot.commands.DefenseType;
 import org.usfirst.frc.team449.robot.drive.DriveSubsystem;
 import org.usfirst.frc.team449.robot.drive.tank.TankDriveMap;
 import org.usfirst.frc.team449.robot.drive.tank.TankDriveSubsystem;
-import org.usfirst.frc.team449.robot.drive.tank.commands.DriveDistance;
 import org.usfirst.frc.team449.robot.mechanism.breach.BreachMap;
 import org.usfirst.frc.team449.robot.mechanism.breach.BreachSubsystem;
 import org.usfirst.frc.team449.robot.mechanism.intake.IntakeMap;
@@ -27,7 +26,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * the class tying all of the components of the robot together.
  */
 public class Robot extends IterativeRobot {
-	
+
 	public static final double DELTAT = 0.020;
 
 	/**
@@ -60,9 +59,9 @@ public class Robot extends IterativeRobot {
 	 * which obstacle the robot will try to breach during auto
 	 */
 	public static DefenseType autoDefenseType = DefenseType.PORTCULLIS;
-	
+
 	private Command autonomousCommand;
-	
+
 	SendableChooser autoChooser;
 
 	/**
@@ -90,7 +89,8 @@ public class Robot extends IterativeRobot {
 			autoChooser.addDefault("nothing", new Auto());
 			autoChooser.addObject("Drive dist", new AutoDrive(190, 4.5));
 			autoChooser.addObject("Drive Port", new AutoPortcullis(4.5));
-			autoChooser.addObject("Drive Intake Up)", new AutoDriveIntakeUp(190, 4.5));
+			autoChooser.addObject("Drive Intake Up)", new AutoDriveIntakeUp(
+					190, 4.5));
 			SmartDashboard.putData("Auto chooser", autoChooser);
 		} catch (Exception e) {
 			String s = e.getMessage();
@@ -111,19 +111,22 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		autonomousCommand = (Command) autoChooser.getSelected();
-        if (autonomousCommand != null); autonomousCommand.start();
+		if (autonomousCommand != null)
+			;
+		autonomousCommand.start();
 	}
 
 	@Override
 	public void teleopInit() {
-		if (autonomousCommand != null) autonomousCommand.cancel();
+		if (autonomousCommand != null)
+			autonomousCommand.cancel();
 	}
 
 	@Override
 	public void testInit() {
 
 	}
-	
+
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();

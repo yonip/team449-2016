@@ -11,10 +11,14 @@ import org.usfirst.frc.team449.robot.drive.tank.commands.TurnAngle;
  */
 public class AutoDriveForwardBack extends Auto {
 	/**
-	 * Creates a command to drive through a defense and back through, facing 
-	 * the direction it will be driving in.
-	 * @param distance the distance the robot will drive for crossing a defense
-	 * @param timeout the maximum time each driving segment will take (to prevent rogue robot)
+	 * Creates a command to drive through a defense and back through, facing the
+	 * direction it will be driving in.
+	 * 
+	 * @param distance
+	 *            the distance the robot will drive for crossing a defense
+	 * @param timeout
+	 *            the maximum time each driving segment will take (to prevent
+	 *            rogue robot)
 	 */
 	public AutoDriveForwardBack(double distance, double timeout) {
 		super();

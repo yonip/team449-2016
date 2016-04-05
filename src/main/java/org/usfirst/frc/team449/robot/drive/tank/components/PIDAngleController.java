@@ -2,7 +2,6 @@ package org.usfirst.frc.team449.robot.drive.tank.components;
 
 import org.usfirst.frc.team449.robot.Robot;
 import org.usfirst.frc.team449.robot.components.PIDComponent;
-import org.usfirst.frc.team449.robot.components.PIDVelocityMotor;
 
 import com.kauailabs.navx.frc.AHRS;
 
@@ -21,8 +20,8 @@ public class PIDAngleController extends PIDComponent {
 	private double minimumOutput;
 	private boolean minimumOutputEnabled;
 
-	public PIDAngleController(double p, double i, double d, SpeedController leftMotor, SpeedController rightMotor,
-			AHRS gyro) {
+	public PIDAngleController(double p, double i, double d,
+			SpeedController leftMotor, SpeedController rightMotor, AHRS gyro) {
 		super(p, i, d);
 		this.getPIDController().setContinuous(true);
 		this.setInputRange(-180, 180);
@@ -32,11 +31,10 @@ public class PIDAngleController extends PIDComponent {
 		this.minimumOutput = 0;
 		this.minimumOutputEnabled = false;
 	}
-	
+
 	public void setMinimumOutput(double minimumOutput) {
 		this.minimumOutput = minimumOutput;
 	}
-	
 
 	public void setMinimumOutputEnabled(boolean minimumOutputEnabled) {
 		this.minimumOutputEnabled = minimumOutputEnabled;
@@ -46,8 +44,8 @@ public class PIDAngleController extends PIDComponent {
 	 * used by the PIDSubsystem to calculate the output wanted for the setpoint
 	 * in this class, this returns the attached gyro's angle via pidGet()
 	 * 
-	 * @return the angle of the gyro as per the gyro's pidGet()
-	 *         method
+	 * @return the angle of the gyro as per the gyro's pidGet() method (between
+	 *         -180 and 180 degrees)
 	 * @see AHRS#pidGet()
 	 */
 	@Override
@@ -81,7 +79,7 @@ public class PIDAngleController extends PIDComponent {
 		SmartDashboard.putNumber("angle sp", getSetpoint());
 		SmartDashboard.putNumber("avger", getPIDController().getAvgError());
 	}
-	
+
 	@Override
 	public void disable() {
 		this.leftMotor.stopMotor();

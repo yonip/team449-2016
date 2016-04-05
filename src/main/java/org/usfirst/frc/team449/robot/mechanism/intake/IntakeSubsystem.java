@@ -3,7 +3,6 @@ package org.usfirst.frc.team449.robot.mechanism.intake;
 import org.usfirst.frc.team449.robot.RobotMap;
 import org.usfirst.frc.team449.robot.components.SmoothedValue;
 import org.usfirst.frc.team449.robot.mechanism.MechanismSubsystem;
-import org.usfirst.frc.team449.robot.mechanism.intake.commands.IntakeDown;
 import org.usfirst.frc.team449.robot.mechanism.intake.commands.IntakeIn;
 import org.usfirst.frc.team449.robot.mechanism.intake.commands.UpdateUS;
 
@@ -60,7 +59,8 @@ public class IntakeSubsystem extends MechanismSubsystem {
 		System.out.println("Intake init started");
 
 		if (!(map instanceof IntakeMap)) {
-			System.err.println("Intake has a map of class " + map.getClass().getSimpleName() + " and not IntakeMap");
+			System.err.println("Intake has a map of class "
+					+ map.getClass().getSimpleName() + " and not IntakeMap");
 		}
 
 		IntakeMap intakeMap = (IntakeMap) map;
@@ -68,7 +68,8 @@ public class IntakeSubsystem extends MechanismSubsystem {
 		this.mainMotor = new VictorSP(intakeMap.motor.PORT);
 		this.mainMotor.setInverted(intakeMap.motor.INVERTED);
 
-		solenoid = new DoubleSolenoid(intakeMap.solenoid.forward, intakeMap.solenoid.reverse);
+		solenoid = new DoubleSolenoid(intakeMap.solenoid.forward,
+				intakeMap.solenoid.reverse);
 		this.leftIR = new AnalogInput(intakeMap.leftIR.PORT);
 		this.leftIR.setAverageBits(intakeMap.leftIR.AVERAGE_BITS);
 		this.leftIR.setOversampleBits(intakeMap.leftIR.OVERSAMPLING_BITS);
@@ -85,7 +86,7 @@ public class IntakeSubsystem extends MechanismSubsystem {
 		ignoreIR = false;
 		SmartDashboard.putBoolean("IR Enabled", !ignoreIR);
 
-		//new IntakeDown(); // start in down position
+		// new IntakeDown(); // start in down position
 
 		System.out.println("Intake init finished");
 	}
@@ -150,9 +151,10 @@ public class IntakeSubsystem extends MechanismSubsystem {
 
 	/**
 	 * Toggles whether the robot is going to ignore the IR values that it's
-	 * receiving. If ignoreIR is false, the robot will only stop {@link IntakeIn
-	 * IntakeIn} when the user presses the button that initialized the command
-	 * again. If it's true, the command will stop when the IR detects the ball.
+	 * receiving. If ignoreIR is false, the robot will only stop
+	 * {@link IntakeIn IntakeIn} when the user presses the button that
+	 * initialized the command again. If it's true, the command will stop when
+	 * the IR detects the ball.
 	 */
 	public void toggleIgnoreIR() {
 		ignoreIR = !ignoreIR;
