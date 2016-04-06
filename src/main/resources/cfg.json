@@ -325,6 +325,13 @@
       "MAX_VALUE": 1
     }
   },
+  
+  "AutoMap":
+  {
+  	"AUTO_SHOOT_DISTANCE_1": 198.020327211884143,
+	"AUTO_SHOOT_DISTANCE_2": 172.17473587149064,
+	"AUTO_SHOOT_TURN_ANGLE": -120
+  },
 
   "GameDetailsMap": 
   {

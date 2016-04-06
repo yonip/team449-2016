@@ -5,6 +5,7 @@ import org.usfirst.frc.team449.robot.commands.Auto;
 import org.usfirst.frc.team449.robot.commands.AutoDrive;
 import org.usfirst.frc.team449.robot.commands.AutoDriveIntakeUp;
 import org.usfirst.frc.team449.robot.commands.AutoLowGoal;
+import org.usfirst.frc.team449.robot.commands.AutoMap;
 import org.usfirst.frc.team449.robot.commands.AutoPortcullis;
 import org.usfirst.frc.team449.robot.commands.DefenseType;
 import org.usfirst.frc.team449.robot.drive.DriveSubsystem;
@@ -91,7 +92,7 @@ public class Robot extends IterativeRobot {
 			autoChooser.addObject("Drive dist", new AutoDrive(190, 4.5));
 			autoChooser.addObject("Drive Port", new AutoPortcullis(4.5));
 			autoChooser.addObject("Drive Intake Up", new AutoDriveIntakeUp(190, 4.5));
-			autoChooser.addObject("Lowbar lowgoal score", new AutoLowGoal(4.5));
+			autoChooser.addObject("Lowbar lowgoal score", new AutoLowGoal(new AutoMap(cfg), 4.5));
 			SmartDashboard.putData("Auto chooser", autoChooser);
 		} catch (Exception e) {
 			String s = e.getMessage();
