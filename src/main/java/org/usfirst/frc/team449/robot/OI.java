@@ -32,6 +32,7 @@ public class OI/* vey */ {
 	private Joystick manualOverrides;
 
 	private Joystick gamecube;
+	private Joystick buttonPad;
 	// private double db = 0.02;
 	private int sign = 1;
 
@@ -40,6 +41,7 @@ public class OI/* vey */ {
 
 		gamecube = new Joystick(map.MAIN_CONTROLLER);
 		manualOverrides = new Joystick(map.MANUAL_OVERRIDES);
+		buttonPad = new Joystick(map.BUTTON_PAD);
 		// gamecube = new Joystick(map.INTAKE_JOYSTICK);
 
 		Button intakeIn = new JoystickButton(gamecube, map.INTAKE_IN);
@@ -61,18 +63,34 @@ public class OI/* vey */ {
 		Button faceGoalLeft = new JoystickButton(manualOverrides, map.FACE_LEFT_GOAL);
 		Button faceGoalRight = new JoystickButton(manualOverrides, map.FACE_RIGHT_GOAL);
 
+		Button bpIntakeDown = new JoystickButton(buttonPad, map.BP_INTAKE_DOWN);
+		Button bpIntakeUp = new JoystickButton(buttonPad, map.BP_INTAKE_UP);
+		Button bpIntakeIn = new JoystickButton(buttonPad, map.BP_INTAKE_IN);
+		Button bpIntakeOut = new JoystickButton(buttonPad, map.BP_INTAKE_OUT);
+		Button bpBreachChival = new JoystickButton(buttonPad, map.BP_BREACH_CHIVAL);
+		Button bpBreachPort = new JoystickButton(buttonPad, map.BP_BREACH_PORTCULLIS);
+		Button bpBreachClose = new JoystickButton(buttonPad, map.BP_BREACH_CLOSE);
+		Button bpCameraToggle = new JoystickButton(buttonPad, map.BP_CAMERA_TOGGLE);
+
 		Button zeroGyro = new JoystickButton(gamecube, map.ZERO_GYRO);
 
 		intakeIn.toggleWhenPressed(new IntakeIn());
+		bpIntakeIn.toggleWhenPressed(new IntakeIn());
 		intakeOut.whileHeld(new IntakeOut());
+		bpIntakeOut.whileHeld(new IntakeOut());
 		// TODO intakeToggle command
 		intakeUp.whenPressed(new IntakeUp());
+		bpIntakeUp.whenPressed(new IntakeUp());
 		intakeDown.whenPressed(new IntakeDown());
+		bpIntakeDown.whenPressed(new IntakeDown());
 
 		breachChival.whenPressed(new BreachChivald());
-		breachPortcullis.whenPressed(new BreachPortcullis()); // new
+		bpBreachChival.whenPressed(new BreachChivald());
+		breachPortcullis.whenPressed(new BreachPortcullis());
+		bpBreachPort.whenPressed(new BreachPortcullis());
 		breachClosePrimary.whenPressed(new BreachStowed());
 		breachCloseSecondary.whenPressed(new BreachStowed());
+		bpBreachClose.whenPressed(new BreachStowed());
 
 		try {
 			cameraToggle.whenPressed(new ToggleCamera());

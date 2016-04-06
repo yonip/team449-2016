@@ -143,8 +143,10 @@ public class IntakeSubsystem extends MechanismSubsystem {
 		IntakeMap intakeMap = (IntakeMap) map;
 		SmartDashboard.putNumber("right ir voltage", right);
 		SmartDashboard.putNumber("left ir voltage", left);
-		return (intakeMap.rightIR.LOWER_BOUND < right && right < intakeMap.rightIR.UPPER_BOUND)
+		boolean found = (intakeMap.rightIR.LOWER_BOUND < right && right < intakeMap.rightIR.UPPER_BOUND)
 				|| (intakeMap.leftIR.LOWER_BOUND < left && left < intakeMap.leftIR.UPPER_BOUND);
+		SmartDashboard.putBoolean("Ball found", found);
+		return found;
 	}
 
 	/**

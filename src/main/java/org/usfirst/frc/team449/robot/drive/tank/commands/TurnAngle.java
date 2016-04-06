@@ -15,6 +15,12 @@ public class TurnAngle extends Command {
 		requires(Robot.drive);
 		this.theta = theta;
 	}
+	
+	public TurnAngle(double theta, double timeout) {
+		super(timeout);
+		requires(Robot.drive);
+		this.theta = theta;
+	}
 
 	@Override
 	protected void initialize() {

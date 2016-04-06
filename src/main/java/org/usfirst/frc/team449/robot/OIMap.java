@@ -18,6 +18,8 @@ public class OIMap extends RobotMap {
 	public int MAIN_CONTROLLER;
 
 	public int MANUAL_OVERRIDES;
+	
+	public int BUTTON_PAD;
 
 	public int INTAKE_IN;
 
@@ -42,6 +44,22 @@ public class OIMap extends RobotMap {
 	public int IGNORE_IR;
 
 	public int TOGGLE_PID;
+	
+    public int BP_INTAKE_OUT;
+    
+    public int BP_INTAKE_IN;
+    
+    public int BP_INTAKE_UP;
+    
+    public int BP_INTAKE_DOWN;
+    
+    public int BP_BREACH_CHIVAL;
+    
+    public int BP_BREACH_PORTCULLIS;
+    
+    public int BP_BREACH_CLOSE;
+    
+    public int BP_CAMERA_TOGGLE;
 
 	public int ZERO_GYRO;
 

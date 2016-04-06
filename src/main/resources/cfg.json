@@ -46,7 +46,7 @@
 
             "rightIR": 
             {
-              "PORT": 1
+              "PORT": 3
             }
           },
 
@@ -62,12 +62,12 @@
           {
             "leftUltrasonic": 
             {
-              "PORT": 2
+              "PORT": 1
             },
 
             "rightUltrasonic": 
             {
-              "PORT": 3
+              "PORT": 2
             }
           }
         },
@@ -294,6 +294,7 @@
       "LEFT_DRIVE_STICK": 1,
       "MAIN_CONTROLLER": 0,
       "MANUAL_OVERRIDES": 1,
+      "BUTTON_PAD": 2,
       "INTAKE_OUT": 4,
       "INTAKE_IN": 2,
       "INTAKE_UP": 5,
@@ -309,7 +310,15 @@
       "FACE_LEFT_GOAL": 11,
       "FACE_RIGHT_GOAL": 10,
       "IGNORE_IR": 6,
-      "TOGGLE_PID": 7,
+      "TOGGLE_PID": 4,
+      "BP_INTAKE_OUT": 7,
+      "BP_INTAKE_IN": 8,
+      "BP_INTAKE_UP": 10,
+      "BP_INTAKE_DOWN": 9,
+      "BP_BREACH_CHIVAL": 3,
+      "BP_BREACH_PORTCULLIS": 4,
+      "BP_BREACH_CLOSE": 1,
+      "BP_CAMERA_TOGGLE": 6,
       "ZERO_GYRO": 10,
       "DEADBAND": 0.02,
       "POWER": 2,
