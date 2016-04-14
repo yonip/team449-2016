@@ -1,5 +1,8 @@
 package org.usfirst.frc.team449.robot;
 
+import java.util.HashMap;
+import java.util.Set;
+
 import org.json.JSONObject;
 import org.usfirst.frc.team449.robot.commands.Auto;
 import org.usfirst.frc.team449.robot.commands.AutoDrive;
@@ -17,6 +20,7 @@ import org.usfirst.frc.team449.robot.mechanism.intake.IntakeMap;
 import org.usfirst.frc.team449.robot.mechanism.intake.IntakeSubsystem;
 import org.usfirst.frc.team449.robot.vision.VisionSubsystem;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -30,6 +34,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
 	public static final double DELTAT = 0.020;
+	
+	private HashMap<DigitalInput, Command> autos;
 
 	/**
 	 * the JSONObject containing the configuration for this robot
@@ -56,6 +62,8 @@ public class Robot extends IterativeRobot {
 	 * reference to this robot's OI (Operator Interface)
 	 */
 	public static OI oi;
+	
+	public static AutoMap autoMap;
 
 	/**
 	 * which obstacle the robot will try to breach during auto
@@ -82,18 +90,26 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		try {
 			cfg = MappedSubsystem.readConfig("/home/lvuser/cfg.json");
+			autoMap = new AutoMap(cfg);
 			drive = new TankDriveSubsystem(new TankDriveMap(cfg));
 			intake = new IntakeSubsystem(new IntakeMap(cfg));
 			breach = new BreachSubsystem(new BreachMap(cfg));
 			vision = new VisionSubsystem();
 			oi = new OI(new OIMap(cfg));
-			autoChooser = new SendableChooser();
-			autoChooser.addDefault("nothing", new Auto());
-			autoChooser.addObject("Drive dist", new AutoDrive(190, 4.5));
-			autoChooser.addObject("Drive Port", new AutoPortcullis(4.5));
-			autoChooser.addObject("Drive Intake Up", new AutoDriveIntakeUp(190, 4.5));
-			autoChooser.addObject("Lowbar lowgoal score", new AutoLowGoal(new AutoMap(cfg), 4.5));
-			SmartDashboard.putData("Auto chooser", autoChooser);
+			//autoChooser = new SendableChooser();
+			autos = new HashMap();
+			autos.put(new DigitalInput(4), new Auto());
+			autos.put(new DigitalInput(5), new AutoDrive(190, 4.5));
+			autos.put(new DigitalInput(6), new AutoPortcullis(4.5));
+			autos.put(new DigitalInput(7), new AutoDriveIntakeUp(190, 4.5));
+			autos.put(new DigitalInput(8), new AutoLowGoal(4.5));
+			autos.put(new DigitalInput(9), new AutoDrive(40, 2.5));
+			//autoChooser.addDefault("nothing", new Auto());
+			//autoChooser.addObject("Drive dist", new AutoDrive(190, 4.5));
+			//autoChooser.addObject("Drive Port", new AutoPortcullis(4.5));
+			//autoChooser.addObject("Drive Intake Up", new AutoDriveIntakeUp(190, 4.5));
+			//autoChooser.addObject("Lowbar lowgoal score", new AutoLowGoal(4.5));
+			//SmartDashboard.putData("Auto chooser", autoChooser);
 		} catch (Exception e) {
 			String s = e.getMessage();
 			StackTraceElement[] arr = e.getStackTrace();
@@ -112,7 +128,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = (Command) autoChooser.getSelected();
+		autonomousCommand = getAutoCommand();//(Command) autoChooser.getSelected();
 		if (autonomousCommand != null)
 			;
 		autonomousCommand.start();
@@ -137,5 +153,19 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+	}
+	
+	private Command getAutoCommand() {
+		Set<DigitalInput> inputs = autos.keySet();
+		for (DigitalInput di : inputs) {
+			SmartDashboard.putBoolean("DIO " + di.getChannel(), di.get());
+			System.out.println("DIO " + di.getChannel() + " " + di.get());
+		}
+		for (DigitalInput di : inputs) {
+			if (!di.get()) {
+				return autos.get(di);
+			}
+		}
+		return new Auto();
 	}
 }

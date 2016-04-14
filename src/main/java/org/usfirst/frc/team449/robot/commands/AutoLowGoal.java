@@ -1,5 +1,6 @@
 package org.usfirst.frc.team449.robot.commands;
 
+import org.usfirst.frc.team449.robot.Robot;
 import org.usfirst.frc.team449.robot.drive.tank.commands.DriveDistance;
 import org.usfirst.frc.team449.robot.drive.tank.commands.TurnAngle;
 import org.usfirst.frc.team449.robot.mechanism.breach.commands.BreachPortcullis;
@@ -15,13 +16,14 @@ import org.usfirst.frc.team449.robot.mechanism.intake.commands.IntakeOut;
  */
 public class AutoLowGoal extends Auto {
 
-	public AutoLowGoal(AutoMap autoMap, double timeout) {
+	public AutoLowGoal(double timeout) {
 		super();
 		addSequential(new BreachPortcullis());
-		addSequential(new DriveDistance(autoMap.AUTO_SHOOT_DISTANCE_1, timeout));
+		addSequential(new DriveDistance(Robot.autoMap.AUTO_SHOOT_DISTANCE_1, timeout), timeout);
 		addSequential(new BreachStowed());
-		addSequential(new TurnAngle(autoMap.AUTO_SHOOT_TURN_ANGLE), 5);
-		addSequential(new DriveDistance(autoMap.AUTO_SHOOT_DISTANCE_2, 5), 5);
-		addSequential(new IntakeOut());
+		addSequential(new StayForTimeout(1), 1);
+		addSequential(new TurnAngle(Robot.autoMap.AUTO_SHOOT_TURN_ANGLE), 5);
+		addSequential(new DriveDistance(Robot.autoMap.AUTO_SHOOT_DISTANCE_2, 5), 5);
+		addSequential(new IntakeOut(), 2);
 	}
 }

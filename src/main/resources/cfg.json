@@ -1,21 +1,12 @@
 {
-  "components": 
-  {
-    
-  },
+  "components": {},
 
-  "MechanismMap": 
-  {
-    "IntakeMap": 
-    {
-      "components": 
-      {
-        "Motor": 
-        {
-          "instances": 
-          {
-            "motor": 
-            {
+  "MechanismMap": {
+    "IntakeMap": {
+      "components": {
+        "Motor": {
+          "instances": {
+            "motor": {
               "PORT": 3,
               "INVERTED": false
             }
@@ -23,29 +14,22 @@
         },
 
         "OUTPUT_SPEED": -1,
-        "DoubleSolenoid": 
-        {
-          "instances": 
-          {
-            "solenoid": 
-            {
+        "DoubleSolenoid": {
+          "instances": {
+            "solenoid": {
               "forward": 1,
               "reverse": 0
             }
           }
         },
 
-        "IRSensor": 
-        {
-          "instances": 
-          {
-            "leftIR": 
-            {
+        "IRSensor": {
+          "instances": {
+            "leftIR": {
               "PORT": 0
             },
 
-            "rightIR": 
-            {
+            "rightIR": {
               "PORT": 3
             }
           },
@@ -56,42 +40,32 @@
           "AVERAGE_BITS": 6
         },
 
-        "Ultrasonic": 
-        {
-          "instances": 
-          {
-            "leftUltrasonic": 
-            {
+        "Ultrasonic": {
+          "instances": {
+            "leftUltrasonic": {
               "PORT": 1
             },
 
-            "rightUltrasonic": 
-            {
+            "rightUltrasonic": {
               "PORT": 2
             }
           }
         },
 
-        "INPUT_SPEED": 1
+        "INPUT_SPEED": 0.75
       }
     },
 
-    "BreachMap": 
-    {
-      "components": 
-      {
-        "DoubleSolenoid": 
-        {
-          "instances": 
-          {
-            "back": 
-            {
+    "BreachMap": {
+      "components": {
+        "DoubleSolenoid": {
+          "instances": {
+            "back": {
               "forward": 4,
               "reverse": 5
             },
 
-            "front": 
-            {
+            "front": {
               "forward": 7,
               "reverse": 6
             }
@@ -100,21 +74,14 @@
       }
     },
 
-    "components": 
-    {
-      
-    }
+    "components": {}
   },
 
-  "DriveMap": 
-  {
-    "TankDriveMap": 
-    {
-      "components": 
-      {
+  "DriveMap": {
+    "TankDriveMap": {
+      "components": {
         "RADIUS": 12,
-        "ClusterPID": 
-        {
+        "ClusterPID": {
           "p": 0.4,
           "i": 0,
           "d": 0,
@@ -125,56 +92,37 @@
           "speed": 100,
           "rampRate": 480,
           "rampRateEnabled": false,
-          "MotorCluster": 
-          {
-            "Motor[]": 
-            {
-              "0": 
-              {
+          "MotorCluster": {
+            "Motor[]": {
+              "0": {
                 "INVERTED": false
               },
-
-              "1": 
-              {
+              "1": {
                 "INVERTED": false
               },
-
-              "2": 
-              {
+              "2": {
                 "INVERTED": false
               }
             }
           },
 
-          "instances": 
-          {
-            "rightCluster": 
-            {
+          "instances": {
+            "rightCluster": {
               "inverted": true,
-              "MotorCluster": 
-              {
-                "instances": 
-                {
-                  "cluster": 
-                  {
-                    "Motor[]": 
-                    {
-                      "instances": 
-                      {
-                        "motors": 
-                        {
-                          "0": 
-                          {
+              "MotorCluster": {
+                "instances": {
+                  "cluster": {
+                    "Motor[]": {
+                      "instances": {
+                        "motors": {
+                          "0": {
                             "PORT": 4
                           },
-
-                          "1": 
-                          {
+                          "1": {
                             "PORT": 5
                           },
 
-                          "2": 
-                          {
+                          "2": {
                             "PORT": 6
                           }
                         }
@@ -186,12 +134,9 @@
                 }
               },
 
-              "Encoder": 
-              {
-                "instances": 
-                {
-                  "encoder": 
-                  {
+              "Encoder": {
+                "instances": {
+                  "encoder": {
                     "a": 2,
                     "b": 3
                   }
@@ -199,32 +144,20 @@
               }
             },
 
-            "leftCluster": 
-            {
-              "MotorCluster": 
-              {
-                "instances": 
-                {
-                  "cluster": 
-                  {
-                    "Motor[]": 
-                    {
-                      "instances": 
-                      {
-                        "motors": 
-                        {
-                          "0": 
-                          {
+            "leftCluster": {
+              "MotorCluster": {
+                "instances": {
+                  "cluster": {
+                    "Motor[]": {
+                      "instances": {
+                        "motors": {
+                          "0": {
                             "PORT": 0
                           },
-
-                          "1": 
-                          {
+                          "1": {
                             "PORT": 1
                           },
-
-                          "2": 
-                          {
+                          "2": {
                             "PORT": 2
                           }
                         }
@@ -236,12 +169,9 @@
                 }
               },
 
-              "Encoder": 
-              {
-                "instances": 
-                {
-                  "encoder": 
-                  {
+              "Encoder": {
+                "instances": {
+                  "encoder": {
                     "a": 0,
                     "b": 1
                   }
@@ -250,14 +180,12 @@
             }
           },
 
-          "Encoder": 
-          {
+          "Encoder": {
             "dpp": 0.0490873852
           }
         },
 
-        "AnglePID": 
-        {
+        "AnglePID": {
           "p": 0.006,
           "i": 0,
           "d": 0,
@@ -265,10 +193,8 @@
           "percentTolerance": 1,
           "minimumOutput": 0.1,
           "minimumOutputEnabled": true,
-          "instances": 
-          {
-            "driveStraightAnglePID": 
-            {
+          "instances": {
+            "driveStraightAnglePID": {
               "p": 0.01,
               "absoluteTolerance": 0,
               "percentTolerance": 0,
@@ -280,16 +206,11 @@
       }
     },
 
-    "components": 
-    {
-      
-    }
+    "components": {}
   },
 
-  "OIMap": 
-  {
-    "components": 
-    {
+  "OIMap": {
+    "components": {
       "RIGHT_DRIVE_STICK": 3,
       "LEFT_DRIVE_STICK": 1,
       "MAIN_CONTROLLER": 0,
@@ -326,16 +247,18 @@
     }
   },
   
-  "AutoMap":
-  {
-  	"AUTO_SHOOT_DISTANCE_1": 198.020327211884143,
-	"AUTO_SHOOT_DISTANCE_2": 172.17473587149064,
-	"AUTO_SHOOT_TURN_ANGLE": -120
+  "AutoMap": {
+    "components": {
+      "AUTO_SHOOT_DISTANCE_1": 241.696,
+	  "AUTO_SHOOT_DISTANCE_2": -156.822,
+	  "AUTO_SHOOT_TURN_ANGLE": -120
+	}
   },
 
-  "GameDetailsMap": 
-  {
-    "leftGoalAngle": 0.523599,
-    "rightGoalAngle": -0.523599
+  "GameDetailsMap": {
+    "compnents": {
+      "leftGoalAngle": 120,
+      "rightGoalAngle": -120
+    }
   }
 }

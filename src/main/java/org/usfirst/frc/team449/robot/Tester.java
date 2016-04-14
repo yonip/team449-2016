@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
 import org.json.JSONObject;
+import org.usfirst.frc.team449.robot.commands.AutoMap;
 import org.usfirst.frc.team449.robot.drive.tank.TankDriveMap;
 import org.usfirst.frc.team449.robot.mechanism.breach.BreachMap;
 import org.usfirst.frc.team449.robot.mechanism.intake.IntakeMap;
@@ -28,6 +29,7 @@ public class Tester {
 		IntakeMap im = new IntakeMap(jo);
 		BreachMap bm = new BreachMap(jo);
 		OIMap oim = new OIMap(jo);
+		AutoMap am = new AutoMap(jo);
 		String s = jo.toString();
 		System.out.println(s);
 		System.out.println(s.replaceAll("(?<!\\\\)\"", "\\\\\""));

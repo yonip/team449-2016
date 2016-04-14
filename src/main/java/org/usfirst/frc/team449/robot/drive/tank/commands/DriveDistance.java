@@ -17,11 +17,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class DriveDistance extends Command {
 
 	private double distance;
+	private int direction;
 
 	public DriveDistance(double distance, double timeout) {
 		super(timeout);
 		requires(Robot.drive);
-		this.distance = distance;
+		if (distance < 0) {
+			this.direction = -1;
+		} else {
+			this.direction = 1;
+		}
+		this.distance = direction * distance;
 	}
 
 	@Override
@@ -35,7 +41,7 @@ public class DriveDistance extends Command {
 	protected void execute() {
 		TankDriveSubsystem drive = (TankDriveSubsystem) (Robot.drive);
 		TankDriveMap map = (TankDriveMap) (drive.map);
-		drive.setThrottle(-map.leftCluster.speed * .5, -map.rightCluster.speed * .5);
+		drive.setThrottle(direction * -map.leftCluster.speed * .5, direction * -map.rightCluster.speed * .5);
 	}
 
 	@Override

@@ -17,6 +17,7 @@ public class IntakeMap extends MechanismMap {
 	public double OUTPUT_SPEED;
 	public double INPUT_SPEED;
 	public Ultrasonic leftUltrasonic;
+	
 	public Ultrasonic rightUltrasonic;
 
 	/**

@@ -113,7 +113,9 @@ public class IntakeSubsystem extends MechanismSubsystem {
 		solenoid.set(DoubleSolenoid.Value.kReverse);
 	}
 
+	// TODO add documentation, detail how this works (ask Eyob)
 	public double getValLeft() {
+		// CONVERT Analog Input value to distance in inches????
 		return 0.0982 * leftChannel.getValue() + 2.2752;
 	}
 
@@ -140,7 +142,8 @@ public class IntakeSubsystem extends MechanismSubsystem {
 	public boolean findBall() {
 		double right = rightIR.getAverageVoltage();
 		double left = leftIR.getAverageVoltage();
-		IntakeMap intakeMap = (IntakeMap) map;
+		IntakeMap intakeMap = (IntakeMap) map; // TODO move this to
+												// constructor/initializer
 		SmartDashboard.putNumber("right ir voltage", right);
 		SmartDashboard.putNumber("left ir voltage", left);
 		boolean found = (intakeMap.rightIR.LOWER_BOUND < right && right < intakeMap.rightIR.UPPER_BOUND)
