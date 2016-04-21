@@ -1,7 +1,6 @@
 package org.usfirst.frc.team449.robot.drive.tank.components;
 
 import org.usfirst.frc.team449.robot.components.Component;
-import org.usfirst.frc.team449.robot.drive.tank.TankDriveMap;
 
 import edu.wpi.first.wpilibj.SpeedController;
 
@@ -36,7 +35,7 @@ public class MotorCluster extends Component implements SpeedController {
 		this.controllerList = controllers;
 		this.lastSet = 0;
 	}
-	
+
 	/**
 	 * add a motor that will be considered a part of the cluster
 	 * 

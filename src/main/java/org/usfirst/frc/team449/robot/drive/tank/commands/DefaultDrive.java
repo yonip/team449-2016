@@ -5,11 +5,11 @@ import org.usfirst.frc.team449.robot.drive.tank.TankDriveMap;
 import org.usfirst.frc.team449.robot.drive.tank.TankDriveSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-/**
- *
- */
 public class DefaultDrive extends Command {
+	double leftThrottle;
+	double rightThrottle;
 
 	public DefaultDrive() {
 		requires(Robot.drive);
@@ -18,21 +18,16 @@ public class DefaultDrive extends Command {
 
 	@Override
 	protected void initialize() {
+		((TankDriveSubsystem) Robot.drive).reset();
 	}
 
 	@Override
 	protected void execute() {
-		double leftThrottle = 0;
-		double rightThrottle = 0;
-
-		leftThrottle = Robot.oi.getDriveAxisLeft() * ((TankDriveMap) (Robot.drive.map)).SPEED;
-		rightThrottle = Robot.oi.getDriveAxisRight() * ((TankDriveMap) (Robot.drive.map)).SPEED;
-
-		if (Robot.oi.isDriveStraightMode()) {
-			leftThrottle = -rightThrottle;
-		}
+		leftThrottle = Robot.oi.getDriveAxisLeft() * ((TankDriveMap) (Robot.drive.map)).leftCluster.speed;
+		rightThrottle = Robot.oi.getDriveAxisRight() * ((TankDriveMap) (Robot.drive.map)).rightCluster.speed;
 		// pushing forward on the stick gives -1 so it is negated
 		((TankDriveSubsystem) Robot.drive).setThrottle(leftThrottle, rightThrottle);
+		SmartDashboard.putNumber("Distance", ((TankDriveSubsystem) Robot.drive).getDistance());
 	}
 
 	@Override

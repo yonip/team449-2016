@@ -37,31 +37,39 @@ public class VisionSubsystem extends Subsystem {
 	public VisionSubsystem() {
 		System.out.println("Vision init started");
 
-		sessions = new int[VisionMap.CAMERA_NAMES.length];
-		sessionPtr = 0;
-		frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
+		try {
+			sessions = new int[VisionMap.CAMERA_NAMES.length];
+			sessionPtr = 0;
+			frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
 
-		for (int i = 0; i < VisionMap.CAMERA_NAMES.length; i++) {
-			sessions[i] = NIVision
-					.IMAQdxOpenCamera(
-							VisionMap.CAMERA_NAMES[i],
-							NIVision.IMAQdxCameraControlMode.CameraControlModeController);
+			for (int i = 0; i < VisionMap.CAMERA_NAMES.length; i++) {
+				sessions[i] = NIVision.IMAQdxOpenCamera(VisionMap.CAMERA_NAMES[i],
+						NIVision.IMAQdxCameraControlMode.CameraControlModeController);
+			}
+			// NIVision.IMAQdxEnumItem[] arr =
+			// NIVision.IMAQdxEnumerateVideoModes(sessions[sessionPtr]).videoModeArray;
+			// NIVision.IMAQdxSetAttributeEnum(sessions[sessionPtr],
+			// "AcquisitionAttributes::VideoMode", arr[15]);
+			NIVision.IMAQdxStartAcquisition(sessions[sessionPtr]);
+			NIVision.IMAQdxConfigureGrab(sessions[sessionPtr]);
+		} catch (Exception e) {
+			System.out.println(
+					"(VisionSubsystem constructor) Cameras done goofed, but everything else is (maybe) functional.");
 		}
-//		NIVision.IMAQdxEnumItem[] arr = NIVision.IMAQdxEnumerateVideoModes(sessions[sessionPtr]).videoModeArray;
-//		NIVision.IMAQdxSetAttributeEnum(sessions[sessionPtr], "AcquisitionAttributes::VideoMode", arr[15]);
-		NIVision.IMAQdxStartAcquisition(sessions[sessionPtr]);
-		NIVision.IMAQdxConfigureGrab(sessions[sessionPtr]);
-
 	}
 
 	public Image getFrame() {
-//		NIVision.IMAQdxStartAcquisition(sessions[sessionPtr]);
+		NIVision.IMAQdxStartAcquisition(sessions[sessionPtr]);
 		NIVision.IMAQdxGrab(sessions[sessionPtr], frame, 1);
 		return frame;
 	}
 
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new DefaultVision());
+		try {
+			setDefaultCommand(new DefaultVision());
+		} catch (Exception e) {
+			System.out.println("(initDefaultCommand) Cameras done goofed, but everything else is (maybe) functional.");
+		}
 	}
 }

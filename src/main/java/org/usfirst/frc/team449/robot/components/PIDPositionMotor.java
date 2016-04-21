@@ -41,6 +41,21 @@ public class PIDPositionMotor extends PIDComponent {
 	 */
 	@Override
 	protected void usePIDOutput(double v) {
-		this.motor.set(v);
+		if (Math.abs(v) < 0.01) {
+			this.motor.set(0);
+		} else {
+			this.motor.set(.8);
+		}
+	}
+
+	/**
+	 * @return whether or not the pid subsystem is enabled
+	 */
+	public boolean getEnabled() {
+		return getEnabled();
+	}
+
+	public void reset() {
+		encoder.reset();
 	}
 }

@@ -1,81 +1,125 @@
 <xml version="1.0">
 <dashboard>
 	<widget field="IR Enabled" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
-		<location x="450" y="305"/>
-		<width>346</width>
-		<height>300</height>
+		<location x="472" y="698"/>
+		<width>121</width>
+		<height>62</height>
+	</widget>
+	<widget field="Ball found" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="199" y="619"/>
+		<width>118</width>
+		<height>60</height>
+	</widget>
+	<widget field="straight on" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="199" y="689"/>
+		<width>121</width>
+		<height>70</height>
+	</widget>
+	<widget field="turnangle done" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="329" y="571"/>
+		<width>138</width>
+		<height>51</height>
+	</widget>
+	<widget field="IntakeIn" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="329" y="627"/>
+		<width>98</width>
+		<height>57</height>
 	</widget>
 	<widget field="Drive PID" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
-		<location x="58" y="307"/>
-		<width>343</width>
-		<height>296</height>
+		<location x="327" y="693"/>
+		<width>106</width>
+		<height>65</height>
+	</widget>
+	<widget field="avger" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="499" y="622"/>
+	</widget>
+	<widget field="angle sp" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="494" y="596"/>
+	</widget>
+	<widget field="angle out" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="497" y="566"/>
 	</widget>
 	<widget field="left ir voltage" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="185" y="265"/>
+		<location x="-6" y="656"/>
 	</widget>
 	<widget field="right ir voltage" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="390" y="262"/>
-	</widget>
-	<widget field="right" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="278" y="84"/>
-	</widget>
-	<widget field="left" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="284" y="111"/>
+		<location x="-7" y="628"/>
 	</widget>
 	<widget field="angle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="275" y="54"/>
+		<location x="0" y="529"/>
+	</widget>
+	<widget field="right" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="506"/>
+	</widget>
+	<widget field="left" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="483"/>
+	</widget>
+	<widget field="Distance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="283" y="536"/>
+	</widget>
+	<widget field="modded angle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="417" y="430"/>
+	</widget>
+	<widget field="getangle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="450" y="455"/>
+		<height>22</height>
+	</widget>
+	<widget field="right set setp" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="413" y="188"/>
+	</widget>
+	<widget field="right passed setp" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="395" y="164"/>
+	</widget>
+	<widget field="left set setp" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="183" y="192"/>
+	</widget>
+	<widget field="left passed setp" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="162" y="162"/>
+	</widget>
+	<widget field="left corr" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="207" y="135"/>
+	</widget>
+	<widget field="right corr" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="440" y="137"/>
 	</widget>
 	<widget field="left enc" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="438" y="85"/>
-	</widget>
-	<widget field="right intvel" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="595" y="165"/>
-	</widget>
-	<widget field="left intvel" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="430" y="165"/>
-	</widget>
-	<widget field="left delv" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="433" y="139"/>
-	</widget>
-	<widget field="right setp" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="598" y="115"/>
-	</widget>
-	<widget field="right delv" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="600" y="140"/>
-		<height>20</height>
-	</widget>
-	<widget field="left setp" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="434" y="113"/>
-	</widget>
-	<widget field="right ztol" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="584" y="49"/>
-	</widget>
-	<widget field="left ztol" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="438" y="55"/>
+		<location x="211" y="109"/>
 	</widget>
 	<widget field="right enc" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="594" y="80"/>
+		<location x="444" y="111"/>
 	</widget>
-	<widget field="Auto mode" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="0" y="505"/>
+	<widget field="left js" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="222" y="83"/>
 	</widget>
-	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.ConnectionIndicator">
-		<location x="0" y="0"/>
-	</static-widget>
-	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.ConnectionIndicator">
-		<location x="0" y="0"/>
-	</static-widget>
-	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.ConnectionIndicator">
-		<location x="0" y="0"/>
-	</static-widget>
-	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.WebcamViewerExtension">
-		<location x="944" y="10"/>
-		<width>958</width>
-		<height>709</height>
-	</static-widget>
-	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.ConnectionIndicator">
-		<location x="0" y="0"/>
-	</static-widget>
+	<widget field="right js" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="455" y="87"/>
+	</widget>
+	<widget field="right intvel" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="430" y="61"/>
+	</widget>
+	<widget field="pid drive straight" type="PIDSubsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.PIDSubsystem">
+		<widget field="Controller" type="PIDController" class="edu.wpi.first.smartdashboard.gui.elements.PIDEditor">
+			<location x="0" y="0"/>
+			<height>0</height>
+			<width>0</width>
+		</widget>
+		<location x="0" y="161"/>
+	</widget>
+	<widget field="right delv" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="433" y="36"/>
+	</widget>
+	<widget field="right ztol" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="438" y="7"/>
+	</widget>
+	<widget field="left intvel" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="201" y="57"/>
+	</widget>
+	<widget field="left delv" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="209" y="29"/>
+	</widget>
+	<widget field="left ztol" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="214" y="5"/>
+	</widget>
 </dashboard>
 <live-window>
 </live-window>

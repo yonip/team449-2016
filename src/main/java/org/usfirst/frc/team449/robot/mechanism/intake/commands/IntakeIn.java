@@ -4,6 +4,7 @@ import org.usfirst.frc.team449.robot.Robot;
 import org.usfirst.frc.team449.robot.mechanism.intake.IntakeMap;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * a command to pull a ball into the intake
@@ -20,6 +21,7 @@ public class IntakeIn extends Command {
 	 */
 	@Override
 	protected void initialize() {
+		SmartDashboard.putBoolean("IntakeIn", true);
 		System.out.println("IntakeIn init");
 	}
 
@@ -29,6 +31,7 @@ public class IntakeIn extends Command {
 	 */
 	@Override
 	protected void execute() {
+		SmartDashboard.putBoolean("IntakeIn", true);
 		Robot.intake.setMotorSpeed(((IntakeMap) (Robot.intake.map)).INPUT_SPEED);
 	}
 
@@ -60,6 +63,7 @@ public class IntakeIn extends Command {
 	 */
 	@Override
 	protected void end() {
+		SmartDashboard.putBoolean("IntakeIn", false);
 		Robot.intake.setMotorSpeed(0);
 		System.out.println("IntakeIn end");
 	}
@@ -81,6 +85,7 @@ public class IntakeIn extends Command {
 	 */
 	@Override
 	protected void interrupted() {
+		SmartDashboard.putBoolean("IntakeIn", false);
 		Robot.intake.setMotorSpeed(0);
 		System.out.println("ItakeIn interrupted");
 	}

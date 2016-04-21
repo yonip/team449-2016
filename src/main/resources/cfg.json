@@ -1,5 +1,6 @@
 {
   "components": {},
+
   "MechanismMap": {
     "IntakeMap": {
       "components": {
@@ -11,42 +12,50 @@
             }
           }
         },
+
         "OUTPUT_SPEED": -1,
         "DoubleSolenoid": {
           "instances": {
             "solenoid": {
-              "forward": 0,
-              "reverse": 1
+              "forward": 1,
+              "reverse": 0
             }
           }
         },
+
         "IRSensor": {
           "instances": {
             "leftIR": {
               "PORT": 0
             },
+
             "rightIR": {
-              "PORT": 1
+              "PORT": 3
             }
           },
-          "LOWER_BOUND": 0.6,
+
+          "LOWER_BOUND": 0.54,
           "UPPER_BOUND": 3.2,
           "OVERSAMPLING_BITS": 6,
           "AVERAGE_BITS": 6
         },
+
         "Ultrasonic": {
           "instances": {
             "leftUltrasonic": {
-              "PORT": 2
+              "PORT": 1
             },
+
             "rightUltrasonic": {
-              "PORT": 3
+              "PORT": 2
             }
           }
         },
-        "INPUT_SPEED": 1
+
+        "INPUT_SPEED": 0.75
       }
     },
+
     "BreachMap": {
       "components": {
         "DoubleSolenoid": {
@@ -55,6 +64,7 @@
               "forward": 4,
               "reverse": 5
             },
+
             "front": {
               "forward": 7,
               "reverse": 6
@@ -63,20 +73,25 @@
         }
       }
     },
+
     "components": {}
   },
+
   "DriveMap": {
     "TankDriveMap": {
       "components": {
-        "SPEED": 50,
         "RADIUS": 12,
         "ClusterPID": {
           "p": 0.4,
           "i": 0,
           "d": 0,
           "zeroTolerance": 5,
-          "outputRange": 50,
-          "percentTolerance": 20,
+          "outputRange": 5,
+          "percentTolerance": 5,
+          "inverted": false,
+          "speed": 100,
+          "rampRate": 480,
+          "rampRateEnabled": false,
           "MotorCluster": {
             "Motor[]": {
               "0": {
@@ -90,8 +105,10 @@
               }
             }
           },
+
           "instances": {
             "rightCluster": {
+              "inverted": true,
               "MotorCluster": {
                 "instances": {
                   "cluster": {
@@ -104,16 +121,19 @@
                           "1": {
                             "PORT": 5
                           },
+
                           "2": {
                             "PORT": 6
                           }
                         }
                       }
                     },
+
                     "INVERTED": true
                   }
                 }
               },
+
               "Encoder": {
                 "instances": {
                   "encoder": {
@@ -123,6 +143,7 @@
                 }
               }
             },
+
             "leftCluster": {
               "MotorCluster": {
                 "instances": {
@@ -142,10 +163,12 @@
                         }
                       }
                     },
+
                     "INVERTED": true
                   }
                 }
               },
+
               "Encoder": {
                 "instances": {
                   "encoder": {
@@ -156,34 +179,86 @@
               }
             }
           },
+
           "Encoder": {
-            "dpp": 0.0245436926
+            "dpp": 0.0490873852
+          }
+        },
+
+        "AnglePID": {
+          "p": 0.006,
+          "i": 0,
+          "d": 0,
+          "absoluteTolerance": 2,
+          "percentTolerance": 1,
+          "minimumOutput": 0.1,
+          "minimumOutputEnabled": true,
+          "instances": {
+            "driveStraightAnglePID": {
+              "p": 0.01,
+              "absoluteTolerance": 0,
+              "percentTolerance": 0,
+              "minimumOutput": 0,
+              "minimumOutputEnabled": false
+            }
           }
         }
       }
     },
+
     "components": {}
   },
+
   "OIMap": {
     "components": {
       "RIGHT_DRIVE_STICK": 3,
       "LEFT_DRIVE_STICK": 1,
       "MAIN_CONTROLLER": 0,
       "MANUAL_OVERRIDES": 1,
+      "BUTTON_PAD": 2,
       "INTAKE_OUT": 4,
       "INTAKE_IN": 2,
-      "INTAKE_UP": 7,
-      "INTAKE_DOWN": 5,
+      "INTAKE_UP": 5,
+      "INTAKE_DOWN": 7,
       "BREACH_CHIVAL": 3,
       "BREACH_PORTCULLIS": 8,
-      "BREACH_CLOSE": 1,
+      "BREACH_CLOSE_PRIMARY": 1,
+      "BREACH_CLOSE_SECONDARY": 1,
       "CAMERA_TOGGLE": 9,
       "DRIVE_STRAIGHT": 6,
+      "FACE_FRONT": 3,
+      "FACE_BACK": 2,
+      "FACE_LEFT_GOAL": 11,
+      "FACE_RIGHT_GOAL": 10,
       "IGNORE_IR": 6,
-      "TOGGLE_PID": 7,
+      "TOGGLE_PID": 4,
+      "BP_INTAKE_OUT": 7,
+      "BP_INTAKE_IN": 8,
+      "BP_INTAKE_UP": 10,
+      "BP_INTAKE_DOWN": 9,
+      "BP_BREACH_CHIVAL": 3,
+      "BP_BREACH_PORTCULLIS": 4,
+      "BP_BREACH_CLOSE": 1,
+      "BP_CAMERA_TOGGLE": 6,
+      "ZERO_GYRO": 10,
       "DEADBAND": 0.02,
       "POWER": 2,
       "MAX_VALUE": 1
+    }
+  },
+  
+  "AutoMap": {
+    "components": {
+      "AUTO_SHOOT_DISTANCE_1": 241.696,
+	  "AUTO_SHOOT_DISTANCE_2": -156.822,
+	  "AUTO_SHOOT_TURN_ANGLE": -120
+	}
+  },
+
+  "GameDetailsMap": {
+    "compnents": {
+      "leftGoalAngle": 120,
+      "rightGoalAngle": -120
     }
   }
 }

@@ -1,11 +1,9 @@
 package org.usfirst.frc.team449.robot.mechanism.breach;
 
 import org.usfirst.frc.team449.robot.RobotMap;
-import org.usfirst.frc.team449.robot.drive.tank.TankDriveMap;
 import org.usfirst.frc.team449.robot.mechanism.MechanismSubsystem;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  * Subsystem for the defense breaching arm

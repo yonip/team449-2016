@@ -33,8 +33,8 @@ public class IntakeSubsystem extends MechanismSubsystem {
 	private AnalogInput leftChannel;
 
 	/**
-	 * The right ultrasonic rangefinding sensor's
-	 * <code>AnalogInput<code> channel
+	 * The right ultrasonic rangefinding sensor's <code>AnalogInput
+	 * <code> channel
 	 */
 	private AnalogInput rightChannel;
 
@@ -47,11 +47,11 @@ public class IntakeSubsystem extends MechanismSubsystem {
 	 * The right ultrasonic rangefinder's <code>Value</code>
 	 */
 	private SmoothedValue rightVal;
-	
+
 	private AnalogInput leftIR;
-	
+
 	private AnalogInput rightIR;
-	
+
 	private boolean ignoreIR;
 
 	public IntakeSubsystem(RobotMap map) {
@@ -59,8 +59,7 @@ public class IntakeSubsystem extends MechanismSubsystem {
 		System.out.println("Intake init started");
 
 		if (!(map instanceof IntakeMap)) {
-			System.err.println("Intake has a map of class "
-					+ map.getClass().getSimpleName() + " and not IntakeMap");
+			System.err.println("Intake has a map of class " + map.getClass().getSimpleName() + " and not IntakeMap");
 		}
 
 		IntakeMap intakeMap = (IntakeMap) map;
@@ -68,24 +67,25 @@ public class IntakeSubsystem extends MechanismSubsystem {
 		this.mainMotor = new VictorSP(intakeMap.motor.PORT);
 		this.mainMotor.setInverted(intakeMap.motor.INVERTED);
 
-		solenoid = new DoubleSolenoid(intakeMap.solenoid.forward,
-				intakeMap.solenoid.reverse);
+		solenoid = new DoubleSolenoid(intakeMap.solenoid.forward, intakeMap.solenoid.reverse);
 		this.leftIR = new AnalogInput(intakeMap.leftIR.PORT);
 		this.leftIR.setAverageBits(intakeMap.leftIR.AVERAGE_BITS);
 		this.leftIR.setOversampleBits(intakeMap.leftIR.OVERSAMPLING_BITS);
 		this.rightIR = new AnalogInput(intakeMap.rightIR.PORT);
 		this.rightIR.setAverageBits(intakeMap.rightIR.AVERAGE_BITS);
 		this.rightIR.setOversampleBits(intakeMap.rightIR.OVERSAMPLING_BITS);
-		
+
 		leftChannel = new AnalogInput(intakeMap.leftUltrasonic.PORT);
 		rightChannel = new AnalogInput(intakeMap.rightUltrasonic.PORT);
-		
+
 		leftVal = new SmoothedValue(1);
 		rightVal = new SmoothedValue(1);
-		
+
 		ignoreIR = false;
 		SmartDashboard.putBoolean("IR Enabled", !ignoreIR);
-		
+
+		// new IntakeDown(); // start in down position
+
 		System.out.println("Intake init finished");
 	}
 
@@ -113,7 +113,9 @@ public class IntakeSubsystem extends MechanismSubsystem {
 		solenoid.set(DoubleSolenoid.Value.kReverse);
 	}
 
+	// TODO add documentation, detail how this works (ask Eyob)
 	public double getValLeft() {
+		// CONVERT Analog Input value to distance in inches????
 		return 0.0982 * leftChannel.getValue() + 2.2752;
 	}
 
@@ -134,41 +136,45 @@ public class IntakeSubsystem extends MechanismSubsystem {
 
 	/**
 	 * checks on the infrareds whether they sense the ball or not
+	 * 
 	 * @return true if at least one IR is sensing the ball, false otherwise
 	 */
 	public boolean findBall() {
 		double right = rightIR.getAverageVoltage();
 		double left = leftIR.getAverageVoltage();
-		IntakeMap intakeMap = (IntakeMap) map;
+		IntakeMap intakeMap = (IntakeMap) map; // TODO move this to
+												// constructor/initializer
 		SmartDashboard.putNumber("right ir voltage", right);
 		SmartDashboard.putNumber("left ir voltage", left);
-		return (intakeMap.rightIR.LOWER_BOUND < right && right < intakeMap.rightIR.UPPER_BOUND)
+		boolean found = (intakeMap.rightIR.LOWER_BOUND < right && right < intakeMap.rightIR.UPPER_BOUND)
 				|| (intakeMap.leftIR.LOWER_BOUND < left && left < intakeMap.leftIR.UPPER_BOUND);
+		SmartDashboard.putBoolean("Ball found", found);
+		return found;
 	}
-	
-	
+
 	/**
-	 * Toggles whether the robot is going to ignore the IR values that it's receiving.
-	 * If ignoreIR is false, the robot will only stop {@link IntakeIn IntakeIn} when the
-	 * user presses the button that initialized the command again. If it's true, the
-	 * command will stop when the IR detects the ball.
+	 * Toggles whether the robot is going to ignore the IR values that it's
+	 * receiving. If ignoreIR is false, the robot will only stop {@link IntakeIn
+	 * IntakeIn} when the user presses the button that initialized the command
+	 * again. If it's true, the command will stop when the IR detects the ball.
 	 */
 	public void toggleIgnoreIR() {
 		ignoreIR = !ignoreIR;
 		SmartDashboard.putBoolean("IR Enabled", !ignoreIR);
 	}
-	
+
 	/**
-	 * Checks whether the robot is "ignoring IR".
-	 * If ignoreIR is false, the robot will only stop {@link IntakeIn IntakeIn} when the
-	 * user presses the button that initialized the command again. If it's true, the
-	 * command will stop when the IR detects the ball.
+	 * Checks whether the robot is "ignoring IR". If ignoreIR is false, the
+	 * robot will only stop {@link IntakeIn IntakeIn} when the user presses the
+	 * button that initialized the command again. If it's true, the command will
+	 * stop when the IR detects the ball.
+	 * 
 	 * @return whether the IR sensor is being ignored.
 	 */
 	public boolean isIgnoringIR() {
 		return ignoreIR;
 	}
-	
+
 	@Override
 	public void initDefaultCommand() {
 		setDefaultCommand(new UpdateUS());
