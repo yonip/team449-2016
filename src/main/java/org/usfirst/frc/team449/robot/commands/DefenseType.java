@@ -1,13 +1,14 @@
 package org.usfirst.frc.team449.robot.commands;
 
 /**
- * Enumerate representing the possible defenses the robot will breach during the
- * autonomous period
+ * Deprecated enumerate representing the possible defenses the robot will breach
+ * during the autonomous period. Used to be used by {@link #Autonomous}
  * 
  * @author Ryan Tse <ryantse100@gmail.com>
  * @since 2016-03-11
  *
  */
+@Deprecated
 public enum DefenseType {
 	/**
 	 * Breach the portcullis defense

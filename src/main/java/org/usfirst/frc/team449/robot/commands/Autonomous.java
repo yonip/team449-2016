@@ -8,12 +8,19 @@ import org.usfirst.frc.team449.robot.mechanism.breach.commands.BreachPortcullis;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- * <code>CommandGroup</code> running robot during the autonomous period
+ * <p>
+ * Deprecated <code>CommandGroup</code> inteded to run the robot during the
+ * autonomous period. This class contained methods for running a variety of
+ * autonomous period procedures, however this class was replaced by the
+ * <code>Auto</code> class and its subclasses.
+ * </p>
  * 
  * @author Ryan Tse <ryantse100@gmail.com>
  * @since 2016-03-11
+ * @deprecated replaced by {@link #Auto}
  *
  */
+@Deprecated
 public class Autonomous extends CommandGroup {
 	/**
 	 * Instantiate a new <code>Autonomous</code>

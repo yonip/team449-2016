@@ -5,13 +5,21 @@ import org.usfirst.frc.team449.robot.drive.tank.commands.DriveDistance;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * <code>CommandGroup</code> running robot during the autonomous period
+ * <code>Command</code> used by some autonomous code to do nothing for a certain
+ * number of seconds
  * 
  * @author Ryan Tse <ryantse100@gmail.com>
  * @since 2016-03-11
  *
  */
 public class StayForTimeout extends Command {
+	/**
+	 * Instantiates a new <code>StayForTimeout</code>, delaying a certain number
+	 * of seconds.
+	 * 
+	 * @param timeout
+	 *            number of seconds to delay for
+	 */
 	public StayForTimeout(double timeout) {
 		super(timeout);
 	}
@@ -30,7 +38,7 @@ public class StayForTimeout extends Command {
 	}
 
 	@Override
-	protected void end() {		
+	protected void end() {
 	}
 
 	@Override
