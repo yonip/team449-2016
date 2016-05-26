@@ -5,8 +5,9 @@ import org.usfirst.frc.team449.robot.mechanism.MechanismSubsystem;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
-/**
- * Subsystem for the defense breaching arm
+/** 
+ *  This is the subsystem for the defense breaching arm. It extends
+ * {@link #org.usfirst.frc.team449.robot.mechanism.MechanismSubsystem}.
  * 
  * @author Ryan Tse <ryantse100@gmail.com>
  * @since 2016-01-20
