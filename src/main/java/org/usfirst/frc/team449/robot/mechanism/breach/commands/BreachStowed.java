@@ -27,8 +27,7 @@ public class BreachStowed extends Command {
 
 	@Override
 	protected void execute() {
-		Robot.breach.setBackSolenoidReverse();
-		Robot.breach.setFrontSolenoidReverse();
+		Robot.breach.setSolenoid(false,false);
 	}
 
 	@Override
