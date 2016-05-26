@@ -33,8 +33,7 @@ public class BreachChivald extends Command {
 	 */
 	@Override
 	protected void execute() {
-		Robot.breach.setBackSolenoidForward();
-		Robot.breach.setFrontSolenoidReverse();
+		Robot.breach.setSolenoid(true,false);
 	}
 
 	/**

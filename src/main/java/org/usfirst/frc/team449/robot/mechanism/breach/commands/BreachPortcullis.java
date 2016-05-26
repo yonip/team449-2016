@@ -27,8 +27,7 @@ public class BreachPortcullis extends Command {
 
 	@Override
 	protected void execute() {
-		Robot.breach.setBackSolenoidForward();
-		Robot.breach.setFrontSolenoidForward();
+		Robot.breach.setSolenoid(true,true);
 	}
 
 	@Override
