@@ -6,8 +6,7 @@ import org.usfirst.frc.team449.robot.mechanism.MechanismSubsystem;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 /**
- * This is the subsystem for the defense breaching arm. It extends
- * {@link #org.usfirst.frc.team449.robot.mechanism.MechanismSubsystem}.
+ * Subsystem for the defense breaching arm
  * 
  * @author Ryan Tse <ryantse100@gmail.com>
  * @since 2016-01-20
@@ -40,36 +39,19 @@ public class BreachSubsystem extends MechanismSubsystem {
 	}
 
 	/**
-	 * Set the back double solenoid valve to its forward state
+	 * Sets both solenoids to a specified state for each (true for forward, false for reverse).
 	 */
-	public void setBackSolenoidForward() {
-		backSolenoid.set(DoubleSolenoid.Value.kForward);
+	public void setSolenoid(boolean backSolForward, boolean frontSolForward) {
+		if (backSolForward)
+			backSolenoid.set(DoubleSolenoid.Value.kForward);
+		else
+			backSolenoid.set(DoubleSolenoid.Value.kReverse);
+		if(frontSolForward)
+			frontSolenoid.set(DoubleSolenoid.Value.kForward);
+		else
+			frontSolenoid.set(DoubleSolenoid.Value.kReverse);
 	}
 
-	/**
-	 * Set the back double solenoid valve to its reverse state
-	 */
-	public void setBackSolenoidReverse() {
-		backSolenoid.set(DoubleSolenoid.Value.kReverse);
-	}
-
-	/**
-	 * Set the front double solenoid valve to its forward state
-	 */
-	public void setFrontSolenoidForward() {
-		frontSolenoid.set(DoubleSolenoid.Value.kForward);
-	}
-
-	/**
-	 * Set the front double solenoid valve to its reverse state
-	 */
-	public void setFrontSolenoidReverse() {
-		frontSolenoid.set(DoubleSolenoid.Value.kReverse);
-	}
-	
-	/**
-	 * Do not set any default commands to be run when <code>BreachSubsystem</code> is initialized
-	 */
 	@Override
 	protected void initDefaultCommand() {
 	}
