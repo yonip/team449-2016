@@ -12,11 +12,13 @@ import org.usfirst.frc.team449.robot.mechanism.breach.BreachMap;
 import org.usfirst.frc.team449.robot.mechanism.intake.IntakeMap;
 
 /**
- * tests the json on the computer by instantiating all the maps. prints an
- * unescaped and an escaped version of the current json if needed.
+ * This tests cfg.json locally by instantiating all the maps and printing an
+ * unescaped and an escaped version of the content of the file.
  */
 public class Tester {
-
+	/**
+	 * Instantiate all maps and print an unescaped and escaped version of the contents of cfg.json
+	 */
 	public static void main(String[] args) {
 		JSONObject jo = null;
 		try {
