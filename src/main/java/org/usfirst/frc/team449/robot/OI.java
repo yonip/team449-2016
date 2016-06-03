@@ -19,21 +19,15 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
- * the Operator Interface, includes access to all joysticks and any other for of
- * input from the drivers
+ * This is the Operator Interface, which contains all of the driver input devices.
  */
-public class OI/* vey */ {
+public class OI {
 	private OIMap map;
-
-	// private Joystick leftDriveJoystick;
-	// private Joystick rightDriveJoystick;
-	// private Joystick intakeJoystick;
-
+	
 	private Joystick manualOverrides;
 
 	private Joystick gamecube;
 	private Joystick buttonPad;
-	// private double db = 0.02;
 	private int sign = 1;
 
 	public OI(OIMap map) {
@@ -42,7 +36,6 @@ public class OI/* vey */ {
 		gamecube = new Joystick(map.MAIN_CONTROLLER);
 		manualOverrides = new Joystick(map.MANUAL_OVERRIDES);
 		buttonPad = new Joystick(map.BUTTON_PAD);
-		// gamecube = new Joystick(map.INTAKE_JOYSTICK);
 
 		Button intakeIn = new JoystickButton(gamecube, map.INTAKE_IN);
 		Button intakeOut = new JoystickButton(gamecube, map.INTAKE_OUT);
@@ -111,29 +104,30 @@ public class OI/* vey */ {
 	}
 
 	public double getDriveAxisLeft() {
-		// return this.leftDriveJoystick.getAxis(Joystick.AxisType.kY);
 		double ret = sign * this.gamecube.getRawAxis(map.LEFT_DRIVE_STICK);
-
 		return process(ret);
 	}
 
 	public double getDriveAxisRight() {
-		// return this.rightDriveJoystick.getAxis(Joystick.AxisType.kY);
 		double ret = sign * this.gamecube.getRawAxis(map.RIGHT_DRIVE_STICK);
-
 		return process(ret);
 	}
-
-	// public double getDebugAngle() {
-	// double n = (manualOverrides.getRawAxis(2))*180;
-	// SmartDashboard.putNumber("angle from sd", n);
-	// return n;
-	// }
 
 	public boolean isDriveStraightMode() {
 		return this.gamecube.getRawButton(map.DRIVE_STRAIGHT);
 	}
 
+	/**
+	 * <p>
+	 * This is a throttle smoothing function used on all joystick input.
+	 * </p>
+	 * 
+	 * <p>
+	 * The smoothed value is calculated as the following
+	 * </p>
+	 * 
+	 * sign *  max / (1 - (deadband ^ power)) * (((input * sign) ^ power) - (deadband ^ power))
+	 */
 	public double process(double input) {
 		int sign = (input < 0) ? -1 : 1; // get the sign of the input
 		input *= sign; // get the absolute value
@@ -143,13 +137,6 @@ public class OI/* vey */ {
 		}
 		return sign * (map.MAX_VALUE / (1 - Math.pow(map.DEADBAND, map.POWER)))
 				* (Math.pow(input, map.POWER) - Math.pow(map.DEADBAND, map.POWER));
-		/*
-		 * sign * max ------------------ * (|input|^n - deadband^power)
-		 * 1-(deadband)^power
-		 * 
-		 * where sign is the sign of the input this makes a smooth joystick
-		 * curve, according to szabo
-		 */
 	}
 
 	public void toggle() {
