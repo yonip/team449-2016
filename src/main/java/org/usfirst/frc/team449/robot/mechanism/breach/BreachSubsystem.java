@@ -5,13 +5,11 @@ import org.usfirst.frc.team449.robot.mechanism.MechanismSubsystem;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
-/** 
- *  This is the subsystem for the defense breaching arm. It extends
- * {@link #org.usfirst.frc.team449.robot.mechanism.MechanismSubsystem}.
+/**
+ * This is the subsystem for the defense breaching arm. It extends
+ * <code>MechanismSubsystem</code>
  * 
- * @author Ryan Tse <ryantse100@gmail.com>
- * @since 2016-01-20
- *
+ * @see MechanismSubsystem
  */
 public class BreachSubsystem extends MechanismSubsystem {
 	/**
@@ -40,17 +38,27 @@ public class BreachSubsystem extends MechanismSubsystem {
 	}
 
 	/**
-	 * Sets both solenoids to a specified state for each (true for forward, false for reverse).
+	 * Sets both solenoids to a specified state for each (true for forward,
+	 * false for reverse).
+	 * 
+	 * @param backSolForward
+	 *            state to set the back double solenoid to (<code>true</code>
+	 *            for forward and <code>false</code> for reverse)
+	 * @param frontSolForward
+	 *            state to set the front double solenoid to (<code>true</code>
+	 *            for forward and <code>false</code> for reverse)
 	 */
 	public void setSolenoid(boolean backSolForward, boolean frontSolForward) {
-		if (backSolForward)
+		if (backSolForward) {
 			backSolenoid.set(DoubleSolenoid.Value.kForward);
-		else
+		} else {
 			backSolenoid.set(DoubleSolenoid.Value.kReverse);
-		if(frontSolForward)
+		}
+		if (frontSolForward) {
 			frontSolenoid.set(DoubleSolenoid.Value.kForward);
-		else
+		} else {
 			frontSolenoid.set(DoubleSolenoid.Value.kReverse);
+		}
 	}
 
 	@Override

@@ -6,10 +6,8 @@ import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * Command to toggle to the next camera
- * 
- * @author Gabe Udell <ryantse100@gmail.com>
- * @since 2016-02-06
+ * {@link Command} to display the camera feed. If the cameras fail, the robot
+ * will not crash.
  *
  */
 public class DefaultVision extends Command {
@@ -17,7 +15,7 @@ public class DefaultVision extends Command {
 	private boolean cameraFailed = false;
 
 	/**
-	 * Instantiate a ToggleCamera command
+	 * Instantiate an instance of <code>ToggleCamera</code>.
 	 */
 	public DefaultVision() {
 		requires(Robot.vision);

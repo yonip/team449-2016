@@ -5,16 +5,13 @@ import org.usfirst.frc.team449.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * Command to set the intake mechanism to its down state
- * 
- * @author Ryan Tse <ryantse100@gmail.com>
- * @since 2016-02-08
- *
+ * {@link Command} that lowers the intake mechanism on its two piston supports.
  */
 public class IntakeDown extends Command {
 
 	/**
-	 * Instantiate a new <code>IntakeDown</code>
+	 * Instantiate a new <code>IntakeDown</code>, taking control of the intake
+	 * subsystem.
 	 */
 	public IntakeDown() {
 		requires(Robot.intake);

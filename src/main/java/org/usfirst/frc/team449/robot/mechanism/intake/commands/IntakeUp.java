@@ -14,7 +14,8 @@ import edu.wpi.first.wpilibj.command.Command;
 public class IntakeUp extends Command {
 
 	/**
-	 * Instantiate a new <code>IntakeUp</code>
+	 * Instantiate a new <code>IntakeUp</code>, taking control of the intake
+	 * subsystem.
 	 */
 	public IntakeUp() {
 		requires(Robot.intake);

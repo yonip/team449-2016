@@ -2,14 +2,13 @@ package org.usfirst.frc.team449.robot.commands;
 
 import org.usfirst.frc.team449.robot.drive.tank.commands.TurnAngle;
 
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
+
 /**
- * <code>CommandGroup</code> that inherits from <code>Auto</code> that drives
- * the robot forward, turns around (180 degrees) and drives back during the
- * autonomous period.
- * 
- * @author Ryan Tse <ryantse100@gmail.com>
- * @since 2016-03-11
- * 
+ * {@link CommandGroup} that inherits from {@link Auto} that drives the robot
+ * forward, turns around (180 degrees) and drives back during the autonomous
+ * period.
  */
 public class AutoDriveForwardBack extends Auto {
 	/**
@@ -19,7 +18,7 @@ public class AutoDriveForwardBack extends Auto {
 	 * @param distance
 	 *            distance to drive before stopping
 	 * @param timeout
-	 *            how long to drive before aborting the <code>Command</code> for
+	 *            how long to drive before aborting the {@link Command} for
 	 *            safety reasons
 	 */
 	public AutoDriveForwardBack(double distance, double timeout) {

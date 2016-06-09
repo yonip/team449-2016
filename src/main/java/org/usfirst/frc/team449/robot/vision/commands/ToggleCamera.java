@@ -8,16 +8,12 @@ import com.ni.vision.NIVision;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * Command to toggle to the next camera
- * 
- * @author Ryan Tse <ryantse100@gmail.com>
- * @since 2016-02-01
- *
+ * {@link Command} to toggle the camera feed
  */
 public class ToggleCamera extends Command {
 
 	/**
-	 * Instantiate a ToggleCamera command
+	 * Instantiate a new <code>ToggleCamera</code>.
 	 */
 	public ToggleCamera() {
 		requires(Robot.vision);
@@ -26,13 +22,15 @@ public class ToggleCamera extends Command {
 	@Override
 	protected void initialize() {
 		System.out.println("ToggleCamera init");
-		NIVision.IMAQdxStopAcquisition(Robot.vision.sessions[Robot.vision.sessionPtr]); // stop
-																						// current
-																						// cam
+
+		// Stop current camera
+		NIVision.IMAQdxStopAcquisition(Robot.vision.sessions[Robot.vision.sessionPtr]);
+
+		// Get new session pointer
 		Robot.vision.sessionPtr = Robot.vision.sessionPtr < VisionMap.CAMERA_NAMES.length - 1
-				? Robot.vision.sessionPtr + 1 : 0; // get the new session
-													// pointer
-		// start capture from new session
+				? Robot.vision.sessionPtr + 1 : 0;
+
+		// Start capture from new session
 		NIVision.IMAQdxConfigureGrab(Robot.vision.sessions[Robot.vision.sessionPtr]);
 		NIVision.IMAQdxStartAcquisition(Robot.vision.sessions[Robot.vision.sessionPtr]);
 		Robot.oi.toggle();

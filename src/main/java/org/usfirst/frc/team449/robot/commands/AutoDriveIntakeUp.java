@@ -3,14 +3,12 @@ package org.usfirst.frc.team449.robot.commands;
 import org.usfirst.frc.team449.robot.drive.tank.commands.DriveDistance;
 import org.usfirst.frc.team449.robot.mechanism.intake.commands.IntakeUp;
 
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
+
 /**
- * <code>CommandGroup</code> that inherits from <code>Auto</code> that drives
- * the robot forward, raises intake, and continues driving during the autonomous
- * period.
- * 
- * @author Ryan Tse <ryantse100@gmail.com>
- * @since 2016-03-11
- * 
+ * {@link CommandGroup} that inherits from {@link Auto} that drives the robot
+ * forward, raises intake, and continues driving during the autonomous period.
  */
 public class AutoDriveIntakeUp extends Auto {
 	/**
@@ -21,11 +19,12 @@ public class AutoDriveIntakeUp extends Auto {
 	 * @param distance
 	 *            distance to drive before raising intake
 	 * @param timeout
-	 *            how long to drive before aborting the <code>Command</code> for
+	 *            how long to drive before aborting the {@link Command} for
 	 *            safety reasons
 	 */
 	public AutoDriveIntakeUp(double distance, double timeout) {
 		super();
+		// TODO externalize constants
 		addSequential(new DriveDistance(30, timeout));
 		addSequential(new IntakeUp());
 		addSequential(new DriveDistance(distance - 30, timeout));

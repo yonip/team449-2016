@@ -34,7 +34,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
 	public static final double DELTAT = 0.020;
-	
+
 	private HashMap<DigitalInput, Command> autos;
 
 	/**
@@ -62,7 +62,7 @@ public class Robot extends IterativeRobot {
 	 * reference to this robot's OI (Operator Interface)
 	 */
 	public static OI oi;
-	
+
 	public static AutoMap autoMap;
 
 	/**
@@ -96,7 +96,7 @@ public class Robot extends IterativeRobot {
 			breach = new BreachSubsystem(new BreachMap(cfg));
 			vision = new VisionSubsystem();
 			oi = new OI(new OIMap(cfg));
-			//autoChooser = new SendableChooser();
+			// autoChooser = new SendableChooser();
 			autos = new HashMap();
 			autos.put(new DigitalInput(4), new Auto());
 			autos.put(new DigitalInput(5), new AutoDrive(190, 4.5));
@@ -104,12 +104,14 @@ public class Robot extends IterativeRobot {
 			autos.put(new DigitalInput(7), new AutoDriveIntakeUp(190, 4.5));
 			autos.put(new DigitalInput(8), new AutoLowGoal(4.5));
 			autos.put(new DigitalInput(9), new AutoDrive(40, 2.5));
-			//autoChooser.addDefault("nothing", new Auto());
-			//autoChooser.addObject("Drive dist", new AutoDrive(190, 4.5));
-			//autoChooser.addObject("Drive Port", new AutoPortcullis(4.5));
-			//autoChooser.addObject("Drive Intake Up", new AutoDriveIntakeUp(190, 4.5));
-			//autoChooser.addObject("Lowbar lowgoal score", new AutoLowGoal(4.5));
-			//SmartDashboard.putData("Auto chooser", autoChooser);
+			// autoChooser.addDefault("nothing", new Auto());
+			// autoChooser.addObject("Drive dist", new AutoDrive(190, 4.5));
+			// autoChooser.addObject("Drive Port", new AutoPortcullis(4.5));
+			// autoChooser.addObject("Drive Intake Up", new
+			// AutoDriveIntakeUp(190, 4.5));
+			// autoChooser.addObject("Lowbar lowgoal score", new
+			// AutoLowGoal(4.5));
+			// SmartDashboard.putData("Auto chooser", autoChooser);
 		} catch (Exception e) {
 			String s = e.getMessage();
 			StackTraceElement[] arr = e.getStackTrace();
@@ -128,7 +130,8 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = getAutoCommand();//(Command) autoChooser.getSelected();
+		autonomousCommand = getAutoCommand();// (Command)
+												// autoChooser.getSelected();
 		if (autonomousCommand != null)
 			;
 		autonomousCommand.start();
@@ -154,7 +157,7 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 	}
-	
+
 	private Command getAutoCommand() {
 		Set<DigitalInput> inputs = autos.keySet();
 		for (DigitalInput di : inputs) {

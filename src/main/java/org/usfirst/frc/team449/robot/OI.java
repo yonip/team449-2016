@@ -19,23 +19,25 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
- * the Operator Interface, includes access to all joysticks and any other for of
- * input from the drivers
+ * This is the Operator Interface which includes all of the buttons, joysticks,
+ * and other human input devices used to control the robot.
  */
-public class OI/* vey */ {
+public class OI {
 	private OIMap map;
-
-	// private Joystick leftDriveJoystick;
-	// private Joystick rightDriveJoystick;
-	// private Joystick intakeJoystick;
 
 	private Joystick manualOverrides;
 
 	private Joystick gamecube;
 	private Joystick buttonPad;
-	// private double db = 0.02;
+
 	private int sign = 1;
 
+	/**
+	 * Instantiate a new <code>OI</code>.
+	 * 
+	 * @param map
+	 *            {@link OIMap} that contains the constants for the OI
+	 */
 	public OI(OIMap map) {
 		this.map = map;
 
@@ -110,13 +112,18 @@ public class OI/* vey */ {
 		zeroGyro.whenPressed(new ZeroGyro());
 	}
 
+	/**
+	 * @return the throttle of the left motor cluster
+	 */
 	public double getDriveAxisLeft() {
-		// return this.leftDriveJoystick.getAxis(Joystick.AxisType.kY);
 		double ret = sign * this.gamecube.getRawAxis(map.LEFT_DRIVE_STICK);
 
 		return process(ret);
 	}
 
+	/**
+	 * @return the throttle of the right motor cluster
+	 */
 	public double getDriveAxisRight() {
 		// return this.rightDriveJoystick.getAxis(Joystick.AxisType.kY);
 		double ret = sign * this.gamecube.getRawAxis(map.RIGHT_DRIVE_STICK);
@@ -124,16 +131,19 @@ public class OI/* vey */ {
 		return process(ret);
 	}
 
-	// public double getDebugAngle() {
-	// double n = (manualOverrides.getRawAxis(2))*180;
-	// SmartDashboard.putNumber("angle from sd", n);
-	// return n;
-	// }
-
+	/**
+	 * @return whether the driver is enabling drive straight mode (driving
+	 *         straight based on right stick throttle)
+	 */
 	public boolean isDriveStraightMode() {
 		return this.gamecube.getRawButton(map.DRIVE_STRAIGHT);
 	}
 
+	/**
+	 * @param input
+	 *            raw throttle value (from controller)
+	 * @return smoothed throttle value (to send to motor cluster)
+	 */
 	public double process(double input) {
 		int sign = (input < 0) ? -1 : 1; // get the sign of the input
 		input *= sign; // get the absolute value
@@ -152,6 +162,7 @@ public class OI/* vey */ {
 		 */
 	}
 
+	// TODO figure out why this is here
 	public void toggle() {
 		// this.sign = -this.sign;
 	}

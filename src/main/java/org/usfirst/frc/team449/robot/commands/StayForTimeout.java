@@ -1,16 +1,10 @@
 package org.usfirst.frc.team449.robot.commands;
 
-import org.usfirst.frc.team449.robot.drive.tank.commands.DriveDistance;
-
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * <code>Command</code> used by some autonomous code to do nothing for a certain
- * number of seconds
- * 
- * @author Ryan Tse <ryantse100@gmail.com>
- * @since 2016-03-11
- *
+ * {@link Command} used by some autonomous code to do nothing for a certain
+ * number of seconds.
  */
 public class StayForTimeout extends Command {
 	/**

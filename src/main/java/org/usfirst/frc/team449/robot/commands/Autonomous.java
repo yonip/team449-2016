@@ -9,21 +9,18 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  * <p>
- * Deprecated <code>CommandGroup</code> inteded to run the robot during the
+ * Deprecated {@link CommandGroup} inteded to run the robot during the
  * autonomous period. This class contained methods for running a variety of
  * autonomous period procedures, however this class was replaced by the
- * <code>Auto</code> class and its subclasses.
+ * {@link Auto} class and its subclasses.
  * </p>
  * 
- * @author Ryan Tse <ryantse100@gmail.com>
- * @since 2016-03-11
- * @deprecated replaced by {@link #Auto}
- *
+ * @deprecated replaced by {@link Auto}
  */
 @Deprecated
 public class Autonomous extends CommandGroup {
 	/**
-	 * Instantiate a new <code>Autonomous</code>
+	 * Instantiate a new <code>Autonomous</code>.
 	 */
 	public Autonomous() {
 		executeCrossBlind();
@@ -31,7 +28,7 @@ public class Autonomous extends CommandGroup {
 
 	/**
 	 * Drive some distance through the obstacle (should work for obstacles
-	 * without wheel slippage)
+	 * without wheel slippage).
 	 */
 	private void executeCrossBlind() {
 		driveToDefense(); // get to defense
