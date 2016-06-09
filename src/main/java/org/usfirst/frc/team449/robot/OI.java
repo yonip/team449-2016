@@ -44,7 +44,6 @@ public class OI {
 		gamecube = new Joystick(map.MAIN_CONTROLLER);
 		manualOverrides = new Joystick(map.MANUAL_OVERRIDES);
 		buttonPad = new Joystick(map.BUTTON_PAD);
-		// gamecube = new Joystick(map.INTAKE_JOYSTICK);
 
 		Button intakeIn = new JoystickButton(gamecube, map.INTAKE_IN);
 		Button intakeOut = new JoystickButton(gamecube, map.INTAKE_OUT);
@@ -117,7 +116,6 @@ public class OI {
 	 */
 	public double getDriveAxisLeft() {
 		double ret = sign * this.gamecube.getRawAxis(map.LEFT_DRIVE_STICK);
-
 		return process(ret);
 	}
 
@@ -125,9 +123,7 @@ public class OI {
 	 * @return the throttle of the right motor cluster
 	 */
 	public double getDriveAxisRight() {
-		// return this.rightDriveJoystick.getAxis(Joystick.AxisType.kY);
 		double ret = sign * this.gamecube.getRawAxis(map.RIGHT_DRIVE_STICK);
-
 		return process(ret);
 	}
 
@@ -140,6 +136,17 @@ public class OI {
 	}
 
 	/**
+	 * <p>
+	 * This is a throttle smoothing function used on all joystick input.
+	 * </p>
+	 * 
+	 * <p>
+	 * The smoothed value is calculated as the following
+	 * </p>
+	 * 
+	 * sign * max / (1 - (deadband ^ power)) * (((input * sign) ^ power) -
+	 * (deadband ^ power))
+	 * 
 	 * @param input
 	 *            raw throttle value (from controller)
 	 * @return smoothed throttle value (to send to motor cluster)
@@ -153,13 +160,6 @@ public class OI {
 		}
 		return sign * (map.MAX_VALUE / (1 - Math.pow(map.DEADBAND, map.POWER)))
 				* (Math.pow(input, map.POWER) - Math.pow(map.DEADBAND, map.POWER));
-		/*
-		 * sign * max ------------------ * (|input|^n - deadband^power)
-		 * 1-(deadband)^power
-		 * 
-		 * where sign is the sign of the input this makes a smooth joystick
-		 * curve, according to szabo
-		 */
 	}
 
 	// TODO figure out why this is here
