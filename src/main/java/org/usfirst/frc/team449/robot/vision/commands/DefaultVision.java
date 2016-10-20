@@ -18,26 +18,26 @@ public class DefaultVision extends Command {
 	 * Instantiate an instance of <code>ToggleCamera</code>.
 	 */
 	public DefaultVision() {
-		requires(Robot.vision);
+//		requires(Robot.vision);
 	}
 
 	@Override
 	protected void initialize() {
 		// CameraServer.getInstance().setQuality(10);
-		System.out.println("ToggleCamera init");
+//		System.out.println("ToggleCamera init");
 	}
 
 	@Override
 	protected void execute() {
-		try {
-			CameraServer.getInstance().setImage(Robot.vision.getFrame());
-		} catch (Exception e) {
-			if (!cameraFailed) {
-				System.out.println(
-						"(DefaultVision execute) Cameras done goofed, but everything else is (maybe) functional.");
-				cameraFailed = true;
-			}
-		}
+//		try {
+//			CameraServer.getInstance().setImage(Robot.vision.getFrame());
+//		} catch (Exception e) {
+//			if (!cameraFailed) {
+//				System.out.println(
+//						"(DefaultVision execute) Cameras done goofed, but everything else is (maybe) functional.");
+//				cameraFailed = true;
+//			}
+//		}
 	}
 
 	@Override
@@ -47,11 +47,11 @@ public class DefaultVision extends Command {
 
 	@Override
 	protected void end() {
-		System.out.println("ToggleCamera end");
+//		System.out.println("ToggleCamera end");
 	}
 
 	@Override
 	protected void interrupted() {
-		System.out.println("ToggleCamera interupted");
+//		System.out.println("ToggleCamera interupted");
 	}
 }

@@ -1,9 +1,7 @@
 package org.usfirst.frc.team449.robot;
 
 import org.usfirst.frc.team449.robot.drive.tank.commands.DriveStraight;
-import org.usfirst.frc.team449.robot.drive.tank.commands.TogglePid;
 import org.usfirst.frc.team449.robot.drive.tank.commands.TurnAngle;
-import org.usfirst.frc.team449.robot.drive.tank.commands.ZeroGyro;
 import org.usfirst.frc.team449.robot.mechanism.breach.commands.BreachChivald;
 import org.usfirst.frc.team449.robot.mechanism.breach.commands.BreachPortcullis;
 import org.usfirst.frc.team449.robot.mechanism.breach.commands.BreachStowed;
@@ -11,8 +9,6 @@ import org.usfirst.frc.team449.robot.mechanism.intake.commands.IntakeDown;
 import org.usfirst.frc.team449.robot.mechanism.intake.commands.IntakeIn;
 import org.usfirst.frc.team449.robot.mechanism.intake.commands.IntakeOut;
 import org.usfirst.frc.team449.robot.mechanism.intake.commands.IntakeUp;
-import org.usfirst.frc.team449.robot.mechanism.intake.commands.ToggleIgnoreIR;
-import org.usfirst.frc.team449.robot.vision.commands.ToggleCamera;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -25,7 +21,8 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class OI {
 	private OIMap map;
 
-	private Joystick manualOverrides;
+	private Joystick leftStick;
+	private Joystick rightStick;
 
 	private Joystick gamecube;
 	private Joystick buttonPad;
@@ -41,90 +38,95 @@ public class OI {
 	public OI(OIMap map) {
 		this.map = map;
 
-		gamecube = new Joystick(map.MAIN_CONTROLLER);
-		manualOverrides = new Joystick(map.MANUAL_OVERRIDES);
-		buttonPad = new Joystick(map.BUTTON_PAD);
+		leftStick = new Joystick(2);
+		rightStick = new Joystick(4);
+		buttonPad = new Joystick(1);
+		
+		// Navigational buttons
+		Button driveStraight = new JoystickButton(rightStick, 1);
+		driveStraight.whileHeld(new DriveStraight());
+		Button faceFront = new JoystickButton(rightStick, 3);
+		Button faceBack = new JoystickButton(rightStick, 2);
+		Button turnRight = new JoystickButton(rightStick, 5);
+		Button turnLeft = new JoystickButton(leftStick, 4);
+		faceFront.toggleWhenPressed(new TurnAngle(0));
+		faceBack.toggleWhenPressed(new TurnAngle(180));
+		turnLeft.toggleWhenPressed(new TurnAngle(120));
+		turnRight.toggleWhenActive(new TurnAngle(-120));
 
-		Button intakeIn = new JoystickButton(gamecube, map.INTAKE_IN);
-		Button intakeOut = new JoystickButton(gamecube, map.INTAKE_OUT);
-		// Button intakeToggle = new JoystickButton(gamecube, 8);
-		Button intakeUp = new JoystickButton(gamecube, map.INTAKE_UP);
-		Button intakeDown = new JoystickButton(gamecube, map.INTAKE_DOWN);
-		Button breachChival = new JoystickButton(gamecube, map.BREACH_CHIVAL);
-		Button breachPortcullis = new JoystickButton(gamecube, map.BREACH_PORTCULLIS);
-		Button breachClosePrimary = new JoystickButton(gamecube, map.BREACH_CLOSE_PRIMARY);
-		Button breachCloseSecondary = new JoystickButton(manualOverrides, map.BREACH_CLOSE_SECONDARY);
-		Button cameraToggle = new JoystickButton(gamecube, map.CAMERA_TOGGLE);
-		Button driveStraightVel = new JoystickButton(gamecube, map.DRIVE_STRAIGHT);
-		Button ignoreIR = new JoystickButton(manualOverrides, map.IGNORE_IR);
-		Button togglePid = new JoystickButton(manualOverrides, map.TOGGLE_PID);
-
-		Button faceFront = new JoystickButton(manualOverrides, map.FACE_FRONT);
-		Button faceBack = new JoystickButton(manualOverrides, map.FACE_BACK);
-		Button faceGoalLeft = new JoystickButton(manualOverrides, map.FACE_LEFT_GOAL);
-		Button faceGoalRight = new JoystickButton(manualOverrides, map.FACE_RIGHT_GOAL);
-
-		Button bpIntakeDown = new JoystickButton(buttonPad, map.BP_INTAKE_DOWN);
-		Button bpIntakeUp = new JoystickButton(buttonPad, map.BP_INTAKE_UP);
-		Button bpIntakeIn = new JoystickButton(buttonPad, map.BP_INTAKE_IN);
-		Button bpIntakeOut = new JoystickButton(buttonPad, map.BP_INTAKE_OUT);
-		Button bpBreachChival = new JoystickButton(buttonPad, map.BP_BREACH_CHIVAL);
-		Button bpBreachPort = new JoystickButton(buttonPad, map.BP_BREACH_PORTCULLIS);
-		Button bpBreachClose = new JoystickButton(buttonPad, map.BP_BREACH_CLOSE);
-		Button bpCameraToggle = new JoystickButton(buttonPad, map.BP_CAMERA_TOGGLE);
-
-		Button zeroGyro = new JoystickButton(gamecube, map.ZERO_GYRO);
-
-		intakeIn.toggleWhenPressed(new IntakeIn());
-		bpIntakeIn.toggleWhenPressed(new IntakeIn());
-		intakeOut.whileHeld(new IntakeOut());
-		bpIntakeOut.whileHeld(new IntakeOut());
-		// TODO intakeToggle command
+		
+		// Breach buttons
+		Button stow = new JoystickButton(buttonPad, 1);
+		stow.whenPressed(new BreachStowed());
+		Button chivald = new JoystickButton(buttonPad, 3);
+		chivald.whenPressed(new BreachChivald());
+		Button port = new JoystickButton(buttonPad, 4);
+		port.whenPressed(new BreachPortcullis());
+		
+		// Intake
+		Button intakeUp = new JoystickButton(buttonPad, 6);
 		intakeUp.whenPressed(new IntakeUp());
-		bpIntakeUp.whenPressed(new IntakeUp());
+		Button intakeDown = new JoystickButton(buttonPad, 7);
 		intakeDown.whenPressed(new IntakeDown());
-		bpIntakeDown.whenPressed(new IntakeDown());
+		Button intakeIn = new JoystickButton(buttonPad, 8);
+		intakeIn.toggleWhenPressed(new IntakeIn());
+		Button intakeOut = new JoystickButton(buttonPad, 9);
+		intakeOut.whileHeld(new IntakeOut());
+		
+		// Camera
+		Button toggleCamera = new JoystickButton(buttonPad, 10);
 
-		breachChival.whenPressed(new BreachChivald());
-		bpBreachChival.whenPressed(new BreachChivald());
-		breachPortcullis.whenPressed(new BreachPortcullis());
-		bpBreachPort.whenPressed(new BreachPortcullis());
-		breachClosePrimary.whenPressed(new BreachStowed());
-		breachCloseSecondary.whenPressed(new BreachStowed());
-		bpBreachClose.whenPressed(new BreachStowed());
+		
+		
+//		bpIntakeIn.toggleWhenPressed(new IntakeIn());
+		
+//		bpIntakeOut.whileHeld(new IntakeOut());
+		// TODO intakeToggle command
+		//intakeUp.whenPressed(new IntakeUp());
+		//bpIntakeUp.whenPressed(new IntakeUp());
+		//intakeDown.whenPressed(new IntakeDown());
+		//bpIntakeDown.whenPressed(new IntakeDown());
+//		bpBreachChival.whenPressed(new BreachChivald());
+//		bpBreachPort.whenPressed(new BreachPortcullis());
+		
+//		breachCloseSecondary.whenPressed(new BreachStowed());
+//		bpBreachClose.whenPressed(new BreachStowed());
 
 		try {
-			cameraToggle.whenPressed(new ToggleCamera());
+//			cameraToggle.whenPressed(new ToggleCamera());
 		} catch (Exception e) {
 			System.out.println("(OI constructor) Cameras done goofed, but everything else is (maybe) functional.");
 		}
 
-		ignoreIR.whenPressed(new ToggleIgnoreIR());
-		togglePid.whenPressed(new TogglePid());
-		driveStraightVel.whileHeld(new DriveStraight());
+//		ignoreIR.whenPressed(new ToggleIgnoreIR());
+//		togglePid.whenPressed(new TogglePid());
 
 		faceFront.toggleWhenPressed(new TurnAngle(0));
 		faceBack.toggleWhenPressed(new TurnAngle(180));
-		faceGoalLeft.toggleWhenPressed(new TurnAngle(120));
-		faceGoalRight.toggleWhenActive(new TurnAngle(-120));
+//		faceLeft.toggleWhenPressed(new TurnAngle(120));
+//		faceRight.toggleWhenActive(new TurnAngle(-120));
 
-		zeroGyro.whenPressed(new ZeroGyro());
+//		zeroGyro.whenPressed(new ZeroGyro());
 	}
 
 	/**
 	 * @return the throttle of the left motor cluster
 	 */
 	public double getDriveAxisLeft() {
-		double ret = sign * this.gamecube.getRawAxis(map.LEFT_DRIVE_STICK);
-		return process(ret);
+//		double ret = sign * this.gamecube.getRawAxis(map.LEFT_DRIVE_STICK);
+		double ret = sign * this.leftStick.getRawAxis(1);
+		return process(ret) / 2;
+//		return process(ret);
 	}
 
 	/**
 	 * @return the throttle of the right motor cluster
 	 */
 	public double getDriveAxisRight() {
-		double ret = sign * this.gamecube.getRawAxis(map.RIGHT_DRIVE_STICK);
-		return process(ret);
+//		double ret = sign * this.gamecube.getRawAxis(map.RIGHT_DRIVE_STICK);
+		double ret = sign * this.rightStick.getRawAxis(1);
+		return process(ret) / 2;
+//		return process(ret);
 	}
 
 	/**
@@ -137,7 +139,7 @@ public class OI {
 
 	/**
 	 * <p>
-	 * This is a throttle smoothing function used on all joystick input.
+	 * This is a throttle smothing function used on all joystick input.
 	 * </p>
 	 * 
 	 * <p>

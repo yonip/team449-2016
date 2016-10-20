@@ -61,7 +61,7 @@ public class Robot extends IterativeRobot {
 	/**
 	 * This is the robot's vision subsystem.
 	 */
-	public static VisionSubsystem vision;
+//	public static VisionSubsystem vision;
 	
 	/**
 	 * This is the robot's Operator Interface (OI)
@@ -111,7 +111,7 @@ public class Robot extends IterativeRobot {
 			drive = new TankDriveSubsystem(new TankDriveMap(cfg));
 			intake = new IntakeSubsystem(new IntakeMap(cfg));
 			breach = new BreachSubsystem(new BreachMap(cfg));
-			vision = new VisionSubsystem();
+//			vision = new VisionSubsystem();
 			oi = new OI(new OIMap(cfg));
 			autos = new HashMap();
 			autos.put(new DigitalInput(4), new Auto());
@@ -120,7 +120,7 @@ public class Robot extends IterativeRobot {
 			autos.put(new DigitalInput(7), new AutoDriveIntakeUp(190, 4.5));
 			autos.put(new DigitalInput(8), new AutoLowGoal(4.5));
 			autos.put(new DigitalInput(9), new AutoDrive(40, 2.5));
-			
+			((TankDriveSubsystem) drive).setPidEnabled(false);
 			// unused due to FMS dropouts
 			//autoChooser = new SendableChooser();
 			//autoChooser.addDefault("nothing", new Auto());
@@ -142,6 +142,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void disabledInit() {
+		((TankDriveSubsystem) drive).setPidEnabled(false);
 	}
 
 	/**
@@ -149,6 +150,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		((TankDriveSubsystem) drive).setPidEnabled(false);
 		autonomousCommand = getAutoCommand();// (Command)
 												// autoChooser.getSelected();
 		if (autonomousCommand != null)
@@ -161,12 +163,15 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopInit() {
+		((TankDriveSubsystem) drive).setPidEnabled(false);
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
+//		((TankDriveSubsystem) drive).togglePID();
 	}
 
 	@Override
 	public void testInit() {
+		((TankDriveSubsystem) drive).setPidEnabled(false);
 	}
 
 	@Override

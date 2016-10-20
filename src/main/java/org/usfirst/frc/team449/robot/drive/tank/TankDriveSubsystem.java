@@ -1,5 +1,9 @@
 package org.usfirst.frc.team449.robot.drive.tank;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Date;
+
 import org.usfirst.frc.team449.robot.RobotMap;
 import org.usfirst.frc.team449.robot.components.PIDOutputGetter;
 import org.usfirst.frc.team449.robot.components.PIDVelocityMotor;
@@ -129,7 +133,7 @@ public class TankDriveSubsystem extends DriveSubsystem {
 		driveStraightAngleController.setSetpoint(gyro.pidGet());
 	}
 
-	public void disableDriveStraightCorrector() {
+	public void disableDrivxeStraightCorrector() {
 		driveStraightAngleController.disable();
 	}
 
@@ -158,6 +162,28 @@ public class TankDriveSubsystem extends DriveSubsystem {
 			this.leftCluster.set(left);
 			this.rightCluster.set(right);
 		}
+		
+		try (FileWriter fw = new FileWriter("/home/lvuser/driveLog.csv", true)) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(new Date().getTime());    // 1
+            sb.append(",");
+            sb.append(left);  // 2
+            sb.append(",");
+            sb.append(right); // 3
+            sb.append(",");
+            sb.append(0); // 4
+            sb.append(",");
+            sb.append(0); // 5
+            sb.append(",");
+            sb.append(leftEnc.getRate()); // 6
+            sb.append(",");
+            sb.append(rightEnc.getRate()); // 7
+            sb.append("\n");
+            fw.write(sb.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+		
 		SmartDashboard.putNumber("getangle", gyro.pidGet());
 		SmartDashboard.putNumber("modded angle", gyro.pidGet());
 	}
@@ -169,7 +195,7 @@ public class TankDriveSubsystem extends DriveSubsystem {
 	 *            the angle to turn in place to
 	 */
 	public void setTurnToAngle(double theta) {
-		this.angleController.setSetpoint(theta);
+		//this.angleController.setSetpoint(theta);
 	}
 
 	/**
@@ -205,7 +231,7 @@ public class TankDriveSubsystem extends DriveSubsystem {
 		setPidEnabled(!this.pidEnabled);
 	}
 
-	private void setPidEnabled(boolean pidEnabled) {
+	public void setPidEnabled(boolean pidEnabled) {
 		this.pidEnabled = pidEnabled;
 		if (pidEnabled) {
 			this.rightClusterVelocity.enable();

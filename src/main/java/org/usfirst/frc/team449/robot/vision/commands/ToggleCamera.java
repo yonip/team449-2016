@@ -16,24 +16,24 @@ public class ToggleCamera extends Command {
 	 * Instantiate a new <code>ToggleCamera</code>.
 	 */
 	public ToggleCamera() {
-		requires(Robot.vision);
+//		requires(Robot.vision);
 	}
 
 	@Override
 	protected void initialize() {
-		System.out.println("ToggleCamera init");
+//		System.out.println("ToggleCamera init");
 
 		// Stop current camera
-		NIVision.IMAQdxStopAcquisition(Robot.vision.sessions[Robot.vision.sessionPtr]);
+//		NIVision.IMAQdxStopAcquisition(Robot.vision.sessions[Robot.vision.sessionPtr]);
 
 		// Get new session pointer
-		Robot.vision.sessionPtr = Robot.vision.sessionPtr < VisionMap.CAMERA_NAMES.length - 1
-				? Robot.vision.sessionPtr + 1 : 0;
+//		Robot.vision.sessionPtr = Robot.vision.sessionPtr < VisionMap.CAMERA_NAMES.length - 1
+//				? Robot.vision.sessionPtr + 1 : 0;
 
 		// Start capture from new session
-		NIVision.IMAQdxConfigureGrab(Robot.vision.sessions[Robot.vision.sessionPtr]);
-		NIVision.IMAQdxStartAcquisition(Robot.vision.sessions[Robot.vision.sessionPtr]);
-		Robot.oi.toggle();
+//		NIVision.IMAQdxConfigureGrab(Robot.vision.sessions[Robot.vision.sessionPtr]);
+//		NIVision.IMAQdxStartAcquisition(Robot.vision.sessions[Robot.vision.sessionPtr]);
+//		Robot.oi.toggle();
 	}
 
 	@Override
