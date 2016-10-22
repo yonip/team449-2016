@@ -1,6 +1,7 @@
 package org.usfirst.frc.team449.robot.commands;
 
-import org.usfirst.frc.team449.robot.mechanism.intake.commands.IntakeDown;
+import org.usfirst.frc.team449.robot.mechanism.breach.commands.*;
+import org.usfirst.frc.team449.robot.mechanism.intake.commands.*;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -16,6 +17,7 @@ public class Auto extends CommandGroup {
 	 * Instantiates a new <code>Auto</code>, lowering intake.
 	 */
 	public Auto() {
-		addSequential(new IntakeDown());
+		addSequential(new IntakeUp());
+		addSequential(new BreachStowed());
 	}
 }

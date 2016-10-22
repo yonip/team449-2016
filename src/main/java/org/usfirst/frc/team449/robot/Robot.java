@@ -151,8 +151,9 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		((TankDriveSubsystem) drive).setPidEnabled(false);
-		autonomousCommand = getAutoCommand();// (Command)
+//		autonomousCommand = getAutoCommand();// (Command)
 												// autoChooser.getSelected();
+		autonomousCommand = new AutoDrive(10, 6);
 		if (autonomousCommand != null)
 			;
 		autonomousCommand.start();

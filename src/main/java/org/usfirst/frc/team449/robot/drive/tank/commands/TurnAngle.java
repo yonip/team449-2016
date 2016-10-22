@@ -24,11 +24,11 @@ public class TurnAngle extends Command {
 
 	@Override
 	protected void initialize() {
-		/*System.out.println("TurnAngle init");
+		System.out.println("TurnAngle init");
 		((TankDriveSubsystem) Robot.drive).enableAngleController();
 		((TankDriveSubsystem) Robot.drive).setTurnToAngle(theta);
 		done = false;
-		SmartDashboard.putBoolean("turnangle done", done);*/
+		SmartDashboard.putBoolean("turnangle done", done);
 	}
 
 	@Override
@@ -37,10 +37,9 @@ public class TurnAngle extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		//done = ((TankDriveSubsystem) Robot.drive).getTurnAngleDone();
-		//SmartDashboard.putBoolean("turnangle done", done);
-		//return done;
-		return true;
+		done = ((TankDriveSubsystem) Robot.drive).getTurnAngleDone();
+		SmartDashboard.putBoolean("turnangle done", done);
+		return done;
 	}
 
 	@Override

@@ -133,7 +133,7 @@ public class TankDriveSubsystem extends DriveSubsystem {
 		driveStraightAngleController.setSetpoint(gyro.pidGet());
 	}
 
-	public void disableDrivxeStraightCorrector() {
+	public void disableDriveStraightCorrector() {
 		driveStraightAngleController.disable();
 	}
 
@@ -195,7 +195,7 @@ public class TankDriveSubsystem extends DriveSubsystem {
 	 *            the angle to turn in place to
 	 */
 	public void setTurnToAngle(double theta) {
-		//this.angleController.setSetpoint(theta);
+		this.angleController.setSetpoint(theta);
 	}
 
 	/**

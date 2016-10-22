@@ -38,8 +38,9 @@ public class OI {
 	public OI(OIMap map) {
 		this.map = map;
 
-		leftStick = new Joystick(2);
-		rightStick = new Joystick(4);
+		// Controllers
+		leftStick = new Joystick(4);
+		rightStick = new Joystick(2);
 		buttonPad = new Joystick(1);
 		
 		// Navigational buttons
@@ -53,7 +54,6 @@ public class OI {
 		faceBack.toggleWhenPressed(new TurnAngle(180));
 		turnLeft.toggleWhenPressed(new TurnAngle(120));
 		turnRight.toggleWhenActive(new TurnAngle(-120));
-
 		
 		// Breach buttons
 		Button stow = new JoystickButton(buttonPad, 1);
@@ -73,40 +73,8 @@ public class OI {
 		Button intakeOut = new JoystickButton(buttonPad, 9);
 		intakeOut.whileHeld(new IntakeOut());
 		
-		// Camera
-		Button toggleCamera = new JoystickButton(buttonPad, 10);
-
-		
-		
-//		bpIntakeIn.toggleWhenPressed(new IntakeIn());
-		
-//		bpIntakeOut.whileHeld(new IntakeOut());
-		// TODO intakeToggle command
-		//intakeUp.whenPressed(new IntakeUp());
-		//bpIntakeUp.whenPressed(new IntakeUp());
-		//intakeDown.whenPressed(new IntakeDown());
-		//bpIntakeDown.whenPressed(new IntakeDown());
-//		bpBreachChival.whenPressed(new BreachChivald());
-//		bpBreachPort.whenPressed(new BreachPortcullis());
-		
-//		breachCloseSecondary.whenPressed(new BreachStowed());
-//		bpBreachClose.whenPressed(new BreachStowed());
-
-		try {
-//			cameraToggle.whenPressed(new ToggleCamera());
-		} catch (Exception e) {
-			System.out.println("(OI constructor) Cameras done goofed, but everything else is (maybe) functional.");
-		}
-
-//		ignoreIR.whenPressed(new ToggleIgnoreIR());
-//		togglePid.whenPressed(new TogglePid());
-
 		faceFront.toggleWhenPressed(new TurnAngle(0));
 		faceBack.toggleWhenPressed(new TurnAngle(180));
-//		faceLeft.toggleWhenPressed(new TurnAngle(120));
-//		faceRight.toggleWhenActive(new TurnAngle(-120));
-
-//		zeroGyro.whenPressed(new ZeroGyro());
 	}
 
 	/**

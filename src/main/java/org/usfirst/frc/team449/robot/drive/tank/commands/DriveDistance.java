@@ -1,5 +1,7 @@
 package org.usfirst.frc.team449.robot.drive.tank.commands;
 
+import java.time.Clock;
+
 import org.usfirst.frc.team449.robot.Robot;
 import org.usfirst.frc.team449.robot.drive.tank.TankDriveMap;
 import org.usfirst.frc.team449.robot.drive.tank.TankDriveSubsystem;
@@ -18,6 +20,7 @@ public class DriveDistance extends Command {
 
 	private double distance;
 	private int direction;
+	private double time;
 
 	public DriveDistance(double distance, double timeout) {
 		super(timeout);
@@ -28,6 +31,7 @@ public class DriveDistance extends Command {
 			this.direction = 1;
 		}
 		this.distance = direction * distance;
+		this.time = 0;
 	}
 
 	@Override
@@ -35,6 +39,7 @@ public class DriveDistance extends Command {
 		System.out.println("DriveDistance init");
 		TankDriveSubsystem drive = (TankDriveSubsystem) (Robot.drive);
 		drive.reset();
+		time = System.nanoTime();
 	}
 
 	@Override
@@ -48,7 +53,8 @@ public class DriveDistance extends Command {
 	protected boolean isFinished() {
 		TankDriveSubsystem drive = (TankDriveSubsystem) (Robot.drive);
 		SmartDashboard.putNumber("Distance", drive.getDistance());
-		return drive.getDistance() > this.distance;
+		return System.nanoTime() > time + 2.5e9;
+//		return drive.getDistance() > this.distance;
 	}
 
 	@Override
