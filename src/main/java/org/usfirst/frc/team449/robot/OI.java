@@ -128,8 +128,9 @@ public class OI {
 		if (input < map.DEADBAND) {
 			return 0;
 		}
-		return sign * (map.MAX_VALUE / (1 - Math.pow(map.DEADBAND, map.POWER)))
+		double x = sign * (map.MAX_VALUE / (1 - Math.pow(map.DEADBAND, map.POWER)))
 				* (Math.pow(input, map.POWER) - Math.pow(map.DEADBAND, map.POWER));
+		return x * Math.abs(x);
 	}
 
 	// TODO figure out why this is here
