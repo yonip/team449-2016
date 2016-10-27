@@ -6,7 +6,10 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class UpdateUS extends Command {
-
+	/**
+	 * Instantiate a new <code>UpdateUS</code>, taking control of the intake
+	 * subsystem.
+	 */
 	public UpdateUS() {
 		requires(Robot.intake);
 	}

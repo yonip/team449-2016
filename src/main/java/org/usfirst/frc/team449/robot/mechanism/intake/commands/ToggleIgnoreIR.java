@@ -12,24 +12,33 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class ToggleIgnoreIR extends Command {
 
+	/**
+	 * Instantiate a new <code>ToggleIgnoreIr</code>, taking control of the
+	 * intake subsystem.
+	 */
 	public ToggleIgnoreIR() {
 		requires(Robot.intake);
 	}
 
+	@Override
 	protected void initialize() {
 		Robot.intake.toggleIgnoreIR();
 	}
 
+	@Override
 	protected void execute() {
 	}
 
+	@Override
 	protected boolean isFinished() {
 		return true;
 	}
 
+	@Override
 	protected void end() {
 	}
 
+	@Override
 	protected void interrupted() {
 	}
 }

@@ -13,17 +13,21 @@ import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * a class for intake using a single motor (probably connected to a roller)
+ * This is the subsystem for the intake rollers and infrared sensor. It extends
+ * <code>MechanismSubsystem</code>.
+ * 
+ * @see MechanismSubsystem
  */
 public class IntakeSubsystem extends MechanismSubsystem {
 	/**
-	 * The <code>SpeedController</code> driving the suck in/spit out wheels
+	 * The <code>SpeedController</code> driving the shaft that sucks in and
+	 * spits out the balls.
 	 */
 	private SpeedController mainMotor;
 
 	/**
 	 * The <code>DoubleSolenoid</code> controlling the piston raising and
-	 * lowering the intake subsystem
+	 * lowering the intake subsystem.
 	 */
 	private DoubleSolenoid solenoid;
 
@@ -54,6 +58,12 @@ public class IntakeSubsystem extends MechanismSubsystem {
 
 	private boolean ignoreIR;
 
+	/**
+	 * Instantiate a new <code>IntakeSubsystem</code>
+	 * 
+	 * @param map
+	 *            {@link RobotMap} used for reference to constants
+	 */
 	public IntakeSubsystem(RobotMap map) {
 		super(map);
 		System.out.println("Intake init started");
@@ -90,24 +100,24 @@ public class IntakeSubsystem extends MechanismSubsystem {
 	}
 
 	/**
-	 * sets the motor for intake to go at the given speed
+	 * This sets the velocity of the motor of the intake shaft.
 	 * 
 	 * @param speed
 	 *            the normalized speed of the motor (between -1 and 1)
 	 */
 	public void setMotorSpeed(double speed) {
-		mainMotor.set(speed);
+		mainMotor.set(speed / 2);
 	}
 
 	/**
-	 * sets the double solenoid to forward its forward state
+	 * Sets the double solenoid to forward its forward state
 	 */
 	public void setSolenoidForward() {
 		solenoid.set(DoubleSolenoid.Value.kForward);
 	}
 
 	/**
-	 * sets the double solenoid to forward its reverse state
+	 * Sets the double solenoid to forward its reverse state
 	 */
 	public void setSolenoidReverse() {
 		solenoid.set(DoubleSolenoid.Value.kReverse);
@@ -119,25 +129,31 @@ public class IntakeSubsystem extends MechanismSubsystem {
 		return 0.0982 * leftChannel.getValue() + 2.2752;
 	}
 
+	// TODO add documentation, detail how this works (ask Eyob)
 	public double getValRight() {
 		return 0.0497 * rightChannel.getValue() - 0.2725;
 	}
 
+	/**
+	 * Update the {@link SmoothedValue}s
+	 */
 	public void updateVals() {
 		leftVal.set(leftChannel.getValue());
 		rightVal.set(rightChannel.getValue());
 	}
 
+	// TODO add documentation, detail how this works (ask Eyob)
 	public double getAngle() {
 		double y = Math.abs(getValLeft() - getValRight());
-		double x = 24; // 2 feet apart
+		double x = 24; // 2 feet apart // TODO externalize this
 		return Math.toDegrees(Math.atan2(y, x));
 	}
 
 	/**
-	 * checks on the infrareds whether they sense the ball or not
+	 * Checks whether the IR sensors sense that the ball is in the intake
+	 * mechanism.
 	 * 
-	 * @return true if at least one IR is sensing the ball, false otherwise
+	 * @return if at least one IR is sensing the ball
 	 */
 	public boolean findBall() {
 		double right = rightIR.getAverageVoltage();
@@ -153,10 +169,11 @@ public class IntakeSubsystem extends MechanismSubsystem {
 	}
 
 	/**
-	 * Toggles whether the robot is going to ignore the IR values that it's
-	 * receiving. If ignoreIR is false, the robot will only stop {@link IntakeIn
-	 * IntakeIn} when the user presses the button that initialized the command
-	 * again. If it's true, the command will stop when the IR detects the ball.
+	 * Toggles whether the robot is going to ignore the IR values that it is
+	 * receiving. If ignoreIR is <code>false</code>, the robot will only stop
+	 * {@link IntakeIn IntakeIn} when the user presses the button that
+	 * initialized the command again. If it is <code>true</code>, the robot will
+	 * only stop <code>IntakeIn</code> when the IR detects the ball.
 	 */
 	public void toggleIgnoreIR() {
 		ignoreIR = !ignoreIR;
@@ -164,10 +181,11 @@ public class IntakeSubsystem extends MechanismSubsystem {
 	}
 
 	/**
-	 * Checks whether the robot is "ignoring IR". If ignoreIR is false, the
-	 * robot will only stop {@link IntakeIn IntakeIn} when the user presses the
-	 * button that initialized the command again. If it's true, the command will
-	 * stop when the IR detects the ball.
+	 * Checks whether the robot is "ignoring IR". If ignoreIR is
+	 * <code>false</code>, the robot will only stop {@link IntakeIn IntakeIn}
+	 * when the user presses the button that initialized the command again. If
+	 * it is <code>true</code>, the robot will stop when the IR detects the
+	 * ball.
 	 * 
 	 * @return whether the IR sensor is being ignored.
 	 */

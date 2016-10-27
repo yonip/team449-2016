@@ -7,15 +7,29 @@ import org.usfirst.frc.team449.robot.mechanism.breach.commands.BreachPortcullis;
 import org.usfirst.frc.team449.robot.mechanism.breach.commands.BreachStowed;
 import org.usfirst.frc.team449.robot.mechanism.intake.commands.IntakeOut;
 
-/**
- * <code>CommandGroup</code> running robot during the autonomous period
- * 
- * @author Ryan Tse <ryantse100@gmail.com>
- * @since 2016-03-11
- *
- */
-public class AutoLowGoal extends Auto {
+import edu.wpi.first.wpilibj.command.Command;
 
+/**
+ * <p>
+ * Deprecated {@link Command} that inherits from {@link Auto} that was
+ * intended to drive the robot up to the low goal and shoot during the
+ * autonomous period. This procedure was never used, as the robot side of the
+ * robot would crash into the field wall, not allowing the robot to turn all the
+ * way around. This caused the robot to miss the autonomous low goals
+ * </p>
+ * 
+ * @deprecated No replacement
+ */
+@Deprecated
+public class AutoLowGoal extends Auto {
+	/**
+	 * Instantiates a new <code>AutoLowGoal</code>, attempting to drive across
+	 * the defense, turn a certain angle, drive up to the goal, and shoot.
+	 * 
+	 * @param timeout
+	 *            how long to drive before aborting the <code>Command</code> for
+	 *            safety reasons
+	 */
 	public AutoLowGoal(double timeout) {
 		super();
 		addSequential(new BreachPortcullis());

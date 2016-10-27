@@ -15,22 +15,22 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * base class for the maps. holds basic map classes like Motor, Encoder, PID
+ * <p>
+ * This is the base class for robot maps constructed from the json configuration
+ * file. This class holds basic map classes like <code>Motor</code>,
+ * <code>Encoder</code>, <code>PID</code>.
+ * </p>
  */
 public abstract class RobotMap {
-
-	// TODO put this in cfg
-	// TODO get these constants right
-	// public static final double leftGoalHeading = 0.523599;
-	// public static final double rightGoalHeading = -0.523599;
-
 	/**
-	 * creates a new Map based on the configuration in the given json any maps
-	 * in here are to be shared across all subsystems
+	 * <p>
+	 * This instantiates a new map based on the configuration in the given json
+	 * configuration file. Maps here are to be shared across all subsystems.
+	 * </p>
 	 *
 	 * @param json
-	 *            a JSONObject containing the configuration for the maps in this
-	 *            object
+	 *            a <code>JSONObject</code> containing the configuration for the
+	 *            maps in this object
 	 */
 	public RobotMap(JSONObject json) {
 		try {
@@ -40,13 +40,16 @@ public abstract class RobotMap {
 			for (Class c : classes) {
 				Class temp = inners.put(c.getSimpleName(), c);
 				if (temp != null) {
-					System.err.println("Replaced class " + temp.getCanonicalName() + " with " + c.getCanonicalName());
+					System.err.println("Replaced class "
+							+ temp.getCanonicalName() + " with "
+							+ c.getCanonicalName());
 				}
 			}
 			for (Field f : fields) {
 				String type = f.getType().getSimpleName();
 				String path = this.getPath() + "components.";
-				if (type.equals("double") || type.equals("boolean") || type.equals("int")) {
+				if (type.equals("double") || type.equals("boolean")
+						|| type.equals("int")) {
 					path += f.getName();
 					switch (type) {
 					case "double":
@@ -60,7 +63,8 @@ public abstract class RobotMap {
 						break;
 					}
 				} else {
-					Constructor moConst = inners.get(type).getConstructor(JSONObject.class, String.class, Class.class);
+					Constructor moConst = inners.get(type).getConstructor(
+							JSONObject.class, String.class, Class.class);
 					path += type + ".instances." + f.getName();
 					try {
 						f.set(this, moConst.newInstance(json, path, getClass()));
@@ -76,32 +80,41 @@ public abstract class RobotMap {
 	}
 
 	/**
-	 * a getter for the path of the object in the json, such that any subclass
-	 * of this class returns its unique identifier appended to this path
+	 * Gets the dot-delimited path of the object in the json such that any
+	 * subclass of this class returns its unique identifier appended to this
+	 * path.
 	 *
-	 * @return a string that is the "root" for this map
+	 * @return a string that is the root path for this map
 	 */
 	public String getPath() {
 		String ret = "";
-		for (Class cl = getClass(); !cl.equals(RobotMap.class); cl = cl.getSuperclass()) {
+		for (Class cl = getClass(); !cl.equals(RobotMap.class); cl = cl
+				.getSuperclass()) {
 			ret = cl.getSimpleName() + "." + ret;
 		}
 		return ret;
 	}
 
 	/**
-	 * an abstract class for any MapObject, for polymorphism and a constructor
+	 * <p>
+	 * This is an abstract class for any object in the map. This allows for
+	 * polymorphism and constructors for map objects.
+	 * </p>
 	 */
 	public static abstract class MapObject {
-
 		/**
-		 * creates a Map based on the JSONObject given to it, and a path down to
-		 * this object
+		 * This creates a Map based on the <code>JSONObject</code> given to it
+		 * and a path down to this object
 		 *
 		 * @param json
-		 *            the JSONObject containing the values for this object
+		 *            the <code>JSONObject</code> containing the values for this
+		 *            object
 		 * @param objPath
-		 *            the path to find this object in the JSONObject
+		 *            the path to find this object in the
+		 *            <code>JSONObject</code>
+		 * @param enclosing
+		 *            <code>Class</code> one up from this <code>MapObject</code>
+		 *            in the map
 		 */
 		public MapObject(JSONObject json, String objPath, Class enclosing) {
 			try {
@@ -111,14 +124,16 @@ public abstract class RobotMap {
 				for (Class c : classes) {
 					Class temp = inners.put(c.getSimpleName(), c);
 					if (temp != null) {
-						System.err
-								.println("Replaced class " + temp.getCanonicalName() + " with " + c.getCanonicalName());
+						System.err.println("Replaced class "
+								+ temp.getCanonicalName() + " with "
+								+ c.getCanonicalName());
 					}
 				}
 				for (Field f : fields) {
 					String type = f.getType().getSimpleName();
 					String path = objPath;
-					if (type.equals("double") || type.equals("boolean") || type.equals("int")) {
+					if (type.equals("double") || type.equals("boolean")
+							|| type.equals("int")) {
 						path += "." + f.getName();
 						switch (type) {
 						case "double":
@@ -136,65 +151,95 @@ public abstract class RobotMap {
 						type = type.substring(0, type.length() - 2);
 						path += "." + name + ".instances.";
 						int ln = getInt(path + f.getName() + ".length", json);
-						Object[] arr = (Object[]) Array.newInstance(inners.get(type), ln);
-						Constructor moConst = inners.get(type).getConstructor(JSONObject.class, String.class,
-								Class.class);
+						Object[] arr = (Object[]) Array.newInstance(
+								inners.get(type), ln);
+						Constructor moConst = inners.get(type).getConstructor(
+								JSONObject.class, String.class, Class.class);
 						for (int i = 0; i < ln; i++) {
-							arr[i] = moConst.newInstance(json, path + f.getName() + "[" + i + "]", enclosing);
+							arr[i] = moConst.newInstance(json,
+									path + f.getName() + "[" + i + "]",
+									enclosing);
 						}
 						f.set(this, arr);
 
 					} else {
-						Constructor moConst = inners.get(type).getConstructor(JSONObject.class, String.class,
-								Class.class);
+						Constructor moConst = inners.get(type).getConstructor(
+								JSONObject.class, String.class, Class.class);
 						path += "." + type + ".instances." + f.getName();
 						f.set(this, moConst.newInstance(json, path, enclosing));
 					}
 
 				}
-			} catch (IllegalAccessException | NoSuchMethodException | InstantiationException
-					| InvocationTargetException e) {
+			} catch (IllegalAccessException | NoSuchMethodException
+					| InstantiationException | InvocationTargetException e) {
 				e.printStackTrace();
 			}
 		}
 	}
 
 	/**
-	 * a map of a Motor. Contains a port and a flag for inversion
+	 * This is a <code>MapObject</code> for a motor; it contains a port number
+	 * and a flag for inversion.
 	 */
 	public static class Motor extends MapObject {
 		/**
-		 * the port this motor is connected to
+		 * Port number
 		 */
 		public int PORT;
 		/**
-		 * whether this motor should be inverted or not
+		 * Whether the motor is inverted
 		 */
 		public boolean INVERTED;
 
+		/**
+		 * Instantiates a new <code>Motor</code>
+		 * 
+		 * @param json
+		 *            the <code>JSONObject</code> containing the values for this
+		 *            object
+		 * @param objPath
+		 *            the path to find this object in the
+		 *            <code>JSONObject</code>
+		 * @param enclosing
+		 *            <code>Class</code> one up from this <code>MapObject</code>
+		 *            in the map
+		 */
 		public Motor(JSONObject json, String path, Class enclosing) {
 			super(json, path, enclosing);
 		}
 	}
 
 	/**
-	 * a map of an Encoder. Contains the two ports needed for the encoder (a and
-	 * b) and the dpi of this encoder
+	 * This is a <code>MapObject</code> for an encoder. It contains the two
+	 * ports and the distance per pulse (DPP) for the encoder.
 	 */
 	public static class Encoder extends MapObject {
 		/**
-		 * port a of the encoder
+		 * Port a of the encoder
 		 */
 		public int a;
 		/**
-		 * port be of the encoder
+		 * Port b of the encoder
 		 */
 		public int b;
 		/**
-		 * the dpp (distance per pulse) of this encoder
+		 * DPP (distance per pulse) of the encoder
 		 */
 		public double dpp;
 
+		/**
+		 * Instantiates a new <code>Encoder</code>
+		 * 
+		 * @param json
+		 *            the <code>JSONObject</code> containing the values for this
+		 *            object
+		 * @param objPath
+		 *            the path to find this object in the
+		 *            <code>JSONObject</code>
+		 * @param enclosing
+		 *            <code>Class</code> one up from this <code>MapObject</code>
+		 *            in the map
+		 */
 		public Encoder(JSONObject json, String path, Class enclosing) {
 			super(json, path, enclosing);
 		}
@@ -348,7 +393,8 @@ public abstract class RobotMap {
 				// the value wasnt found so we keep going
 			}
 		}
-		throw new FatalParserException("Didn't find the requested value: " + path);
+		throw new FatalParserException("Didn't find the requested value: "
+				+ path);
 	}
 
 	/**
@@ -407,7 +453,8 @@ public abstract class RobotMap {
 				// the value wasnt found so we keep going
 			}
 		}
-		throw new FatalParserException("Didn't find the requested value: " + path);
+		throw new FatalParserException("Didn't find the requested value: "
+				+ path);
 	}
 
 	/**
@@ -465,7 +512,8 @@ public abstract class RobotMap {
 			}
 		}
 
-		throw new FatalParserException("Didn't find the requested value: " + path);
+		throw new FatalParserException("Didn't find the requested value: "
+				+ path);
 	}
 
 	/**
@@ -482,7 +530,8 @@ public abstract class RobotMap {
 	 * @throws org.usfirst.frc.team449.robot.RobotMap.ParserException
 	 *             when the requested value doesn't exist
 	 */
-	private static int strictGetInt(String path, JSONObject obj) throws ParserException {
+	private static int strictGetInt(String path, JSONObject obj)
+			throws ParserException {
 		String[] split = path.split("\\.");
 		Object temp = obj;
 		for (int i = 0; i < split.length - 1; i++) {
@@ -490,7 +539,9 @@ public abstract class RobotMap {
 													// JSONArrays should be done
 													// and anything else is
 													// useless
-				System.err.println("Reached an impossible state in strictGetInt " + path + " " + split[i]);
+				System.err
+						.println("Reached an impossible state in strictGetInt "
+								+ path + " " + split[i]);
 				throw new FatalParserException(
 						"Reached an impossible state while parsing (next object to parse is not a JSONObject)");
 			}
@@ -504,8 +555,9 @@ public abstract class RobotMap {
 				String arrGet = split[i];
 				Stack<Integer> indices = new Stack<>();
 				while (arrGet.matches("\\w+(\\[\\])*(\\[\\d+\\])+$")) {
-					indices.push(
-							Integer.parseInt(arrGet.substring(arrGet.lastIndexOf('[') + 1, arrGet.lastIndexOf(']'))));
+					indices.push(Integer.parseInt(arrGet.substring(
+							arrGet.lastIndexOf('[') + 1,
+							arrGet.lastIndexOf(']'))));
 					arrGet = arrGet.substring(0, arrGet.lastIndexOf('['));
 				}
 				try {
@@ -556,7 +608,9 @@ public abstract class RobotMap {
 			return Integer.parseInt((String) temp);
 		}
 		// well ok how did you get here? what even are you?
-		throw new FatalParserException("Reached the end of the method without exiting, something broke (" + path + ")");
+		throw new FatalParserException(
+				"Reached the end of the method without exiting, something broke ("
+						+ path + ")");
 	}
 
 	/**
@@ -573,7 +627,8 @@ public abstract class RobotMap {
 	 * @throws org.usfirst.frc.team449.robot.RobotMap.ParserException
 	 *             when the requested value doesn't exist
 	 */
-	private static double strictGetDouble(String path, JSONObject obj) throws ParserException {
+	private static double strictGetDouble(String path, JSONObject obj)
+			throws ParserException {
 		String[] split = path.split("\\.");
 		Object temp = obj;
 		JSONArray arr = null;
@@ -582,7 +637,8 @@ public abstract class RobotMap {
 													// JSONArrays should be done
 													// and anything else is
 													// useless
-				System.err.println("Reached an impossible state in strictGetDouble");
+				System.err
+						.println("Reached an impossible state in strictGetDouble");
 				throw new FatalParserException(
 						"Reached an impossible state while parsing (next object to parse is not a JSONObject)");
 			}
@@ -596,8 +652,9 @@ public abstract class RobotMap {
 				String arrGet = split[i];
 				Stack<Integer> indices = new Stack<>();
 				while (arrGet.matches("\\w+(\\[\\])*(\\[\\d+\\])+$")) {
-					indices.push(
-							Integer.parseInt(arrGet.substring(arrGet.lastIndexOf('[') + 1, arrGet.lastIndexOf(']'))));
+					indices.push(Integer.parseInt(arrGet.substring(
+							arrGet.lastIndexOf('[') + 1,
+							arrGet.lastIndexOf(']'))));
 					arrGet = arrGet.substring(0, arrGet.lastIndexOf('['));
 				}
 				try {
@@ -618,7 +675,8 @@ public abstract class RobotMap {
 		}
 		// if im here and it's an array, what field would be a double?
 		if (temp instanceof JSONArray) {
-			throw new FatalParserException("Arrays don't have doubles as fields");
+			throw new FatalParserException(
+					"Arrays don't have doubles as fields");
 		}
 		// ok so, not an array. maybe JSONObject?
 		if (temp instanceof JSONObject) {
@@ -642,11 +700,13 @@ public abstract class RobotMap {
 			return ((Number) temp).doubleValue();
 		}
 		// maybe it's an double hiding as a string
-		if (temp instanceof String && ((String) temp).matches("^-?\\d+(\\.\\d+)?$")) {
+		if (temp instanceof String
+				&& ((String) temp).matches("^-?\\d+(\\.\\d+)?$")) {
 			return Double.parseDouble((String) temp);
 		}
 		// well ok how did you get here? what even are you?
-		throw new FatalParserException("Reached the end of the method without exiting, something broke");
+		throw new FatalParserException(
+				"Reached the end of the method without exiting, something broke");
 	}
 
 	/**
@@ -661,7 +721,8 @@ public abstract class RobotMap {
 	 * @throws org.usfirst.frc.team449.robot.RobotMap.ParserException
 	 *             when the requested value doesn't exist
 	 */
-	private static boolean strictGetBoolean(String path, JSONObject obj) throws ParserException {
+	private static boolean strictGetBoolean(String path, JSONObject obj)
+			throws ParserException {
 		String[] split = path.split("\\.");
 		Object temp = obj;
 		JSONArray arr = null;
@@ -670,8 +731,9 @@ public abstract class RobotMap {
 													// JSONArrays should be done
 													// and anything else is
 													// useless
-				System.err.println(
-						"Reached an impossible state in strictGetBoolean " + path + " " + split[i] + " " + temp);
+				System.err
+						.println("Reached an impossible state in strictGetBoolean "
+								+ path + " " + split[i] + " " + temp);
 				throw new FatalParserException(
 						"Reached an impossible state while parsing (next object to parse is not a JSONObject)");
 			}
@@ -685,8 +747,9 @@ public abstract class RobotMap {
 				String arrGet = split[i];
 				Stack<Integer> indices = new Stack<>();
 				while (arrGet.matches("\\w+(\\[\\])*(\\[\\d+\\])+$")) {
-					indices.push(
-							Integer.parseInt(arrGet.substring(arrGet.lastIndexOf('[') + 1, arrGet.lastIndexOf(']'))));
+					indices.push(Integer.parseInt(arrGet.substring(
+							arrGet.lastIndexOf('[') + 1,
+							arrGet.lastIndexOf(']'))));
 					arrGet = arrGet.substring(0, arrGet.lastIndexOf('['));
 				}
 				try {
@@ -707,7 +770,8 @@ public abstract class RobotMap {
 		}
 		// if im here and it's an array, what boolean would be here?
 		if (temp instanceof JSONArray) {
-			throw new FatalParserException("Arrays don't have booleans as fields");
+			throw new FatalParserException(
+					"Arrays don't have booleans as fields");
 		}
 		// ok so, not an array. maybe JSONObject?
 		if (temp instanceof JSONObject) {
@@ -721,13 +785,18 @@ public abstract class RobotMap {
 			}
 		}
 		// maybe it's a boolean, so I cant pretend it's a boolean?
-		if (temp.equals(Boolean.FALSE) || (temp instanceof String && ((String) temp).equalsIgnoreCase("false"))) {
+		if (temp.equals(Boolean.FALSE)
+				|| (temp instanceof String && ((String) temp)
+						.equalsIgnoreCase("false"))) {
 			return false;
-		} else if (temp.equals(Boolean.TRUE) || (temp instanceof String && ((String) temp).equalsIgnoreCase("true"))) {
+		} else if (temp.equals(Boolean.TRUE)
+				|| (temp instanceof String && ((String) temp)
+						.equalsIgnoreCase("true"))) {
 			return true;
 		}
 		// well ok how did you get here? what even are you?
-		throw new FatalParserException("Reached the end of the method without exiting, something broke");
+		throw new FatalParserException(
+				"Reached the end of the method without exiting, something broke");
 	}
 
 	private static class ParserException extends RuntimeException {

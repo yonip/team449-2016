@@ -9,7 +9,10 @@ import edu.wpi.first.wpilibj.command.Command;
  * A command to make push the ball out from the intake
  */
 public class IntakeOut extends Command {
-
+	/**
+	 * Instantiate a new <code>IntakeOut</code>, taking control of the intake
+	 * subsystem.
+	 */
 	public IntakeOut() {
 		requires(Robot.intake);
 	}

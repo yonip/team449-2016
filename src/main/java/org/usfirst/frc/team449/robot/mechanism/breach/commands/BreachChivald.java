@@ -5,16 +5,13 @@ import org.usfirst.frc.team449.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * Command to set the breach arm to the state for breaching the chivald de fries
- * 
- * @author Ryan Tse <ryantse100@gmail.com>
- * @since 2016-02-07
- *
+ * {@link Command}that sets the breach arm to the state for breaching the
+ * chivald de fries
  */
 public class BreachChivald extends Command {
-
 	/**
-	 * Instantiate a new <code>BreachChivald</code>
+	 * Instantiate a new <code>BreachChivald</code>, taking control of the
+	 * breach subsystem.
 	 */
 	public BreachChivald() {
 		requires(Robot.breach);
@@ -27,8 +24,7 @@ public class BreachChivald extends Command {
 
 	@Override
 	protected void execute() {
-		Robot.breach.setBackSolenoidForward();
-		Robot.breach.setFrontSolenoidReverse();
+		Robot.breach.setSolenoid(true, false);
 	}
 
 	@Override

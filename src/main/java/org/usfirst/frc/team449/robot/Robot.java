@@ -29,74 +29,90 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * the class tying all of the components of the robot together.
+ * This is the class that contains all of the subsystems and
+ * components for the 2016 robot.
  */
 public class Robot extends IterativeRobot {
-
 	public static final double DELTAT = 0.020;
-	
+
 	private HashMap<DigitalInput, Command> autos;
 
 	/**
-	 * the JSONObject containing the configuration for this robot
+	 * The JSONObject containing the constants from cfg.json for this robot
 	 */
 	private static JSONObject cfg;
+	
 	/**
-	 * reference to this robot's Drive subsystem. Any command that uses this
-	 * field will cast it to the Drive implementation it uses
+	 * This is the robot's drive subsystem. Any command that uses this
+	 * field will cast it to the <code>DriveSubsystem</code> implementation it uses.
 	 */
 	public static DriveSubsystem drive;
+	
 	/**
-	 * reference to this robot's Intake subsystem.
+	 * This is the robot's intake subsystem.
 	 */
 	public static IntakeSubsystem intake;
+	
 	/**
-	 * 
+	 * This is the robot's breach subsystem.
 	 */
 	public static BreachSubsystem breach;
+	
 	/**
-	 * 
+	 * This is the robot's vision subsystem.
 	 */
-	public static VisionSubsystem vision;
+//	public static VisionSubsystem vision;
+	
 	/**
-	 * reference to this robot's OI (Operator Interface)
+	 * This is the robot's Operator Interface (OI)
 	 */
 	public static OI oi;
 	
+	/**
+	 * This is the robot's  configuration map for autonomous period constants.
+	 */
 	public static AutoMap autoMap;
 
 	/**
-	 * which obstacle the robot will try to breach during auto
+	 * This represents the defense the robot will be crossing during the autonoous
+	 * period.
 	 */
 	public static DefenseType autoDefenseType = DefenseType.PORTCULLIS;
 
+	/**
+	 * This is the <code>Command</code> that the robot will execute during the
+	 * autonomous period.
+	 */
 	private Command autonomousCommand;
 
+	/**
+	 * This is the pre-game OI autonomous period chooser.
+	 */
 	SendableChooser autoChooser;
 
 	/**
-	 * Robot-wide initialization code should go here.
-	 *
-	 * Users should override this method for default Robot-wide initialization
-	 * which will be called when the robot is first powered on. It will be
-	 * called exactly one time.
-	 *
-	 * Warning: the Driver Station "Robot Code" light and FMS "Robot Ready"
-	 * indicators will be off until RobotInit() exits. Code in RobotInit() that
-	 * waits for enable will cause the robot to never indicate that the code is
-	 * ready, causing the robot to be bypassed in a match.
+	 * <p>
+	 * This instantiates all of the subsystems and autonomous autonomous selections.
+	 * </p>
+	 * 
+	 * <p>
+	 * Autonomous period selections are not done by the <code>SendableChooser</code>, as
+	 * FMS dropouts sometimes cause <code>SendableChooser</code>s to fail. Instead, the
+	 * autonomous period is chosen from headers placed in free DIO ports shorting 5v pin to
+	 * the signal pin.
+	 * </p>
 	 */
 	@Override
 	public void robotInit() {
 		try {
+			// Instantaites subsystems
 			cfg = MappedSubsystem.readConfig("/home/lvuser/cfg.json");
 			autoMap = new AutoMap(cfg);
 			drive = new TankDriveSubsystem(new TankDriveMap(cfg));
 			intake = new IntakeSubsystem(new IntakeMap(cfg));
 			breach = new BreachSubsystem(new BreachMap(cfg));
-			vision = new VisionSubsystem();
+//			vision = new VisionSubsystem();
 			oi = new OI(new OIMap(cfg));
-			//autoChooser = new SendableChooser();
 			autos = new HashMap();
 			autos.put(new DigitalInput(4), new Auto());
 			autos.put(new DigitalInput(5), new AutoDrive(190, 4.5));
@@ -104,6 +120,9 @@ public class Robot extends IterativeRobot {
 			autos.put(new DigitalInput(7), new AutoDriveIntakeUp(190, 4.5));
 			autos.put(new DigitalInput(8), new AutoLowGoal(4.5));
 			autos.put(new DigitalInput(9), new AutoDrive(40, 2.5));
+			((TankDriveSubsystem) drive).setPidEnabled(false);
+			// unused due to FMS dropouts
+			//autoChooser = new SendableChooser();
 			//autoChooser.addDefault("nothing", new Auto());
 			//autoChooser.addObject("Drive dist", new AutoDrive(190, 4.5));
 			//autoChooser.addObject("Drive Port", new AutoPortcullis(4.5));
@@ -123,26 +142,37 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void disabledInit() {
-
+		((TankDriveSubsystem) drive).setPidEnabled(false);
 	}
 
+	/**
+	 * Get the autonomous command and run it during the autonomous period
+	 */
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = getAutoCommand();//(Command) autoChooser.getSelected();
+		((TankDriveSubsystem) drive).setPidEnabled(false);
+//		autonomousCommand = getAutoCommand();// (Command)
+												// autoChooser.getSelected();
+		autonomousCommand = new AutoDrive(10, 6);
 		if (autonomousCommand != null)
 			;
 		autonomousCommand.start();
 	}
-
+	
+	/**
+	 * End the autonomous period and begin the telop period
+	 */
 	@Override
 	public void teleopInit() {
+		((TankDriveSubsystem) drive).setPidEnabled(false);
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
+//		((TankDriveSubsystem) drive).togglePID();
 	}
 
 	@Override
 	public void testInit() {
-
+		((TankDriveSubsystem) drive).setPidEnabled(false);
 	}
 
 	@Override
@@ -154,7 +184,10 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 	}
-	
+
+	/**
+	 * Get the autonomous command from the DIO pins and display it on the SmartDashboard.
+	 */
 	private Command getAutoCommand() {
 		Set<DigitalInput> inputs = autos.keySet();
 		for (DigitalInput di : inputs) {

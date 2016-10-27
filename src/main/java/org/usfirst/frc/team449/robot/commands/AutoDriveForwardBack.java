@@ -2,23 +2,24 @@ package org.usfirst.frc.team449.robot.commands;
 
 import org.usfirst.frc.team449.robot.drive.tank.commands.TurnAngle;
 
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
+
 /**
- * <code>CommandGroup</code> running robot during the autonomous period
- * 
- * @author Ryan Tse <ryantse100@gmail.com>
- * @since 2016-03-11
- *
+ * {@link CommandGroup} that inherits from {@link Auto} that drives the robot
+ * forward, turns around (180 degrees) and drives back during the autonomous
+ * period.
  */
 public class AutoDriveForwardBack extends Auto {
 	/**
-	 * Creates a command to drive through a defense and back through, facing the
-	 * direction it will be driving in.
+	 * Instantiates a new <code>AutoDrive</code>, driving a certain distance,
+	 * turn around, and drive back, timing out after some number of seconds.
 	 * 
 	 * @param distance
-	 *            the distance the robot will drive for crossing a defense
+	 *            distance to drive before stopping
 	 * @param timeout
-	 *            the maximum time each driving segment will take (to prevent
-	 *            rogue robot)
+	 *            how long to drive before aborting the {@link Command} for
+	 *            safety reasons
 	 */
 	public AutoDriveForwardBack(double distance, double timeout) {
 		super();

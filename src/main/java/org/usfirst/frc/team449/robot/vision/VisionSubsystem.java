@@ -1,5 +1,6 @@
 package org.usfirst.frc.team449.robot.vision;
 
+import org.usfirst.frc.team449.robot.MappedSubsystem;
 import org.usfirst.frc.team449.robot.vision.commands.DefaultVision;
 
 import com.ni.vision.NIVision;
@@ -8,15 +9,15 @@ import com.ni.vision.NIVision.Image;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- * Subsystem for accessing USB cameras on the robot
+ * This is the subsystem for accessing USB cameras on the robot. It extends
+ * <code>Subsystem</code>, not <code>MappedSubsystem</code>.
  * 
- * @author Ryan Tse <ryantse100@gmail.com>
- * @since 2016-02-01
- *
+ * @see Subsystem
+ * @see MappedSubsystem
  */
 public class VisionSubsystem extends Subsystem {
 	/**
-	 * <code>Image</code> from the the current USB camera
+	 * {@link Image} from the the current USB camera
 	 */
 	public Image frame;
 
@@ -58,6 +59,10 @@ public class VisionSubsystem extends Subsystem {
 		}
 	}
 
+	/**
+	 * @return the next <code>Image</code> from the cameras, switching based on
+	 *         session number.
+	 */
 	public Image getFrame() {
 		NIVision.IMAQdxStartAcquisition(sessions[sessionPtr]);
 		NIVision.IMAQdxGrab(sessions[sessionPtr], frame, 1);

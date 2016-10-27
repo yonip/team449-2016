@@ -1,101 +1,58 @@
 <xml version="1.0">
 <dashboard>
-	<widget field="IR Enabled" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
-		<location x="472" y="698"/>
-		<width>121</width>
-		<height>62</height>
-	</widget>
-	<widget field="Ball found" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
-		<location x="199" y="619"/>
-		<width>118</width>
-		<height>60</height>
-	</widget>
-	<widget field="straight on" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
-		<location x="199" y="689"/>
-		<width>121</width>
-		<height>70</height>
-	</widget>
-	<widget field="turnangle done" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
-		<location x="329" y="571"/>
-		<width>138</width>
-		<height>51</height>
-	</widget>
-	<widget field="IntakeIn" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
-		<location x="329" y="627"/>
-		<width>98</width>
-		<height>57</height>
-	</widget>
-	<widget field="Drive PID" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
-		<location x="327" y="693"/>
-		<width>106</width>
-		<height>65</height>
-	</widget>
 	<widget field="avger" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="499" y="622"/>
+		<location x="0" y="598"/>
 	</widget>
 	<widget field="angle sp" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="494" y="596"/>
+		<location x="0" y="575"/>
 	</widget>
 	<widget field="angle out" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="497" y="566"/>
+		<location x="0" y="552"/>
 	</widget>
-	<widget field="left ir voltage" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="-6" y="656"/>
-	</widget>
-	<widget field="right ir voltage" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="-7" y="628"/>
-	</widget>
-	<widget field="angle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+	<widget field="turnangle done" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="0" y="529"/>
 	</widget>
-	<widget field="right" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+	<widget field="IntakeIn" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="0" y="506"/>
 	</widget>
-	<widget field="left" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+	<widget field="straight on" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="0" y="483"/>
 	</widget>
-	<widget field="Distance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="283" y="536"/>
+	<widget field="Ball found" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="460"/>
 	</widget>
-	<widget field="modded angle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="417" y="430"/>
+	<widget field="left ir voltage" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="437"/>
+	</widget>
+	<widget field="right ir voltage" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="414"/>
+	</widget>
+	<widget field="angle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="391"/>
+	</widget>
+	<widget field="right" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="368"/>
+	</widget>
+	<widget field="left" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="345"/>
+	</widget>
+	<widget field="Distance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="322"/>
+	</widget>
+	<widget field="Left Joystick" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="299"/>
 	</widget>
 	<widget field="getangle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="450" y="455"/>
-		<height>22</height>
+		<location x="0" y="276"/>
 	</widget>
-	<widget field="right set setp" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="413" y="188"/>
+	<widget field="pidController.setSetpoint: " type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="253"/>
 	</widget>
-	<widget field="right passed setp" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="395" y="164"/>
-	</widget>
-	<widget field="left set setp" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="183" y="192"/>
-	</widget>
-	<widget field="left passed setp" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="162" y="162"/>
-	</widget>
-	<widget field="left corr" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="207" y="135"/>
-	</widget>
-	<widget field="right corr" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="440" y="137"/>
+	<widget field="MotorController PID Write Velocity" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="13" y="230"/>
 	</widget>
 	<widget field="left enc" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="211" y="109"/>
-	</widget>
-	<widget field="right enc" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="444" y="111"/>
-	</widget>
-	<widget field="left js" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="222" y="83"/>
-	</widget>
-	<widget field="right js" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="455" y="87"/>
-	</widget>
-	<widget field="right intvel" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="430" y="61"/>
+		<location x="13" y="207"/>
 	</widget>
 	<widget field="pid drive straight" type="PIDSubsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.PIDSubsystem">
 		<widget field="Controller" type="PIDController" class="edu.wpi.first.smartdashboard.gui.elements.PIDEditor">
@@ -103,22 +60,34 @@
 			<height>0</height>
 			<width>0</width>
 		</widget>
+		<location x="0" y="207"/>
+	</widget>
+	<widget field="right error" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="184"/>
+	</widget>
+	<widget field="IR Enabled" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="0" y="161"/>
 	</widget>
-	<widget field="right delv" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="433" y="36"/>
+	<widget field="left setpoint" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="138"/>
 	</widget>
-	<widget field="right ztol" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="438" y="7"/>
+	<widget field="left throttle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="115"/>
 	</widget>
-	<widget field="left intvel" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="201" y="57"/>
+	<widget field="right enc" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="92"/>
 	</widget>
-	<widget field="left delv" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="209" y="29"/>
+	<widget field="Relative scaled to absolute setpoint: " type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="69"/>
 	</widget>
-	<widget field="left ztol" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="214" y="5"/>
+	<widget field="right setpoint" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="46"/>
+	</widget>
+	<widget field="left error" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="23"/>
+	</widget>
+	<widget field="right throttle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="0"/>
 	</widget>
 </dashboard>
 <live-window>

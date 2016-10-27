@@ -6,11 +6,10 @@ import org.usfirst.frc.team449.robot.mechanism.MechanismSubsystem;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 /**
- * Subsystem for the defense breaching arm
+ * This is the subsystem for the defense breaching arm. It extends
+ * <code>MechanismSubsystem</code>
  * 
- * @author Ryan Tse <ryantse100@gmail.com>
- * @since 2016-01-20
- *
+ * @see MechanismSubsystem
  */
 public class BreachSubsystem extends MechanismSubsystem {
 	/**
@@ -39,31 +38,27 @@ public class BreachSubsystem extends MechanismSubsystem {
 	}
 
 	/**
-	 * Set the back double solenoid valve to its forward state
+	 * Sets both solenoids to a specified state for each (true for forward,
+	 * false for reverse).
+	 * 
+	 * @param backSolForward
+	 *            state to set the back double solenoid to (<code>true</code>
+	 *            for forward and <code>false</code> for reverse)
+	 * @param frontSolForward
+	 *            state to set the front double solenoid to (<code>true</code>
+	 *            for forward and <code>false</code> for reverse)
 	 */
-	public void setBackSolenoidForward() {
-		backSolenoid.set(DoubleSolenoid.Value.kForward);
-	}
-
-	/**
-	 * Set the back double solenoid valve to its reverse state
-	 */
-	public void setBackSolenoidReverse() {
-		backSolenoid.set(DoubleSolenoid.Value.kReverse);
-	}
-
-	/**
-	 * Set the front double solenoid valve to its forward state
-	 */
-	public void setFrontSolenoidForward() {
-		frontSolenoid.set(DoubleSolenoid.Value.kForward);
-	}
-
-	/**
-	 * Set the front double solenoid valve to its reverse state
-	 */
-	public void setFrontSolenoidReverse() {
-		frontSolenoid.set(DoubleSolenoid.Value.kReverse);
+	public void setSolenoid(boolean backSolForward, boolean frontSolForward) {
+		if (backSolForward) {
+			backSolenoid.set(DoubleSolenoid.Value.kForward);
+		} else {
+			backSolenoid.set(DoubleSolenoid.Value.kReverse);
+		}
+		if (frontSolForward) {
+			frontSolenoid.set(DoubleSolenoid.Value.kForward);
+		} else {
+			frontSolenoid.set(DoubleSolenoid.Value.kReverse);
+		}
 	}
 
 	@Override
