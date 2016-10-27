@@ -106,7 +106,7 @@ public class IntakeSubsystem extends MechanismSubsystem {
 	 *            the normalized speed of the motor (between -1 and 1)
 	 */
 	public void setMotorSpeed(double speed) {
-		mainMotor.set(speed);
+		mainMotor.set(speed / 2);
 	}
 
 	/**
